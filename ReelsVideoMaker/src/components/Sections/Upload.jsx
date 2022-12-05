@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import GooglePayButton from "@google-pay/button-react";
 import axios from "axios";
 import { useGlobal } from "../../context/globalContext";
 
@@ -7,14 +8,19 @@ export default function Upload() {
   const globalContext = useGlobal();
   const userData = globalContext.userData;
   const [textProjectName, setTextProjectName] = useState("");
+  const [showPayment, setShowPayment] = useState(false);
   const [textTitle, setTextTitle] = useState("");
   const [textNotes, setTextNotes] = useState("");
   const [textSong, setTextSong] = useState("");
 
+  const togglePayment = () => {
+    setShowPayment(!showPayment);
+  };
+
   const onSubmitClick = async (e) => {
     e.preventDefault();
 
-    const listData = ["abc", "def", "ghi"]
+    const listData = ["abc", "def", "ghi"];
 
     const userId = userData.user_id;
     const userName = userData.user_name;
@@ -26,8 +32,11 @@ export default function Upload() {
       song: textSong,
       dataList: JSON.stringify(listData),
       userId: userId,
-      userName: userName
+      userName: userName,
+      amount: "100",
     });
+
+    console.log('data : ' + data);
 
     await axios
       .post(
@@ -39,7 +48,7 @@ export default function Upload() {
 
         if (response.data.status === true) {
           // const userData = response.data.data;
-          
+
           console.log("====================================");
           console.log("RES :: " + response);
           console.log("====================================");
@@ -78,7 +87,7 @@ export default function Upload() {
   return (
     <Wrapper className="whiteBg">
       <div class="container account_form" data-aos="fade-up" data-aos-delay="0">
-        <form onSubmit={onSubmitClick}>
+        <form>
           <div className="row flexJustifyCenter">
             <div className="col-xs-12 col-sm-12 col-md-6 col=lg-6">
               <h4 style={{ margin: "10px 0 0 0" }}>Intro &amp; Notes</h4>
@@ -163,15 +172,67 @@ export default function Upload() {
                 />
               </div>
             </div>
-            <div class="login_submit">
-              <button
-                class="btn btn-md btn-black-default-hover mb-4"
+            {!showPayment ? (
+              <div class="login_submit">
+                <button
+                  class="btn btn-md btn-black-default-hover mb-4"
+                  style={{ padding: "10px 50px", margin: "30px 0 0 0" }}
+                  type="submit"
+                  onClick={(e) => {
+                    // togglePayment();
+                    onSubmitClick(e);
+                  }}
+                >
+                  Upload
+                </button>
+              </div>
+            ) : (
+              <GooglePayButton
                 style={{ padding: "10px 50px", margin: "30px 0 0 0" }}
-                type="submit"
-              >
-                Upload
-              </button>
-            </div>
+                environment="TEST"
+                paymentRequest={{
+                  apiVersion: 2,
+                  apiVersionMinor: 0,
+                  allowedPaymentMethods: [
+                    {
+                      type: "CARD",
+                      parameters: {
+                        allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                        allowedCardNetworks: ["MASTERCARD", "VISA"],
+                      },
+                      tokenizationSpecification: {
+                        type: "PAYMENT_GATEWAY",
+                        parameters: {
+                          gateway: "example",
+                          gatewayMerchantId: "exampleGatewayMerchantId",
+                        },
+                      },
+                    },
+                  ],
+                  merchantInfo: {
+                    merchantId: "12345678901234567890",
+                    merchantName: "Demo Merchant",
+                  },
+                  transactionInfo: {
+                    totalPriceStatus: "FINAL",
+                    totalPriceLabel: "Total",
+                    totalPrice: "1.00",
+                    currencyCode: "INR",
+                    countryCode: "IN",
+                  },
+                  shippingAddressRequired: false,
+                  callbackIntents: ["PAYMENT_AUTHORIZATION"],
+                }}
+                buttonType={"pay"}
+                onLoadPaymentData={(paymentRequest) => {
+                  console.log("load payment data", paymentRequest);
+                }}
+                onPaymentAuthorized={(paymentData) => {
+                  console.log("onPaymentAuthorized" + paymentData);
+                  return { transactionState: "SUCCESS" };
+                }}
+              />
+            )}
           </div>
         </form>
       </div>

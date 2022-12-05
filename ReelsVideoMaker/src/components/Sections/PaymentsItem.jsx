@@ -1,62 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function PaymentsItem(props) {
-  // const [showBottomView, setShowBottomView] = useState(false);
+  console.log("props :: " + JSON.stringify(props));
 
-  let payment;
-  if (props.item.paymentId === 0) {
-    payment = "Success";
-  } else if (props.item.paymentId === 1) {
-    payment = "In progress";
-  } else if (props.item.paymentId === 3) {
-    payment = "Rejected";
-  } else {
-    payment = "Pending";
+  const downLoadTime = props.item.downLoadTime;
+
+  if (downLoadTime) {
   }
 
-  // const toggleView = () => {
-  //   setShowBottomView(!showBottomView);
-  // };
-
   return (
-    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12" key={props.index}>
-      <BurderWrapper
-        className="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-        onClick={() => {
-          // toggleView();
-        }}
-      >
-        <div class="card_box">
-          <ListTopWrapper className="col-xs-12 col-sm-12 col-md-12 col-lg-12 row">
-            <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 row">
-              <h4>{props.index + 1}.&nbsp;&nbsp;</h4>
-              <h4>{props.item.projectName}</h4>
-            </div>
-            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <h4>{props.item.createdAt}</h4>
-            </div>
-            <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-              <h4>{payment}</h4>
-            </div>
-          </ListTopWrapper>
-          {/* {showBottomView ? (
-            <ListBottomWrapper className="col-xs-12 col-sm-12 col-md-12 col-lg-12 row">
-              <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 row">
-                <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
-                <h4>{props.item.projectName}</h4>
-              </div>
-              <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                <h4>{props.item.createdAt}</h4>
-              </div>
-              <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <h4>{payment}</h4>
-              </div>
-            </ListBottomWrapper>
-          ) : null} */}
-        </div>
-      </BurderWrapper>
-    </div>
+    <tr>
+      <td>{props.index + 1}</td>
+      <td>{props.item.proj_name}</td>
+      <td>{props.item.title}</td>
+      <td>{props.item.created_at}</td>
+
+      {downLoadTime ? (
+        <td className="purpleColor">{downLoadTime}</td>
+      ) : (
+        <td>
+          <Link to="/Downloads" smooth={true} className={"purpleColor"}>
+            Download
+          </Link>
+        </td>
+      )}
+    </tr>
   );
 }
 
@@ -68,13 +38,31 @@ const BurderWrapper = styled.button`
   width: 100%;
 `;
 const ListTopWrapper = styled.li`
-  margin-left: 25px;
-  margin-right: 25px;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  ${"" /* height: 70px; */}
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: center;
+  text-align: center;
 `;
-// const ListBottomWrapper = styled.li`
-//   margin-left: 25px;
-//   margin-right: 25px;
-//   padding-bottom: 25px;
-// `;
+const DivSingle = styled.div`
+  padding-top: 5px;
+  padding-bottom: 5px;
+`;
+const DivWrapper = styled.div`
+  justify-content: center;
+  text-align: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+`;
+const DivWrapperEnd = styled.div`
+  justify-content: center;
+  text-align: right;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  @media only screen and (max-width: 55em) {
+    justify-content: right;
+    text-align: right;
+  }
+`;
