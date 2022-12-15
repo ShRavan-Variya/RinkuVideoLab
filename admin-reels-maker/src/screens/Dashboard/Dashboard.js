@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { TimeDataItem } from "../../components";
-import { IcHome } from "../../assets/svg";
+import { AnimatePresence, motion } from "framer-motion";
+import { TimeDataItem, TimeDataListItem } from "../../components";
+import { IcSettings } from "../../assets/svg";
+import OrderListData from './OrderListData';
 
 const Dashboard = () => {
   const [listOfTimeData, setListOfTimeData] = useState([]);
   const [listOfTopCards, setListOfTopCards] = useState([]);
+  const [listOfOrders, setListOfOrders] = useState([]);
 
   useEffect(() => {
     getTimeData();
     getDataTopCards();
+    getOrders();
   }, []);
 
   const getTimeData = () => {
@@ -25,39 +29,54 @@ const Dashboard = () => {
     newList.push({
       title: "Total Revenue",
       subTitle: "250000",
-      icon: <IcHome height={22} width={22} />,
+      icon: <IcSettings height={40} width={40} />,
     });
     newList.push({
-      title: "Total Orders",
+      title: "Total Projects",
       subTitle: "5000",
-      icon: <IcHome height={22} width={22} />,
+      icon: <IcSettings height={40} width={40} />,
     });
     newList.push({
-      title: "Completed Orders",
+      title: "Completed Projects",
       subTitle: "4800",
-      icon: <IcHome height={22} width={22} />,
+      icon: <IcSettings height={40} width={40} />,
     });
     newList.push({
-      title: "Total Users",
-      subTitle: "350",
-      icon: <IcHome height={22} width={22} />,
-    });
-    newList.push({
-      title: "Pending Orders",
+      title: "Happy Clients",
       subTitle: "5000",
-      icon: <IcHome height={22} width={22} />,
+      icon: <IcSettings height={40} width={40} />,
     });
     newList.push({
-      title: "Working Orders",
+      title: "Pending Projects",
       subTitle: "5000",
-      icon: <IcHome height={22} width={22} />,
+      icon: <IcSettings height={40} width={40} />,
+    });
+    newList.push({
+      title: "Working Projects",
+      subTitle: "5000",
+      icon: <IcSettings height={40} width={40} />,
     });
     setListOfTopCards(newList);
   };
 
+  const getOrders = () => {
+    const newList = [];
+    for (let index = 0; index < 10; index++) {
+      newList.push({
+        id: 'ABABA051051',
+        projectName: 'Project 01',
+        dataSize: '250Mb',
+        payment: '250Rs',
+        orderDateTime: 'AAAA',
+        completed: true,
+      })
+    }
+    setListOfOrders(newList);
+  }
+
   return (
     <div className="main-container">
-      <div>
+      <div className="dashCard-row">
         {listOfTimeData.map((item, index) => (
           <TimeDataItem
             item={item}
@@ -76,8 +95,53 @@ const Dashboard = () => {
           />
         ))}
       </div>
+      <motion.div
+        animate={{
+          translateY: [100, 1, 1],
+        }}
+        transition={{
+          delay: 0.2,
+          duration: 1,
+          ease: "easeInOut",
+        }}
+        className="row"
+        style={{ margin: '0 15px 15px 0' }}
+      >
+        {listOfTopCards.map((item, index) => (
+          <TimeDataListItem
+            item={item}
+            index={index}
+            onClickItem={() => {
+              const newList = [...listOfTimeData];
+              newList.map((_item, _index) => {
+                if (_index === index) {
+                  _item.isSelected = true;
+                } else {
+                  _item.isSelected = false;
+                }
+              });
+              setListOfTimeData(newList);
+            }}
+          />
+        ))}
+      </motion.div>
       <div className={"dividerHeader"} />
-    </div>
+      <motion.div
+        className='listDataCard'
+        animate={{
+          translateX: [800, 1, 1],
+        }}
+        transition={{
+          delay: 0.2,
+          duration: 1,
+          ease: "easeInOut",
+        }}
+      >
+        <div className="textTitle">{'Recent Orders'}</div>
+        <OrderListData style={{display: 'flex'}} listOrder={listOfOrders} />
+      </motion.div>
+      <div className={"dividerHeader"} />
+    </div >
   );
 };
 

@@ -1,4 +1,4 @@
 import { SideBar, SideBarMenu } from "./sidebar";
-import { TimeDataItem } from "./dashboard";
+import { TimeDataItem, TimeDataListItem } from "./dashboard";
 
-export { SideBar, SideBarMenu, TimeDataItem };
+export { SideBar, SideBarMenu, TimeDataItem, TimeDataListItem };
