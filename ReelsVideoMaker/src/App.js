@@ -7,6 +7,7 @@ import Login from "./screens/auth/Login";
 import Upload from "./screens/Dashboard/Upload";
 import Payments from "./screens/Dashboard/Payments";
 import Downloads from "./screens/Dashboard/Downloads";
+import UserProfile from "./screens/settings/UserProfile";
 // import AdminLogin from "../admin/src/screens/auth/AdminLogin";
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="upload" element={<Upload />} />
           <Route path="payments" element={<Payments />} />
           <Route path="Downloads" element={<Downloads />} />
+          <Route path="userProfile" element={<UserProfile />} />
           {/* <Route path="/admin" element={<AdminLogin />} /> */}
         </Routes>
       </BrowserRouter>

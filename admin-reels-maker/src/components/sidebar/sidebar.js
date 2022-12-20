@@ -16,21 +16,9 @@ const routes = [
     name: "divider",
   },
   {
-    path: "/orders",
+    path: "/Orders",
     name: "Orders",
     icon: <IcLists height={22} width={22} />,
-    subRoutes: [
-      {
-        path: "/orders/orderList",
-        name: "OrderList ",
-        icon: <IcLists height={22} width={22} />,
-      },
-      {
-        path: "/orders/orderDetails",
-        name: "Order Details",
-        icon: <IcLists height={22} width={22} />,
-      },
-    ],
   },
   {
     path: "/customers",
@@ -173,8 +161,8 @@ const SideBar = ({ children }) => {
           </div>
         </motion.div>
 
-        <div className="lightBg" style={{ width: "100%", padding: "1vh" }}>
-          <div className="flexRow">
+        <div className="lightBg" style={{ width: "100%", height: '100vh', padding: "1vh" }}>
+          <div className="flexRow" style={{height: '10%'}}>
             <div className="flexEnd">
               <div className="userName">Jon Snow</div>
               <div className="userRole">Admin</div>
@@ -184,7 +172,7 @@ const SideBar = ({ children }) => {
             </div>
           </div>
           <div className={"dividerHeader"} />
-          {children}
+          <div style={{height: '90%'}}>{children}</div>
         </div>
       </div>
     </>

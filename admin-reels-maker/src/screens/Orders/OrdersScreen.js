@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { OrderListData, TimeDataItem, TimeDataListItem } from "../../components";
 import { IcSettings } from "../../assets/svg";
 
-const Dashboard = () => {
+const OrdersScreen = () => {
   const [listOfTimeData, setListOfTimeData] = useState([]);
   const [listOfTopCards, setListOfTopCards] = useState([]);
   const [listOfOrders, setListOfOrders] = useState([]);
@@ -26,11 +26,6 @@ const Dashboard = () => {
   const getDataTopCards = () => {
     const newList = [];
     newList.push({
-      title: "Total Revenue",
-      subTitle: "250000",
-      icon: <IcSettings height={40} width={40} />,
-    });
-    newList.push({
       title: "Total Projects",
       subTitle: "5000",
       icon: <IcSettings height={40} width={40} />,
@@ -38,11 +33,6 @@ const Dashboard = () => {
     newList.push({
       title: "Completed Projects",
       subTitle: "4800",
-      icon: <IcSettings height={40} width={40} />,
-    });
-    newList.push({
-      title: "Happy Clients",
-      subTitle: "5000",
       icon: <IcSettings height={40} width={40} />,
     });
     newList.push({
@@ -75,7 +65,7 @@ const Dashboard = () => {
 
   return (
     <div className="main-container flex" style={{ height: '100%' }}>
-      <div style={{ height: '30%' }}>
+      <div style={{ height: '20%' }}>
         <div className="dashCard-row" >
           {listOfTimeData.map((item, index) => (
             <TimeDataItem
@@ -105,7 +95,7 @@ const Dashboard = () => {
             ease: "easeInOut",
           }}
           className="row"
-          style={{ margin: '0 15px 15px 0' }}
+          style={{ margin: '0 15px 0 0' }}
         >
           {listOfTopCards.map((item, index) => (
             <TimeDataListItem
@@ -128,7 +118,7 @@ const Dashboard = () => {
       </div>
       {/* <div className={"dividerHeader"} /> */}
       <motion.div
-        style={{ height: '65%' }}
+        style={{ height: '74%' }}
         className='listDataCard'
         animate={{
           translateX: [800, 1, 1],
@@ -148,4 +138,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default OrdersScreen;

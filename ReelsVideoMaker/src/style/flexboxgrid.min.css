@@ -973,3 +973,14 @@ table td {
   justify-content: center;
   align-items: center;
 }
+
+.fullyCenterCard {
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+}
+
+.userImage {
+  height: 120px;
+  width: 120px;
+}

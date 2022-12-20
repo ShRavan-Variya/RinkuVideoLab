@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
+import { Link } from "react-router-dom";
+import { FaUserAlt } from "react-icons/fa";
+import Cookies from "universal-cookie";
+import styled from "styled-components";
+import { useGlobal } from "../../context/globalContext";
 // Components
-import Sidebar from "./Sidebar";
 import Backdrop from "../Elements/Backdrop";
+import Sidebar from "./Sidebar";
 // Assets
-import LogoIcon from "../../assets/svg/Logo";
 import BurgerIcon from "../../assets/svg/BurgerIcon";
+import LogoIcon from "../../assets/svg/Logo";
 
 export default function TopNavbar({ isLogin }) {
+  const cookies = new Cookies();
+  const globalContext = useGlobal();
   const [y, setY] = useState(window.scrollY);
   const [sidebarOpen, toggleSidebar] = useState(false);
+  let menuRef = useRef();
+  const [showUserPopup, setShowUserPopup] = useState(false);
+  const profileMenu = ['My Profile', 'Privacy Policy', 'Tearms & Conditions', 'Change Password', 'Logout'];
 
   useEffect(() => {
     window.addEventListener("scroll", () => setY(window.scrollY));
@@ -19,6 +27,36 @@ export default function TopNavbar({ isLogin }) {
       window.removeEventListener("scroll", () => setY(window.scrollY));
     };
   }, [y]);
+
+  useEffect(() => {
+    let handler = (e) => {
+      if (!menuRef.current.contains(e.target)) {
+        setShowUserPopup(false);
+        console.log(menuRef.current);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    }
+
+  });
+
+  const doLogout = () => {
+    const userData = cookies.get("userData");
+
+    const userId = '';
+    globalContext.setLogin(false);
+    globalContext.setUserId(userId);
+    globalContext.setUserData('');
+
+    cookies.remove("userData");
+    
+    return <Link push to='/' />
+  }
 
   return (
     <>
@@ -62,11 +100,6 @@ export default function TopNavbar({ isLogin }) {
                 Home
               </ScrollLink>
             </li>
-            {/* <li className="semiBold font15 pointer">
-              <ScrollLink activeClass="active" style={{ padding: "10px 15px" }} to="services" spy={true} smooth={true} offset={-80}>
-                Services
-              </ScrollLink>
-            </li> */}
             <li className="semiBold font15 pointer">
               <ScrollLink
                 activeClass="active"
@@ -79,23 +112,6 @@ export default function TopNavbar({ isLogin }) {
                 Projects
               </ScrollLink>
             </li>
-            {/* <li className="semiBold font15 pointer">
-              <ScrollLink activeClass="active" style={{ padding: "10px 15px" }} to="blog" spy={true} smooth={true} offset={-80}>
-                Blog
-              </ScrollLink>
-            </li> */}
-            {/* <li className="semiBold font15 pointer">
-              <ScrollLink
-                activeClass="active"
-                style={{ padding: "10px 15px" }}
-                to="pricing"
-                spy={true}
-                smooth={true}
-                offset={-80}
-              >
-                Pricing
-              </ScrollLink>
-            </li> */}
             <li className="semiBold font15 pointer">
               <ScrollLink
                 activeClass="active"
@@ -111,26 +127,80 @@ export default function TopNavbar({ isLogin }) {
           </UlWrapper>
           <UlWrapperRight className="flexNullCenter">
             {isLogin === true ? (
-              <li className="semiBold font15 pointer flexCenter">
-                <Link
-                  className="radius8 lightBg"
-                  style={{ padding: "10px 30px" }}
-                  to="/upload"
-                >
-                  Get Started
-                </Link>
-              </li>
+              <div className="flexNullCenter">
+                <li className="semiBold font15 pointer flexCenter">
+                  <Link
+                    className="radius8 lightBg"
+                    style={{ padding: "10px 30px" }}
+                    to="/upload"
+                  >
+                    Get Started
+                  </Link>
+                </li>
+                <div className='menu-container' ref={menuRef}>
+                  <li
+                    className="menu-trigger semiBold font15 pointer flexCenter"
+                    style={{ margin: '0 0 0 25px' }}
+                    onClick={() => {
+                      console.log('Clicked user');
+                      setShowUserPopup(!showUserPopup)
+                    }}
+                  >
+                    <FaUserAlt size={25} className={'darkColorNew'} />
+                  </li>
+                  <div className={`dropdown-menu shadow semiBold ${showUserPopup ? 'activeCard' : 'inactive'}`} >
+                    <ul>
+                      <DropdownItem
+                        text={"My Profile"}
+                        bottomDivider={true}
+                        toLink={"/userProfile"}
+                      />
+                      <DropdownItem
+                        text={"Privacy Policy"}
+                        bottomDivider={true}
+                        toLink={"/upload"}
+                      />
+                      <DropdownItem
+                        text={"Terms & Conditions"}
+                        bottomDivider={true}
+                        toLink={"/upload"}
+                      />
+                      <DropdownItem
+                        text={"Logout"}
+                        bottomDivider={false}
+                        onClick={doLogout}
+                      />
+                    </ul>
+                  </div>
+                </div>
+              </div>
             ) : (
-              <li className="semiBold font15 pointer">
-                <Link style={{ padding: "10px 30px 10px 0" }} to="/login">
-                  Log in
-                </Link>
-              </li>
+              <Link style={{ padding: "10px 30px 10px 0" }} to="/login" className="semiBold font15 pointer">
+                Log in
+              </Link>
             )}
           </UlWrapperRight>
         </NavInner>
       </Wrapper>
     </>
+  );
+}
+
+function DropdownItem(props) {
+  return (
+    <li className={`dropdownItem ${props.bottomDivider ? 'dividerBottom' : ''}`} onClick={props.onClick}>
+      {props.toLink ? (
+        <Link
+          to={props.toLink}
+        >
+          <a>{props.text}</a>
+        </Link>
+      ) : (
+        <a
+          style={{ padding: '0 0 0 10px' }}>{props.text}</a>
+      )}
+
+    </li>
   );
 }
 

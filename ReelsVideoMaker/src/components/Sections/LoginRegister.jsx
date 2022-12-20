@@ -104,13 +104,13 @@ export default function LoginRegister() {
   return (
     <Wrapper className="whiteBg">
       {showLogin ? (
-        <div class="container row">
+        <div className="container row">
           <div className="col-xs-0 col-sm-0 col-md-3 col=lg-3" />
           <div className="col-xs-12 col-sm-12 col-md-6 col=lg-6">
-            <div class="account_form" data-aos="fade-up" data-aos-delay="0">
+            <div className="account_form" data-aos="fade-up" data-aos-delay="0">
               <h3>login</h3>
               <form onSubmit={onLogin}>
-                <div class="default-form-box">
+                <div className="default-form-box">
                   <label>
                     Email <span>*</span>
                   </label>
@@ -126,7 +126,7 @@ export default function LoginRegister() {
                     }}
                   />
                 </div>
-                <div class="default-form-box">
+                <div className="default-form-box">
                   <label>
                     Passwords <span>*</span>
                   </label>
@@ -141,14 +141,14 @@ export default function LoginRegister() {
                     }}
                   />
                 </div>
-                <div class="login_submit">
+                <div className="login_submit">
                   <button
-                    class="btn btn-md btn-black-default-hover mb-4"
+                    className="btn btn-md btn-black-default-hover mb-4"
                     type="submit"
                   >
                     login
                   </button>
-                  <label class="mb-4" for="offer">
+                  <label className="mb-4" for="offer">
                     <ButtonTransParent>Lost your password?</ButtonTransParent>
                   </label>
                   <ButtonTransParent onClick={() => toggleLogin()}>
@@ -161,17 +161,17 @@ export default function LoginRegister() {
           <div className="col-xs-0 col-sm-0 col-md-3 col=lg-3" />
         </div>
       ) : (
-        <div class="container row">
+        <div className="container row">
           <div className="col-xs-0 col-sm-0 col-md-3 col=lg-3" />
           <div className="col-xs-12 col-sm-12 col-md-6 col=lg-6">
             <div
-              class="account_form register"
+              className="account_form register"
               data-aos="fade-up"
               data-aos-delay="200"
             >
               <h3>Register</h3>
               <form onSubmit={onRegister}>
-                <div class="default-form-box">
+                <div className="default-form-box">
                   <label>
                     Full Name <span>*</span>
                   </label>
@@ -187,7 +187,7 @@ export default function LoginRegister() {
                     }}
                   />
                 </div>
-                <div class="default-form-box">
+                <div className="default-form-box">
                   <label>
                     User Name <span>*</span>
                   </label>
@@ -202,7 +202,7 @@ export default function LoginRegister() {
                     }}
                   />
                 </div>
-                <div class="default-form-box">
+                <div className="default-form-box">
                   <label>
                     Email address <span>*</span>
                   </label>
@@ -217,7 +217,7 @@ export default function LoginRegister() {
                     }}
                   />
                 </div>
-                <div class="default-form-box">
+                <div className="default-form-box">
                   <label>
                     Mobile <span>*</span>
                   </label>
@@ -232,7 +232,7 @@ export default function LoginRegister() {
                     }}
                   />
                 </div>
-                <div class="default-form-box">
+                <div className="default-form-box">
                   <label>
                     Passwords <span>*</span>
                   </label>
@@ -247,9 +247,9 @@ export default function LoginRegister() {
                     }}
                   />
                 </div>
-                <div class="login_submit">
+                <div className="login_submit">
                   <button
-                    class="btn btn-md btn-black-default-hover mb-4"
+                    className="btn btn-md btn-black-default-hover mb-4"
                     type="submit"
                   >
                     Register

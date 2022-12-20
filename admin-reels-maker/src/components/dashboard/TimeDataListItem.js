@@ -2,7 +2,7 @@ import React from 'react';
 
 const TimeDataListItem = ({ item, index, onClickItem }) => {
   return (
-    <div key={index} className="col-xs-12 col-sm-4 col-md-4 col-lg-4" style={{ padding: '0' }}>
+    <div key={index} className="col-xs-12 col-sm-3 col-md-3 col-lg-3" style={{ padding: '0' }}>
       <div
         className='dashDataItemCard'
         onClick={onClickItem}

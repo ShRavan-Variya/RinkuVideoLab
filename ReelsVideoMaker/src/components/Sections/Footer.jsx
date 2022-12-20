@@ -10,7 +10,7 @@ export default function Contact(props) {
   };
 
   return (
-    <Wrapper>
+    <Wrapper style={{position: props.isHome ? 'relative' : 'fixed'}}>
       <div className="darkBg">
         <div className="container">
           <InnerWrapper
@@ -37,7 +37,7 @@ export default function Contact(props) {
               Reserved
             </StyleP>
 
-            {props.isHome ? (
+            {/* {props.isHome ? (
               <Link
                 className="whiteColor animate pointer font13"
                 to="home"
@@ -46,7 +46,7 @@ export default function Contact(props) {
               >
                 Back to top
               </Link>
-            ) : null}
+            ) : null} */}
           </InnerWrapper>
         </div>
       </div>
@@ -56,7 +56,7 @@ export default function Contact(props) {
 
 const Wrapper = styled.div`
   width: 100%;
-  position: fixed;
+  // position: fixed;
   left: 0;
   bottom: 0;
   right: 0;

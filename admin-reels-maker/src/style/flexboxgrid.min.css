@@ -79,6 +79,7 @@
 
 .link_text {
   white-space: nowrap;
+  padding-top: 5px;
   font-size: 15px;
   font-family: "Khula", sans-serif;
   font-weight: 600;
@@ -242,25 +243,17 @@
   padding-top: 1px;
 }
 
-.table-wrapper {
-  height: fit-content;
-  max-height: 66.4vh;
-  margin-top: 22px;
-  margin: 15px;
-  padding-bottom: 20px;
-}
-
 .paddingH10 {
   padding: 0 10px;
 }
 
 .imageTh {
-  width: 70px;
+  width: 100px;
   text-align: center;
 }
 
 .thTitle {
-  color: #8A89A1;
+  color: #7620FF;
   font-size: 19px;
   font-weight: 500;
   padding: 10px;
@@ -281,9 +274,25 @@
 
 .listDataCard {
   background-color: #FFFFFF;
-  margin: 25px 20px 25px 5px;
-  padding: 30px 20px;
+  margin: 25px 20px 0 5px;
+  padding: 30px 20px 10px 20px;
   border-radius: 10px;
+}
+
+.table-wrapper {
+  height: 46vh;
+  width: '100%';
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: #7620ff 2px solid;
+  overflow-y: scroll;
+}
+
+.table-header {
+  background-color: #F4EDFF;
+  position: sticky;
+  top: 0px;
 }
 
 .textTitle {

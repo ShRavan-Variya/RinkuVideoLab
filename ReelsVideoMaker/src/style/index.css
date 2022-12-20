@@ -466,3 +466,95 @@ body {
 .whiteBg {
   background-color: #fff;
 }
+
+
+/* // drop down */
+.menu-trigger img{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.dropdown-menu{
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  padding: 10px 20px;
+  width: 220px;
+  border-radius: 10px;
+}
+
+.dropdown-menu::before{
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  height: 20px;
+  width: 20px;
+  background: var(--secondary-bg);
+  transform: rotate(45deg);
+}
+
+.dropdown-menu.active{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: var(--speed) ease;
+}
+
+.dropdown-menu.inactive{
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: var(--speed) ease;
+}
+
+
+.dropdown-menu ul li{
+  padding: 8px  0;
+}
+
+.dividerBottom {
+  border-bottom: 1px solid #0b093b40;
+}
+
+.dropdown-menu ul li:hover a{
+  color: #7620ff;
+  cursor: pointer;
+}
+
+.dropdown-menu ul li:hover img{
+  opacity: 1;
+  cursor: pointer;
+}
+
+.activeCard {
+  border-bottom: 5px solid #7620ff;
+  color: #7620ff;
+}
+
+.dropdownItem{
+  display: flex;
+  margin: 10px 0 10px -10px;
+}
+
+.dropdownItem img{
+  max-width: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
+  transition: var(--speed);
+}
+
+.dropdownItem a{
+  /* max-width: 100px; */
+  margin-left: 10px;
+  transition: var(--speed);
+}

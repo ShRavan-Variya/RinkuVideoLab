@@ -2,14 +2,8 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SideBar } from "./components";
 import {
-  Analytics,
   Dashboard,
-  FileManager,
-  Messages,
-  Order,
-  Saved,
-  Setting,
-  Users,
+  OrdersScreen,
 } from "./screens";
 
 function App() {
@@ -27,14 +21,7 @@ function App() {
         <SideBar>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/file-manager" element={<FileManager />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/saved" element={<Saved />} />
-            <Route path="/settings" element={<Setting />} />
-
+            <Route path="/Orders" element={<OrdersScreen />} />
             <Route path="*" element={<> not found</>} />
           </Routes>
         </SideBar>
