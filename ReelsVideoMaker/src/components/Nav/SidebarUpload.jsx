@@ -29,7 +29,7 @@ export default function SidebarUpload({
       </SidebarHeader>
 
       <UlStyle className="flexNullCenter flexColumn">
-        <li className="semiBold font15 pointer">
+        {/* <li className="semiBold font15 pointer">
           <Link
             style={{ padding: "10px 15px" }}
             to="/Upload"
@@ -58,7 +58,7 @@ export default function SidebarUpload({
           >
             Downloads
           </Link>
-        </li>
+        </li> */}
 
         <li className="semiBold font15 pointer">
           <Link style={{ padding: "10px 15px" }} to="/" className="whiteColor">

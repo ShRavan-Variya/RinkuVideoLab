@@ -4,7 +4,7 @@ import TopNavCommon from "../../components/Nav/TopNavCommon";
 import UserDisplay from "../../components/Sections/settings/UserDisplay";
 import Footer from "../../components/Sections/Footer"
 
-const UserProfile = () => {
+const TermsCondition = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
       <TopNavCommon/>
@@ -14,5 +14,5 @@ const UserProfile = () => {
   );
 }
 
-export default UserProfile;
+export default TermsCondition;
 

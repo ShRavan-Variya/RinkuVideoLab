@@ -134,7 +134,7 @@ export default function TopNavbar({ isLogin }) {
                     style={{ padding: "10px 30px" }}
                     to="/upload"
                   >
-                    Get Started
+                    Create Reels
                   </Link>
                 </li>
                 <div className='menu-container' ref={menuRef}>
@@ -158,12 +158,12 @@ export default function TopNavbar({ isLogin }) {
                       <DropdownItem
                         text={"Privacy Policy"}
                         bottomDivider={true}
-                        toLink={"/upload"}
+                        toLink={"/privacy"}
                       />
                       <DropdownItem
                         text={"Terms & Conditions"}
                         bottomDivider={true}
-                        toLink={"/upload"}
+                        toLink={"/terms"}
                       />
                       <DropdownItem
                         text={"Logout"}

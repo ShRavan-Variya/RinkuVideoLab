@@ -21,44 +21,16 @@ const routes = [
     icon: <IcLists height={22} width={22} />,
   },
   {
-    path: "/customers",
-    name: "Customers",
+    path: "/Admins",
+    name: "Admins",
     icon: <IcUser height={22} width={22} />,
-    subRoutes: [
-      {
-        path: "/customers/adminList",
-        name: "Admins ",
-        icon: <IcUser height={22} width={22} />,
-      },
-      {
-        path: "/customers/clientList",
-        name: "Clients",
-        icon: <IcUser height={22} width={22} />,
-      },
-    ],
   },
   {
-    path: "/offers",
-    name: "Offers",
-    icon: <IcOffers height={22} width={22} />,
-    subRoutes: [
-      {
-        path: "/offers/reels",
-        name: "Reels",
-        icon: <IcOffers height={22} width={22} />,
-      },
-      {
-        path: "/offers/teaser",
-        name: "Teaser",
-        icon: <IcOffers height={22} width={22} />,
-      },
-      {
-        path: "/offers/branding",
-        name: "Branding",
-        icon: <IcOffers height={22} width={22} />,
-      },
-    ],
-  },
+    path: "/Clients",
+    name: "Clients",
+    icon: <IcUser height={22} width={22} />,
+    // subRoutes: [],
+  }
 ];
 
 const SideBar = ({ children }) => {

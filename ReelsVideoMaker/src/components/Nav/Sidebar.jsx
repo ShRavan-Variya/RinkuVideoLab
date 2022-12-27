@@ -118,7 +118,7 @@ export default function Sidebar({ isLogin, sidebarOpen, toggleSidebar }) {
               to="/upload"
               className="radius8 lightBg"
             >
-              Get Started
+              Create Reels
             </Link>
           </li>
         ) : (

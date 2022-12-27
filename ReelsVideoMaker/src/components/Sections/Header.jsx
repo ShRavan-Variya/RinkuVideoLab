@@ -29,7 +29,7 @@ export default function Header() {
   // 					stunning videos.
   // 				</HeaderP>
   // 				<BtnWrapper>
-  // 					<FullButton title='Get Started' />
+  // 					<FullButton title='Create Reels' />
   // 				</BtnWrapper>
   // 			</div>
   // 		</LeftSide>
@@ -104,7 +104,7 @@ export default function Header() {
                 <div style={{ width: "190px" }}>
                   <Link to={isLogin ? "/Upload" : "/Login"}>
                     <FullButton
-                      title="Get Started"
+                      title="Create Reels"
                     />
                   </Link>
                 </div>

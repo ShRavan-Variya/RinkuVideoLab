@@ -8,7 +8,8 @@ import Upload from "./screens/Dashboard/Upload";
 import Payments from "./screens/Dashboard/Payments";
 import Downloads from "./screens/Dashboard/Downloads";
 import UserProfile from "./screens/settings/UserProfile";
-// import AdminLogin from "../admin/src/screens/auth/AdminLogin";
+import TermsCondition from "./screens/settings/TermsCondition";
+import PrivacyPolicy from "./screens/settings/PrivacyPolicy";
 
 export default function App() {
   return (
@@ -30,7 +31,8 @@ export default function App() {
           <Route path="payments" element={<Payments />} />
           <Route path="Downloads" element={<Downloads />} />
           <Route path="userProfile" element={<UserProfile />} />
-          {/* <Route path="/admin" element={<AdminLogin />} /> */}
+          <Route path="terms" element={<TermsCondition />} />
+          <Route path="privacy" element={<PrivacyPolicy />} />
         </Routes>
       </BrowserRouter>
     </>

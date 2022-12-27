@@ -1,4 +1,5 @@
+import { AdminScreen, ClientScreen } from "./Customers";
 import { Dashboard } from "./Dashboard";
 import { OrdersScreen } from "./Orders";
 
-export { Dashboard, OrdersScreen };
+export { AdminScreen, ClientScreen, Dashboard, OrdersScreen };

@@ -1,18 +1,18 @@
 import React from "react";
 // Sections
 import TopNavCommon from "../../components/Nav/TopNavCommon";
-import UserDisplay from "../../components/Sections/settings/UserDisplay";
+import Policy from "../../components/Sections/settings/PrivacyPolicy";
 import Footer from "../../components/Sections/Footer"
 
-const UserProfile = () => {
+const PrivacyPolicy = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
       <TopNavCommon/>
-      <UserDisplay />
+      <Policy />
       <Footer />
     </div>
   );
 }
 
-export default UserProfile;
+export default PrivacyPolicy;
 

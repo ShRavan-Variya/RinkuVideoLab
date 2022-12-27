@@ -10,12 +10,12 @@ import BurgerIcon from "../../assets/svg/BurgerIcon";
 
 export default function TopNavUpload(props) {
   const [y, setY] = useState(window.scrollY);
-  const [textPosition, setTextPosition] = useState(0);
+  // const [textPosition, setTextPosition] = useState(0);
   const [sidebarOpen, toggleSidebar] = useState(false);
 
   useEffect(() => {
-    const position = props.onPosition;
-    setTextPosition(position);
+    // const position = props.onPosition;
+    // setTextPosition(position);
     window.addEventListener("scroll", () => setY(window.scrollY));
     return () => {
       window.removeEventListener("scroll", () => setY(window.scrollY));
@@ -48,7 +48,7 @@ export default function TopNavUpload(props) {
           >
             <BurgerIcon />
           </BurderWrapper>
-          <UlWrapper className="flexNullCenter">
+          {/* <UlWrapper className="flexNullCenter">
             <li className="semiBold font15 pointer">
               <Link
                 style={{ padding: "10px 15px" }}
@@ -79,7 +79,7 @@ export default function TopNavUpload(props) {
                 Downloads
               </Link>
             </li>
-          </UlWrapper>
+          </UlWrapper> */}
           <UlWrapperRight className="flexNullCenter">
             <li className="semiBold font15 pointer">
               <Link

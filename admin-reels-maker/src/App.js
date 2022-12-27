@@ -2,6 +2,8 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SideBar } from "./components";
 import {
+  AdminScreen,
+  ClientScreen,
   Dashboard,
   OrdersScreen,
 } from "./screens";
@@ -22,6 +24,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/Orders" element={<OrdersScreen />} />
+            <Route path="/Admins" element={<AdminScreen />} />
+            <Route path="/Clients" element={<ClientScreen />} />
             <Route path="*" element={<> not found</>} />
           </Routes>
         </SideBar>

@@ -19,6 +19,8 @@ const Landing = () => {
   const doGetCookie = () => {
     const userData = cookies.get("userData");
 
+    console.log(userData);
+
     if (userData !== undefined && userData !== null) {
       const userId = userData.user_id;
       if (userId !== undefined && userId !== null) {
