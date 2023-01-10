@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
     <div style={{display: 'flex', flexDirection: 'column'}}>
       <TopNavCommon/>
       <Policy />
-      <Footer />
+      <Footer isHome={true}/>
     </div>
   );
 }

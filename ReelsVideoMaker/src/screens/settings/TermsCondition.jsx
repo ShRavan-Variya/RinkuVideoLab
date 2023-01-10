@@ -9,7 +9,7 @@ const TermsCondition = () => {
     <div style={{display: 'flex', flexDirection: 'column'}}>
       <TopNavCommon/>
       <Terms />
-      <Footer />
+      <Footer isHome={true}/>
     </div>
   );
 }
