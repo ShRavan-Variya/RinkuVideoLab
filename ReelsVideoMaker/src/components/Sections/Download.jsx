@@ -31,7 +31,7 @@ export default function Downloads() {
       <div class="container">
         <UlWrapper className="card_box row">
           {listOfDownloads.map((item, index) => (
-            <DownloadItem item={item} index={index} />
+            <DownloadItem item={item} index={index} key={index} />
           ))}
         </UlWrapper>
       </div>

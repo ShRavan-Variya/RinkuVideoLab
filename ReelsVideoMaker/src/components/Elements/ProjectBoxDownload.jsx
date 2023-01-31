@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function ProjectBox({ img, title, text, action}) {
+export default function ProjectBoxDownload({ img, title, text, action}) {
   return (
     <Wrapper>
-      <ImgBtn className="aniamte pointer" onClick={action ? () => action() : null}>
-        <img className="radius8" src={img} alt="project"></img>
+      <ImgBtn className="flexCenter" onClick={action ? () => action() : null}>
+        <img src={img} alt="office" />
       </ImgBtn>
       <h3 className="font20 extraBold">{title}</h3>
       <p className="font13">{text}</p>
@@ -15,7 +15,6 @@ export default function ProjectBox({ img, title, text, action}) {
 
 const Wrapper = styled.div`
   width: 100%;
-  margin: 10px 0;
   img {
     width: 100%;
     height: auto;
@@ -31,9 +30,9 @@ const ImgBtn = styled.button`
     width: 100%;
     height: auto;
     border-radius: 1rem;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
   }
   :hover > img {
     opacity: 0.5;

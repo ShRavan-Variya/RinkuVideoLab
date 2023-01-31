@@ -15,7 +15,7 @@ import AddImage2 from "../../assets/img/add/2.png";
 import AddImage3 from "../../assets/img/add/3.png";
 import AddImage4 from "../../assets/img/add/4.png";
 
-export default function Header() {
+export default function Header({ image1, image2, image3, image4 }) {
   const globalContext = useGlobal();
   const isLogin = globalContext.isLogin;
   // return (
@@ -117,18 +117,18 @@ export default function Header() {
               <AddRightInner>
                 <div className="flexNullCenter">
                   <AddImgWrapp1 className="flexCenter">
-                    <img src={AddImage1} alt="office" />
+                    <img src={image1 ? image1 : AddImage1} alt="office" />
                   </AddImgWrapp1>
                   <AddImgWrapp2>
-                    <img src={AddImage2} alt="office" />
+                    <img src={image2 ? image2 : AddImage2} alt="office" />
                   </AddImgWrapp2>
                 </div>
                 <div className="flexNullCenter">
                   <AddImgWrapp3>
-                    <img src={AddImage3} alt="office" />
+                    <img src={image3 ? image3 : AddImage3} alt="office" />
                   </AddImgWrapp3>
                   <AddImgWrapp4>
-                    <img src={AddImage4} alt="office" />
+                    <img src={image4 ? image4 : AddImage4} alt="office" />
                   </AddImgWrapp4>
                 </div>
               </AddRightInner>
@@ -321,7 +321,7 @@ const AddLeft = styled.div`
 const AddRight = styled.div`
   width: 50%;
   position: absolute;
-  top: -70px;
+  top: -50px;
   right: 0;
   z-index: 9;
   @media (max-width: 860px) {
@@ -348,7 +348,7 @@ const AddImgWrapp1 = styled.div`
 `;
 const AddImgWrapp2 = styled.div`
   width: 30%;
-  margin: 0 5% 10px 5%;
+  margin: 0 5% 0 5%;
   img {
     width: 100%;
     height: auto;
@@ -360,7 +360,7 @@ const AddImgWrapp2 = styled.div`
 `;
 const AddImgWrapp3 = styled.div`
   width: 20%;
-  margin-left: 40%;
+  margin-left: 35%;
   img {
     width: 100%;
     height: auto;

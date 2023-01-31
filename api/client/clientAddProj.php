@@ -16,15 +16,15 @@
 		$response["status"]=false;
 		$response["message"]="User doesn't exists!";
 		header('Content-type: application/json');
-    echo json_encode($response);
-  }
+		echo json_encode($response);
+	}
 	
 	$contentDecode = json_decode($content, true);
 	$project_name = $contentDecode['projectName'];
 	$title = $contentDecode['title'];
 	$notes = $contentDecode['notes'];
 	$song = $contentDecode['song'];
-	$data_list = $contentDecode['dataList'];
+	$data_list = json_encode($contentDecode['dataList']);
 	$user_id = $contentDecode['userId'];
 	$user_name = $contentDecode['userName'];
 	$amount = $contentDecode['amount'];
@@ -58,7 +58,14 @@
 		$created_at = date('Y-m-d H:i:s');
 		$updated_at = $created_at;
 
-		$sql="INSERT INTO userorder VALUES('$order_id', '$proj_name', '$title', '$notes', '$song', '$data_list', '$user_id', '$user_name', $amount, '$created_at', '$updated_at');";
+		$paymentId = '';
+		$image = '';
+		$downloadLink = '';
+		$downloadTime = date("Y-m-d H:i:s", strtotime('+2 hours'));
+
+		$sql="INSERT INTO userorder VALUES('$order_id', '$proj_name', '$title', '$notes', '$song', '$data_list', '$user_id', '$user_name', $amount, '$paymentId', '$image', '$downloadLink', '$downloadTime', '$created_at', '$updated_at');";
+		
+		// echo 'DONE';
 		if(mysqli_query($con,$sql)) {
 
 			$data["order_id"] = $order_id;
@@ -70,6 +77,10 @@
 			$data["user_id"] = $user_id;
 			$data["user_name"] = $user_name;
 			$data["amount"] = $amount;
+			$data["paymentId"] = $paymentId;
+			$data["image"] = $image;
+			$data["downloadLink"] = $downloadLink;
+			$data["downloadTime"] = $downloadTime;
 			$data["created_at"] = $created_at;
 			$data["updated_at"] = $updated_at;
 

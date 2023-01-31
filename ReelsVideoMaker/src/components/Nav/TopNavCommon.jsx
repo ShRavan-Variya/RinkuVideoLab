@@ -7,8 +7,11 @@ import Backdrop from "../Elements/Backdrop";
 // Assets
 import LogoIcon from "../../assets/svg/Logo";
 import BurgerIcon from "../../assets/svg/BurgerIcon";
+import { useGlobal } from "../../context/globalContext";
 
 export default function TopNavCommon(props) {
+  const globalContext = useGlobal();
+  const userData = globalContext.userData;
   const [y, setY] = useState(window.scrollY);
   const [sidebarOpen, toggleSidebar] = useState(false);
 
@@ -35,9 +38,10 @@ export default function TopNavCommon(props) {
         <NavInner className="container flexSpaceCenter">
           <Link className="pointer flexNullCenter" to="/" smooth={true}>
             <LogoIcon />
-            <h1 style={{ marginLeft: "15px" }} className="font20 extraBold">
-              Reels Maker
-            </h1>
+            <UserTitleWrapper>
+              <TextTitle>{userData.full_name}</TextTitle>
+              <TextEmail>{userData.email}</TextEmail>
+            </UserTitleWrapper>
           </Link>
           <BurderWrapper
             className="pointer"
@@ -73,6 +77,34 @@ const Wrapper = styled.nav`
 const NavInner = styled.div`
   position: relative;
   height: 100%;
+`;
+const UserTitleWrapper = styled.div`
+  padding-left: 20px;
+  padding-right: 20px;
+  @media (max-width: 370px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+`;
+const TextTitle = styled.div`
+  font-size: 16px;
+  font-weight: 800;
+  @media (max-width: 960px) {
+    font-size: 16px;
+  }
+  @media (max-width: 370px) {
+    font-size: 15px;
+  }
+`;
+const TextEmail = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  @media (max-width: 960px) {
+    font-size: 15px;
+  }
+  @media (max-width: 370px) {
+    font-size: 14px;
+  }
 `;
 const BurderWrapper = styled.button`
   outline: none;

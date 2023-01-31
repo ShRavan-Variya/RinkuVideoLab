@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import Projects from "../components/Sections/Projects";
 import Contact from "../components/Sections/Contact";
@@ -6,14 +6,27 @@ import { useGlobal } from "../context/globalContext";
 import TopNavbar from "../components/Nav/TopNavbar";
 import Header from "../components/Sections/Header";
 import Footer from "../components/Sections/Footer";
+import moment from "moment";
+import axios from "axios";
 
 const Landing = () => {
   const cookies = new Cookies();
   const globalContext = useGlobal();
   const isLogin = globalContext.isLogin;
+  const [topImage1, setTopImage1] = useState('');
+  const [topImage2, setTopImage2] = useState('');
+  const [topImage3, setTopImage3] = useState('');
+  const [topImage4, setTopImage4] = useState('');
+  const [bottomImage1, setBottomImage1] = useState('');
+  const [bottomImage2, setBottomImage2] = useState('');
+  const [bottomImage3, setBottomImage3] = useState('');
+  const [listOfProject, setListOfProject] = useState([]);
 
   useEffect(() => {
     doGetCookie();
+    moment.locale("en");
+    doGetData();
+    doGetProjects();
   }, [])
 
   const doGetCookie = () => {
@@ -31,15 +44,69 @@ const Landing = () => {
     } 
   }
 
+  const doGetData = async () => {
+    await axios
+      .get('http://localhost:8080/reelsvideoapis/client/get_dashImages.php')
+      .then(function (response) {
+        console.log("response :: " + JSON.stringify(response));
+
+        if (response.data.status === true) {
+          const listImages = response.data.data;
+          if (listImages.length > 0) {
+            listImages.map((item) => {
+              if (item.imageName === 'dash_top_1') {
+                setTopImage1(item.image)
+              } else if (item.imageName === 'dash_top_2') {
+                setTopImage2(item.image)
+              } else if (item.imageName === 'dash_top_3') {
+                setTopImage3(item.image)
+              } else if (item.imageName === 'dash_top_4') {
+                setTopImage4(item.image)
+              } else if (item.imageName === 'dash_contact_1') {
+                setBottomImage1(item.image)
+              } else if (item.imageName === 'dash_contact_2') {
+                setBottomImage2(item.image)
+              } else if (item.imageName === 'dash_contact_3') {
+                setBottomImage3(item.image)
+              }
+            }) 
+          }
+        }
+      })
+      .catch((error) => {
+        console.log("====================================");
+        console.log("ERR :: " + JSON.stringify(error));
+        console.log("====================================");
+      });
+  };
+
+  const doGetProjects = async () => {
+    await axios
+      .get('http://localhost:8080/reelsvideoapis/client/get_dashProjects.php')
+      .then(function (response) {
+        console.log("response :: " + JSON.stringify(response));
+
+        if (response.data.status === true) {
+          const listProjects = response.data.data;
+          setListOfProject(listProjects);
+        }
+      })
+      .catch((error) => {
+        console.log("====================================");
+        console.log("ERR :: " + JSON.stringify(error));
+        console.log("====================================");
+      });
+  };
+
   return (
     <>
       <TopNavbar isLogin={isLogin} />
-      <Header />
+      <Header image1={topImage1} image2={topImage2} image3={topImage3} image4={topImage4} />
       {/* <Services /> */}
-      <Projects />
+      <Projects data={listOfProject} />
       {/* <Blog /> */}
       {/* <Pricing /> */}
-      <Contact />
+      <Contact image1={bottomImage1} image2={bottomImage2} image3={bottomImage3} />
       <Footer isHome={true} />
     </>
   );

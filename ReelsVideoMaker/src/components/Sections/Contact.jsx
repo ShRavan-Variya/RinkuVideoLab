@@ -8,20 +8,20 @@ import Instagram from "../../assets/svg/Instagram";
 import Location from "../../assets/svg/Location";
 import Whatsapp from "../../assets/svg/Whatsapp";
 
-export default function Contact() {
+export default function Contact({ image1, image2, image3 }) {
   return (
     <Wrapper id="contact">
-      <div className="lightBg" style={{paddingBottom: 50}}>
-        <div className="container">
-          <HeaderInfo>
-            <h1 className="font40 extraBold">Let's get in touch</h1>
-            <p className="font13">
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-              <br />
-              labore et dolore magna aliquyam erat, sed diam voluptua.
-            </p>
-          </HeaderInfo>
-          <div className="row" style={{ paddingBottom: "5%", paddingTop: "5%" }}>
+      <div className="lightBg" style={{ paddingBottom: 50 }}>
+        <AddMain className="container">
+          <AddLeft>
+            <HeaderInfo>
+              <h1 className="font40 extraBold">Let's get in touch</h1>
+              <p className="font13">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                <br />
+                labore et dolore magna aliquyam erat, sed diam voluptua.
+              </p>
+            </HeaderInfo>
             <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 marginV15">
               <div style={{ width: '100%' }}>
                 <ContactCard className='col-xs-6 col-sm-12 col-md-12 col-lg-12 marginV15'>
@@ -37,63 +37,48 @@ export default function Contact() {
                   </p>
                 </ContactCard>
                 <ContactCard className='col-xs-12 col-sm-12 col-md-12 col-lg-12 marginT15'>
-                    <IconStyle>
-                      <Whatsapp
-                        height={30}
-                        width={30}
-                        fill={'#35426D'}
-                      />
-                    </IconStyle>
-                    <p className="font15">
-                      <a href="https://wa.me/+919377603050">+91 93 77 603050</a>
-                    </p>
-                  </ContactCard>
+                  <IconStyle>
+                    <Whatsapp
+                      height={30}
+                      width={30}
+                      fill={'#35426D'}
+                    />
+                  </IconStyle>
+                  <p className="font15">
+                    <a href="https://wa.me/+919377603050">+91 93 77 603050</a>
+                  </p>
+                </ContactCard>
                 <ContactCard className='col-xs-12 col-sm-12 col-md-12 col-lg-12 marginV15'>
-                    <IconStyle className="darkColor">
-                      <Instagram
-                        height={30}
-                        width={30}
-                        fill={'#35426D'}
-                      />
-                    </IconStyle>
-                    <p className="font15">
-                      <a href="https://www.instagram.com/rinkuvideolab/">https://www.instagram.com/rinkuvideolab/</a>
-                    </p>
-                  </ContactCard>
+                  <IconStyle className="darkColor">
+                    <Instagram
+                      height={30}
+                      width={30}
+                      fill={'#35426D'}
+                    />
+                  </IconStyle>
+                  <p className="font15">
+                    <a href="https://www.instagram.com/rinkuvideolab/">https://www.instagram.com/rinkuvideolab/</a>
+                  </p>
+                </ContactCard>
               </div>
-              {/* <Form>
-                <label className="font13">First name:</label>
-                <input type="text" id="fname" name="fname" className="font20 extraBold" />
-                <label className="font13">Email:</label>
-                <input type="text" id="email" name="email" className="font20 extraBold" />
-                <label className="font13">Subject:</label>
-                <input type="text" id="subject" name="subject" className="font20 extraBold" />
-                <label className="font13">Comment:</label>
-                <textarea rows="4" cols="50" type="text" id="message" name="message" className="font20 extraBold" />
-              </Form>
-              <SumbitWrapper className="flex">
-                <ButtonInput type="submit" value="Send Message" className="pointer animate radius8" style={{ maxWidth: "220px" }} />
-              </SumbitWrapper> */}
             </div>
-            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 flex flexCenter">
-              <ContactImageWidth1 />
-              <ContactImageWidth2>
-                <div style={{ margin: 10 }}>
-                  <img src={ContactImg1} alt="office" style={{ width: '100%' }} className="radius6" />
-                </div>
-                <div style={{ margin: 10 }}>
-                  <img src={ContactImg2} alt="office" style={{ width: '100%' }} className="radius6" />
-                </div>
-              </ContactImageWidth2>
-              <ContactImageWidth3>
-                <div style={{ margin: 10, marginTop: 60 }}>
-                  <img src={ContactImg3} alt="office" style={{ width: '100%' }} className="radius6" />
-                </div>
-              </ContactImageWidth3>
-              <ContactImageWidth1 />
-            </div>
-          </div>
-        </div>
+          </AddLeft>
+          <AddRight>
+            <AddRightInner className="flexNullCenter">
+              <AddImgWrapp1 className="flexCenter">
+                <img src={image1 ? image1 : ContactImg1} alt="office" />
+              </AddImgWrapp1>
+              <div >
+                <AddImgWrapp2>
+                  <img src={image2 ? image2 : ContactImg2} alt="office" />
+                </AddImgWrapp2>
+                <AddImgWrapp3>
+                  <img src={image3 ? image3 : ContactImg2} alt="office" />
+                </AddImgWrapp3>
+              </div>
+            </AddRightInner>
+          </AddRight>
+        </AddMain>
       </div>
     </Wrapper>
   );
@@ -150,14 +135,70 @@ const HeaderInfo = styled.div`
 //     margin-bottom: 50px;
 //   }
 // `;
-const ContactImageWidth1 = styled.div`
-  width: 10%,
+const AddMain = styled.div`
+  display: flex;
+  @media (max-width: 860px) {
+    display: block;
+  }
 `;
-const ContactImageWidth2 = styled.div`
-  width: 35%,
+const AddLeft = styled.div`
+  width: 50%;
+  z-index: 9;
+  @media (max-width: 860px) {
+    width: 80%;
+    position: relative;
+    order: 1;
+    top: -40px;
+  }
 `;
-const ContactImageWidth3 = styled.div`
-  width: 45%,
+const AddRight = styled.div`
+  width: 50%;
+  margin: 10% 0;
+  z-index: 9;
+  @media (max-width: 860px) {
+    width: 80%;
+    position: relative;
+    order: 1;
+    top: -40px;
+  }
+`;
+const AddRightInner = styled.div`
+  width: 100%;
+`;
+const AddImgWrapp1 = styled.div`
+width: 100%;
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+`;
+const AddImgWrapp2 = styled.div`
+width: 80%;
+margin: 0 0 0 15%;
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
+`;
+const AddImgWrapp3 = styled.div`
+width: 80%;
+margin: 10% 0 0 15%;
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+}
 `;
 
 const IconStyle = styled.div`

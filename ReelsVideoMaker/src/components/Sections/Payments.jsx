@@ -77,7 +77,7 @@ export default function Payments() {
                 </thead>
                 <tbody>
                   {listOfPayments.map((item, index) => (
-                    <PaymentsItem item={item} index={index} />
+                    <PaymentsItem item={item} index={index} key={index} />
                   ))}
                 </tbody>
               </table>

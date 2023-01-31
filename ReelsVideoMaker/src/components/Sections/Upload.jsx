@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GooglePayButton from "@google-pay/button-react";
 import axios from "axios";
@@ -7,6 +8,7 @@ import { useGlobal } from "../../context/globalContext";
 export default function Upload() {
   const globalContext = useGlobal();
   const userData = globalContext.userData;
+  const navigate = useNavigate();
   const [textProjectName, setTextProjectName] = useState("");
   const [showPayment, setShowPayment] = useState(false);
   const [textTitle, setTextTitle] = useState("");
@@ -30,7 +32,7 @@ export default function Upload() {
       title: textTitle,
       notes: textNotes,
       song: textSong,
-      dataList: JSON.stringify(listData),
+      dataList: listData,
       userId: userId,
       userName: userName,
       amount: "100",
@@ -47,24 +49,15 @@ export default function Upload() {
         console.log("response :: " + JSON.stringify(response));
 
         if (response.data.status === true) {
-          // const userData = response.data.data;
+          navigate(-1);
 
-          console.log("====================================");
-          console.log("RES :: " + response);
-          console.log("====================================");
-          // alert(response.data.message)
+          alert(response.data.message)
         } else {
-          console.log("====================================");
-          console.log("ERR RES :: " + response);
-          console.log("====================================");
-          // alert(response.data.message)
+          alert(response.data.message)
         }
       })
       .catch((error) => {
-        console.log("====================================");
-        console.log("ERR :: " + JSON.stringify(error));
-        console.log("====================================");
-        // alert(error.response.data.message);
+        alert(error.response.data.message);
       });
   };
 

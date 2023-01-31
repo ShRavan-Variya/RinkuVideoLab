@@ -15,9 +15,6 @@
 		header('Content-type: application/json');
     	echo json_encode($response);
   	}
-	
-	// get data in raw
-	$user_id = $_GET['userId'];
 
 	function errorRes($con) {
 		$response["status"]=false;
@@ -27,30 +24,26 @@
 		mysqli_close($con);
 	}
 
-	if ($user_id) {
-		$sql="SELECT * FROM `userorder` WHERE user_id='$user_id' ORDER BY `userorder`.`downloadTime` DESC";
+	$sql="SELECT * FROM dashImages";
 
-		$query = mysqli_query($con,$sql);
+	$query = mysqli_query($con,$sql);
 
-		$res_array = array();
+	$res_array = array();
 
-		while ($row = mysqli_fetch_assoc($query)) {
-			$res_array[] = $row;
-		}
+	while ($row = mysqli_fetch_assoc($query)) {
+		$res_array[] = $row;
+	}
 
-		$data = $res_array;
+	$data = $res_array;
 
-		if($data) {
-			$response["status"]=true;
-			$response["message"]="Successfully get user projects!";
-			$response["data"]=$data;
-			header('Content-type: application/json');
-			echo json_encode($response);
-			mysqli_close($con);
-		} else {
-			errorRes($con);
-		}	
+	if($data) {
+		$response["status"]=true;
+		$response["message"]="Successfully get dash images!";
+		$response["data"]=$data;
+		header('Content-type: application/json');
+		echo json_encode($response);
+		mysqli_close($con);
 	} else {
 		errorRes($con);
-	}
+	}	
 ?>
