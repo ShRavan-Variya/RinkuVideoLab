@@ -4,11 +4,13 @@ import styled from "styled-components";
 import axios from "axios";
 import ProjectBoxDownload from "../../Elements/ProjectBoxDownload";
 import { useGlobal } from "../../../context/globalContext";
+import NoData from "../../../assets/img/ic_noData.png";
 
 export default function UserDisplay() {
   const globalContext = useGlobal();
   const userData = globalContext.userData;
   const [listOfData, setListOfData] = useState([]);
+  const [showNoData, setShowNoData] = useState(true);
 
   useEffect(() => {
     doAddListData();
@@ -27,7 +29,13 @@ export default function UserDisplay() {
           const listData = response.data.data;
           if (listData.length > 0) {
             setListOfData(listData);
+            setShowNoData(false);
+          } else {
+
+            setShowNoData(true);
           }
+        } else {
+          setShowNoData(true);
         }
       })
       .catch((error) => {
@@ -41,17 +49,29 @@ export default function UserDisplay() {
     <Wrapper className="whiteBg">
       <div className="container fullyCenterCard">
         <div style={{ marginTop: '100px', paddingBottom: '200px' }}>
-          <Masonry columnsCount={4} gutter="20px">
-            {listOfData.map((item, index) => (
-              <ProjectBoxDownload
-                key={index}
-                img={item.image}
-                title={item.proj_name}
-                text={item.title}
-                action={() => alert("clicked")}
-              />
-            ))}
-          </Masonry>
+          {showNoData ? (
+            <ImageEmpty className="flexJustifyCenter">
+              <img src={NoData} alt="office" />
+            </ImageEmpty>
+          ) : (
+            <Masonry columnsCount={4} gutter="20px">
+              {listOfData.map((item, index) => (
+                <ProjectBoxDownload
+                  key={index}
+                  item={item}
+                  // action={() => {
+                  //   const fileName = item.downloadLink.split("/").pop();
+                  //   const aTag = document.createElement("a");
+                  //   aTag.href = item.downloadLink;
+                  //   aTag.setAttribute("download", fileName);
+                  //   document.body.appendChild(aTag);
+                  //   aTag.click();
+                  //   aTag.remove();
+                  // }}
+                />
+              ))}
+            </Masonry>
+          )}
         </div>
       </div>
     </Wrapper>
@@ -61,6 +81,13 @@ export default function UserDisplay() {
 const Wrapper = styled.section`
   @media (max-width: 960px) {
     flex-direction: column;
+  }
+`;
+const ImageEmpty = styled.div`
+  padding: 100px 0 0 0;
+  img {
+    width: 350px;
+    height: 350px;
   }
 `;
 const TopWrapper = styled.div`

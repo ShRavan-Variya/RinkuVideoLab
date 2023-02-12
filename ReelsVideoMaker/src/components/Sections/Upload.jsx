@@ -15,14 +15,56 @@ export default function Upload() {
   const [textNotes, setTextNotes] = useState("");
   const [textSong, setTextSong] = useState("");
 
+  const [files, setFiles] = useState([]);
+
+  const saveFile = (e) => {
+    setFiles(e.target.files);
+  };
+
   const togglePayment = () => {
     setShowPayment(!showPayment);
   };
 
-  const onSubmitClick = async (e) => {
+
+  const onUploadClick = async (e) => {
     e.preventDefault();
 
-    const listData = ["abc", "def", "ghi"];
+    const newList = [];
+    const fileLength = files.length;
+    let currentItem = 0;
+
+    do {
+      const formData = new FormData();
+      formData.append("dataFile", files[currentItem]);
+      try {
+        const res = await axios.post(
+          "http://localhost:8080/reelsvideoapis/client/uploadData.php",
+          formData
+        )
+
+        if (res.data.status) {
+          const uploadedData = res.data.data;
+          newList.push(uploadedData);
+          currentItem++;
+        } else {
+          alert(res.data.message)
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
+
+    } while (currentItem < fileLength);
+
+    if (currentItem === fileLength) {
+      onSubmitClick(newList)
+    }
+  }
+
+  const onSubmitClick = async (newList) => {
+    const listData = [];
+    newList.map((dataUpload) => {
+      listData.push(dataUpload.data_id)
+    })
 
     const userId = userData.user_id;
     const userName = userData.user_name;
@@ -36,6 +78,7 @@ export default function Upload() {
       userId: userId,
       userName: userName,
       amount: "100",
+      status: 1,
     });
 
     console.log('data : ' + data);
@@ -158,10 +201,8 @@ export default function Upload() {
                   multiple
                   itemType=""
                   accept=".mp4, .mkv, .avi, .jpg, .jpeg, .png"
-                  onChange={(e) => {
-                    // setVideos(e.target.files);
-                    uploadFiles(e.target.files);
-                  }}
+                  // accept=".mp4, .mkv, .avi"
+                  onChange={saveFile}
                 />
               </div>
             </div>
@@ -173,7 +214,7 @@ export default function Upload() {
                   type="submit"
                   onClick={(e) => {
                     // togglePayment();
-                    onSubmitClick(e);
+                    onUploadClick(e);
                   }}
                 >
                   Upload

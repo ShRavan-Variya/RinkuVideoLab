@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2023 at 09:21 PM
+-- Generation Time: Jan 31, 2023 at 04:42 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -82,37 +82,6 @@ INSERT INTO `dashprojects` (`id`, `image`, `title`, `subtitle`, `created_at`, `u
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datatable`
---
-
-CREATE TABLE `datatable` (
-  `data_id` varchar(255) NOT NULL,
-  `filename` varchar(255) NOT NULL,
-  `folder` varchar(255) NOT NULL,
-  `created_at` varchar(255) NOT NULL,
-  `updated_at` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `datatable`
---
-
-INSERT INTO `datatable` (`data_id`, `filename`, `folder`, `created_at`, `updated_at`) VALUES
-('04d6609f618ebc1bb805d71ab89455c8', 'reels-video-maker_04d6609f618ebc1bb805d71ab89455c8_11_37_29.JPG', '../Reels/Row/reels-video-maker_04d6609f618ebc1bb805d71ab89455c8_11_37_29.JPG', '2023-02-10 23:37:29', '2023-02-10 23:37:29'),
-('0b3823b65c11f4fb9d7ae063fd50f0bb', 'reels-video-maker_0b3823b65c11f4fb9d7ae063fd50f0bb_10_51_13.JPG', '../Reels/Row/reels-video-maker_0b3823b65c11f4fb9d7ae063fd50f0bb_10_51_13.JPG', '2023-02-09 22:51:13', '2023-02-09 22:51:13'),
-('4fefafc6867bf34410878631feaa5120', 'reels-video-maker_4fefafc6867bf34410878631feaa5120_01_04_04.', '../Reels/Row/reels-video-maker_4fefafc6867bf34410878631feaa5120_01_04_04.', '2023-02-11 01:04:04', '2023-02-11 01:04:04'),
-('6d2d131c416d2cc1812bae5c411ade1e', 'reels-video-maker_6d2d131c416d2cc1812bae5c411ade1e_01_04_34.', '../Reels/Row/reels-video-maker_6d2d131c416d2cc1812bae5c411ade1e_01_04_34.', '2023-02-11 01:04:34', '2023-02-11 01:04:34'),
-('793725d87ccdfbb7008588d0bd8e8937', 'reels-video-maker_793725d87ccdfbb7008588d0bd8e8937_11_37_30.JPG', '../Reels/Row/reels-video-maker_793725d87ccdfbb7008588d0bd8e8937_11_37_30.JPG', '2023-02-10 23:37:30', '2023-02-10 23:37:30'),
-('8ca0390546c4c857554306bfe254211a', 'reels-video-maker_8ca0390546c4c857554306bfe254211a_10_51_13.JPG', '../Reels/Row/reels-video-maker_8ca0390546c4c857554306bfe254211a_10_51_13.JPG', '2023-02-09 22:51:13', '2023-02-09 22:51:13'),
-('92f5539c25ceac88017781dd519f78c2', 'reels-video-maker_92f5539c25ceac88017781dd519f78c2_12_19_44.mp4', '../Reels/Row/reels-video-maker_92f5539c25ceac88017781dd519f78c2_12_19_44.mp4', '2023-02-11 00:19:44', '2023-02-11 00:19:44'),
-('949971c75abc065e8959431f85ca5ddb', 'reels-video-maker_949971c75abc065e8959431f85ca5ddb_01_03_09.', '../Reels/Row/reels-video-maker_949971c75abc065e8959431f85ca5ddb_01_03_09.', '2023-02-11 01:03:09', '2023-02-11 01:03:09'),
-('b89dd725900e56f9e734bb04bcce0cff', 'reels-video-maker_b89dd725900e56f9e734bb04bcce0cff_12_22_22.mp4', '../Reels/Row/reels-video-maker_b89dd725900e56f9e734bb04bcce0cff_12_22_22.mp4', '2023-02-13 00:22:22', '2023-02-13 00:22:22'),
-('de301241cb1d64ff7b3ddfba52331900', 'reels-video-maker_de301241cb1d64ff7b3ddfba52331900_10_51_13.JPG', '../Reels/Row/reels-video-maker_de301241cb1d64ff7b3ddfba52331900_10_51_13.JPG', '2023-02-09 22:51:13', '2023-02-09 22:51:13'),
-('ff6053c20687d125cdad26230eb18b92', 'reels-video-maker_ff6053c20687d125cdad26230eb18b92_11_37_29.JPG', '../Reels/Row/reels-video-maker_ff6053c20687d125cdad26230eb18b92_11_37_29.JPG', '2023-02-10 23:37:29', '2023-02-10 23:37:29');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `payments`
 --
 
@@ -145,7 +114,6 @@ CREATE TABLE `userorder` (
   `amount` varchar(255) NOT NULL,
   `paymentId` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `status` int(1) NOT NULL,
   `downloadLink` varchar(255) NOT NULL,
   `downloadTime` varchar(255) NOT NULL,
   `created_at` varchar(255) NOT NULL,
@@ -156,11 +124,19 @@ CREATE TABLE `userorder` (
 -- Dumping data for table `userorder`
 --
 
-INSERT INTO `userorder` (`order_id`, `proj_name`, `title`, `notes`, `song`, `data_list`, `user_id`, `user_name`, `amount`, `paymentId`, `image`, `status`, `downloadLink`, `downloadTime`, `created_at`, `updated_at`) VALUES
-('03d4adecf948bf65bff8accf0611f127', '02', '02', '02', '02', '[\"04d6609f618ebc1bb805d71ab89455c8\",\"ff6053c20687d125cdad26230eb18b92\",\"793725d87ccdfbb7008588d0bd8e8937\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', '', 1, 'http://localhost:8080/reelsvideoapis/Reels/Row/reels-video-maker_04d6609f618ebc1bb805d71ab89455c8_11_37_29.JPG', '2023-02-11 01:37:30', '2023-02-10 23:37:30', '2023-02-10 23:37:30'),
-('9701486ecb6c964041d6a5235b70444b', '0010', '010', '1', '01', '[\"de301241cb1d64ff7b3ddfba52331900\",\"8ca0390546c4c857554306bfe254211a\",\"0b3823b65c11f4fb9d7ae063fd50f0bb\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', '', 1, 'http://localhost:8080/reelsvideoapis/Reels/Row/reels-video-maker_04d6609f618ebc1bb805d71ab89455c8_11_37_29.JPG', '2023-02-10 00:51:13', '2023-02-09 22:51:13', '2023-02-09 22:51:13'),
-('afb6131e96a0133cc0fb999dbd6de917', '03', '03', '03', '03', '[\"92f5539c25ceac88017781dd519f78c2\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', '', 1, 'http://localhost:8080/reelsvideoapis/Reels/Row/reels-video-maker_04d6609f618ebc1bb805d71ab89455c8_11_37_29.JPG', '2023-02-11 02:19:44', '2023-02-11 00:19:44', '2023-02-11 00:19:44'),
-('e88d49d35a0cd3d892fe72aa84e992f7', '05', '05', '05', '05', '[\"b89dd725900e56f9e734bb04bcce0cff\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', '', 1, 'http://localhost:8080/reelsvideoapis/Reels/Row/reels-video-maker_04d6609f618ebc1bb805d71ab89455c8_11_37_29.JPG', '2023-02-13 02:22:22', '2023-02-13 00:22:22', '2023-02-13 00:22:22');
+INSERT INTO `userorder` (`order_id`, `proj_name`, `title`, `notes`, `song`, `data_list`, `user_id`, `user_name`, `amount`, `paymentId`, `image`, `downloadLink`, `downloadTime`, `created_at`, `updated_at`) VALUES
+('0b454d8c90e01501ef5e1f1f89187e8c', 'aaa', 'aaa', 'aaa', 'aaa', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', 'https://images.pexels.com/photos/3680219/pexels-photo-3680219.jpeg', '', '', '2023-01-25 00:12:53', '2023-01-25 00:12:53'),
+('2b911f8b84cd6c4f10714e0dfc0f1944', 'check date time', 'check', 'check', 'check', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', '', '', '', '2023-01-27 00:04:59', '2023-01-27 00:04:59'),
+('5cd4707f8c1c5017f09e1698dd278812', 'bdcvb', 'zdfvb', 'dzxfvb', 'dzxfvb', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', 'https://images.pexels.com/photos/2873486/pexels-photo-2873486.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', '', '', '2023-01-25 00:12:21', '2023-01-25 00:12:21'),
+('5d389dfcbd1ab72aeca95f43a12907d0', 'check new', 'check new', 'check new', 'check new', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', 'https://images.pexels.com/photos/6033609/pexels-photo-6033609.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', '', '', '2023-01-26 23:06:59', '2023-01-26 23:06:59'),
+('6a0a4b27763f6a04ea661d9a06eb9dd8', 'yo yo', 'yo yo ', 'chcekc', 'wdv', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', '', '', '', '2023-01-27 00:06:29', '2023-01-27 00:06:29'),
+('7398137a4aaf3a7525cc7840492d1569', 'yo yo', 'yo yo ', 'chcekc', 'wdv', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', '', '', '2023-01-27 02:07:31', '2023-01-27 00:07:31', '2023-01-27 00:07:31'),
+('8bd1fcc433f6dfaad32574ba445e9a39', 'sd', 'sd', 'sd', 'sd', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', 'https://images.pexels.com/photos/6983438/pexels-photo-6983438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', '', '', '2023-01-25 00:14:18', '2023-01-25 00:14:18'),
+('99a98b09006b9b7183d1a3a7b067a080', 'gj', 'ghj', 'tgjk', 'dgyj', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', '', '', '2023-01-27 02:10:15', '2023-01-27 00:10:15', '2023-01-27 00:10:15'),
+('b4763d740fdfaf7e1fee04447f6870bd', 'Jon Snow', 'Jon Snow', 'Jon Snow', 'Jon Snow', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', 'https://images.pexels.com/photos/6405724/pexels-photo-6405724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', '', '', '2023-01-26 01:30:08', '2023-01-26 01:30:08'),
+('cc6c7e3b1ba0e22187e0e20787077dae', 'aaa', 'aaa', 'aaa', 'aaa', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', 'https://images.pexels.com/photos/6047880/pexels-photo-6047880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', '', '', '2023-01-25 00:12:41', '2023-01-25 00:12:41'),
+('ce8b70c56291fecf9427023b50df9278', 'Jimmy', 'Jimmy', 'Jimmy', 'Jimmy', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', 'https://images.pexels.com/photos/6747393/pexels-photo-6747393.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'Jon Snow', '', '2023-01-26 01:30:58', '2023-01-26 01:30:58'),
+('e962eb830b5de8acb09038bbcc96144f', '123', '123', '123', '123', '[\"abc\",\"def\",\"ghi\"]', '1a0272ddd6cb4a68c875f65f8c727abe', 'Variya3', '100', '', 'https://images.pexels.com/photos/5957118/pexels-photo-5957118.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', '', '', '2023-01-25 00:09:32', '2023-01-25 00:09:32');
 
 -- --------------------------------------------------------
 
@@ -203,12 +179,6 @@ ALTER TABLE `dashimages`
 --
 ALTER TABLE `dashprojects`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `datatable`
---
-ALTER TABLE `datatable`
-  ADD PRIMARY KEY (`data_id`);
 
 --
 -- Indexes for table `payments`
