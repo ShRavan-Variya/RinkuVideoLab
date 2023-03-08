@@ -1,124 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { OrderListData, TimeDataItem, TimeDataListItem } from "../../components";
-import { IcSettings } from "../../assets/svg";
+import { motion } from "framer-motion";
+import axios from "axios";
+import { OrderListData } from "../../components";
 
 const OrdersScreen = () => {
-  const [listOfTimeData, setListOfTimeData] = useState([]);
-  const [listOfTopCards, setListOfTopCards] = useState([]);
   const [listOfOrders, setListOfOrders] = useState([]);
 
   useEffect(() => {
-    getTimeData();
-    getDataTopCards();
-    getOrders();
+    getProjects();
   }, []);
 
-  const getTimeData = () => {
-    const newList = [];
-    newList.push({ title: "Today", isSelected: true });
-    newList.push({ title: "Week" });
-    newList.push({ title: "Month" });
-    newList.push({ title: "Year" });
-    setListOfTimeData(newList);
-  };
+  const getProjects = async () => {
+    await axios
+      .get(`http://localhost:8080/reelsvideoapis/admin/get_all_user_projects.php`)
+      .then(function (response) {
+        // console.log("response :: " + JSON.stringify(response));
 
-  const getDataTopCards = () => {
-    const newList = [];
-    newList.push({
-      title: "Total Projects",
-      subTitle: "5000",
-      icon: <IcSettings height={40} width={40} />,
-    });
-    newList.push({
-      title: "Completed Projects",
-      subTitle: "4800",
-      icon: <IcSettings height={40} width={40} />,
-    });
-    newList.push({
-      title: "Pending Projects",
-      subTitle: "5000",
-      icon: <IcSettings height={40} width={40} />,
-    });
-    newList.push({
-      title: "Working Projects",
-      subTitle: "5000",
-      icon: <IcSettings height={40} width={40} />,
-    });
-    setListOfTopCards(newList);
-  };
-
-  const getOrders = () => {
-    const newList = [];
-    for (let index = 0; index < 10; index++) {
-      newList.push({
-        id: 'ABABA051051',
-        projectName: 'Project 01',
-        dataSize: '250Mb',
-        payment: '250Rs',
-        orderDateTime: 'AAAA',
-        completed: true,
+        if (response.data.status === true) {
+          const listData = response.data.data;
+          if (listData.length > 0) {
+            const newList = [];
+            listData.map((item) => {
+              newList.push({
+                id: item.order_id,
+                userName: item.user_name,
+                projectName: item.proj_name,
+                title: item.title,
+                notes: item.notes,
+                song: item.song,
+                dataSize: '0',
+                payment: item.amount,
+                orderDateTime: item.created_at,
+                uploadingDateTime: item.downloadTime,
+                status: item.status,
+                downloadUserData: '',
+                uploadData: '',
+              });
+            });
+            setListOfOrders(newList);
+          }
+        }
       })
-    }
-    setListOfOrders(newList);
-  }
+      .catch((error) => {
+        console.log("====================================");
+        console.log("ERR :: " + JSON.stringify(error));
+        console.log("====================================");
+      });
+  };
 
   return (
     <div className="main-container flex" style={{ height: '100%' }}>
-      <div style={{ height: '20%' }}>
-        <div className="dashCard-row" >
-          {listOfTimeData.map((item, index) => (
-            <TimeDataItem
-              item={item}
-              index={index}
-              onClickItem={() => {
-                const newList = [...listOfTimeData];
-                newList.map((_item, _index) => {
-                  if (_index === index) {
-                    _item.isSelected = true;
-                  } else {
-                    _item.isSelected = false;
-                  }
-                });
-                setListOfTimeData(newList);
-              }}
-            />
-          ))}
-        </div>
-        <motion.div
-          animate={{
-            translateY: [100, 1, 1],
-          }}
-          transition={{
-            delay: 0.2,
-            duration: 1,
-            ease: "easeInOut",
-          }}
-          className="row"
-          style={{ margin: '0 15px 0 0' }}
-        >
-          {listOfTopCards.map((item, index) => (
-            <TimeDataListItem
-              item={item}
-              index={index}
-              onClickItem={() => {
-                const newList = [...listOfTimeData];
-                newList.map((_item, _index) => {
-                  if (_index === index) {
-                    _item.isSelected = true;
-                  } else {
-                    _item.isSelected = false;
-                  }
-                });
-                setListOfTimeData(newList);
-              }}
-            />
-          ))}
-        </motion.div>
-      </div>
-      {/* <div className={"dividerHeader"} /> */}
       <motion.div
-        style={{ height: '74%' }}
+        style={{ height: '94.5%' }}
         className='listDataCard'
         animate={{
           translateX: [800, 1, 1],
@@ -129,8 +62,8 @@ const OrdersScreen = () => {
           ease: "easeInOut",
         }}
       >
-        <div className="textTitle">{'Recent Orders'}</div>
-        <OrderListData style={{display: 'flex'}} listOrder={listOfOrders} />
+        <div className="textTitle">{'All Orders'}</div>
+        <OrderListData style={{display: 'flex'}} pageSize={9} listOrder={listOfOrders} />
       </motion.div>
 
       {/* <div className={"dividerHeader"} /> */}

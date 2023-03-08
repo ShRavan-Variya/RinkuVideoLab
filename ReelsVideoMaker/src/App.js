@@ -21,6 +21,14 @@ export default function App() {
           href="https://fonts.googleapis.com/css2?family=Khula:wght@400;600;800&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
       </Helmet>
       {/* <TopNavbar /> */}
       <BrowserRouter>

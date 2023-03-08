@@ -1,43 +1,35 @@
 import React from "react";
+import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import userImage from "../../assets/img/userImage.jpg";
 
 export default function OrderListData(props) {
-
-  const orderItem = (item, index) => {
-    return (
-      <tr key={item.id} style={{margin: '10px 0'}}>
-        <td className="imageTh">
-          <img className="orderImage" src={userImage} alt={userImage} />
-        </td>
-        <td className="tdTitle" style={{ width: '180px' }}>{item.id}</td>
-        <td className="tdTitle" style={{ width: '240px' }}>{'User Name'}</td>
-        <td className="tdTitle" style={{ width: '250px' }}>{item.projectName}</td>
-        <td className="tdTitle" style={{ width: '150px' }}>{item.dataSize}</td>
-        <td className="tdTitle" style={{ width: '150px' }}>{item.payment}</td>
-        <td className="tdTitle" style={{ width: '210px' }}>{item.orderDateTime}</td>
-        <td className="tdTitle" style={{ width: '210px' }}>{'In progress'}</td>
-      </tr>
-    );
-  }
+  const columns = [
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "userName", headerName: "User Name", width: 180 },
+    { field: "projectName", headerName: "Project Name", width: 180 },
+    { field: "title", headerName: "Title", sortable: false, width: 180 },
+    { field: "notes", headerName: "Notes", sortable: false, width: 180 },
+    { field: "song", headerName: "Song", sortable: false, width: 180 },
+    { field: "dataSize", headerName: "Data Size", width: 140 },
+    { field: "payment", headerName: "Payment", width: 120 },
+    { field: "orderDateTime", headerName: "Order Date Time", width: 180 },
+    { field: "uploadingDateTime", headerName: "Uploading Date Time", sortable: false, width: 180 },
+    { field: "status", headerName: "Status", sortable: false, width: 140 },
+    { field: "downloadUserData", headerName: "Download User Data", sortable: false, width: 160 },
+    { field: "uploadData", headerName: "Upload Data", sortable: false, width: 140 },
+  ];
 
   return (
-    <table className="flex" style={{height: '87%', width: '100%', overflowY: 'hidden'}}>
-      <div className='table-wrapper'>
-        <tbody>
-          <tr className='table-header'>
-            <th className='imageTh' />
-            <th className='thTitle'>ID</th>
-            <th className='thTitle'>User Name</th>
-            <th className='thTitle'>Project Name</th>
-            <th className='thTitle'>Data Size</th>
-            <th className='thTitle'>Payment</th>
-            <th className='thTitle'>Order Date Time</th>
-            <th className='thTitle'>Completed</th>
-          </tr>
-          {props.listOrder.map(orderItem)}
-        </tbody>
-      </div>
-    </table>
-  )
-
+    <div
+      className="flex"
+      style={{ height: "87%", width: "100%", overflowY: "hidden" }}
+    >
+      <DataGrid
+        rows={props.listOrder}
+        columns={columns}
+        pageSize={props.pageSize}
+        rowsPerPageOptions={[5]}
+      />
+    </div>
+  );
 }

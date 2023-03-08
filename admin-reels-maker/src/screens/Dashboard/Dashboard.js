@@ -1,86 +1,149 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
-import { OrderListData, TimeDataItem, TimeDataListItem } from "../../components";
+import axios from "axios";
+import {
+  OrderListData,
+  TimeDataItem,
+  TimeDataListItem,
+} from "../../components";
+import emptyImage from "../../assets/img/emptyImage.png";
 import { IcSettings } from "../../assets/svg";
 
 const Dashboard = () => {
   const [listOfTimeData, setListOfTimeData] = useState([]);
   const [listOfTopCards, setListOfTopCards] = useState([]);
-  const [listOfOrders, setListOfOrders] = useState([]);
+  const [listOfData, setListOfData] = useState([]);
 
   useEffect(() => {
     getTimeData();
-    getDataTopCards();
-    getOrders();
   }, []);
 
   const getTimeData = () => {
     const newList = [];
-    newList.push({ title: "Today", isSelected: true });
-    newList.push({ title: "Week" });
-    newList.push({ title: "Month" });
-    newList.push({ title: "Year" });
-    setListOfTimeData(newList);
+    newList.push({ title: "Today", isSelected: true, type: 1 });
+    newList.push({ title: "Week", type: 2 });
+    newList.push({ title: "Month", type: 3 });
+    newList.push({ title: "Year", type: 4 });
+
+    getDataList(newList);
   };
 
-  const getDataTopCards = () => {
-    const newList = [];
-    newList.push({
-      title: "Total Revenue",
-      subTitle: "250000",
-      icon: <IcSettings height={40} width={40} />,
+  const getDataList = (newList) => {
+    let count = 0;
+    newList.map((item) => {
+      if (item.isSelected) {
+        count = item.type;
+      }
     });
+
+    setListOfTimeData(newList);
+    getCounts(count);
+
+    getProjectByType();
+  };
+
+  const getCounts = async (type) => {
+    await axios
+      .get(
+        `http://localhost:8080/reelsvideoapis/admin/get_dashcount.php?countType=${type}`
+      )
+      .then(function (response) {
+        // console.log("response :: " + JSON.stringify(response));
+
+        if (response.data.status === true) {
+          getDataTopCards(response.data.data);
+        }
+      })
+      .catch((error) => {
+        console.log("====================================");
+        console.log("ERR :: " + JSON.stringify(error));
+        console.log("====================================");
+      });
+  };
+
+  const getProjectByType = async () => {
+    await axios
+      .get(`http://localhost:8080/reelsvideoapis/admin/get_user_projects.php`)
+      .then(function (response) {
+        // console.log("response :: " + JSON.stringify(response));
+
+        if (response.data.status === true) {
+          const listData = response.data.data;
+          if (listData.length > 0) {
+            const newList = [];
+            listData.map((item) => {
+              newList.push({
+                id: item.order_id,
+                userName: item.user_name,
+                projectName: item.proj_name,
+                title: item.title,
+                notes: item.notes,
+                song: item.song,
+                dataSize: '0',
+                payment: item.amount,
+                orderDateTime: item.created_at,
+                uploadingDateTime: item.downloadTime,
+                status: item.status,
+                downloadUserData: '',
+                uploadData: '',
+              });
+            });
+            setListOfData(newList);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log("====================================");
+        console.log("ERR :: " + JSON.stringify(error));
+        console.log("====================================");
+      });
+  };
+
+  const getDataTopCards = (data) => {
+    const newList = [];
+    // newList.push({
+    //   title: "Total Revenue",
+    //   subTitle: "250000",
+    //   icon: <IcSettings height={40} width={40} />,
+    // });
     newList.push({
       title: "Total Projects",
-      subTitle: "5000",
+      subTitle: data.total,
       icon: <IcSettings height={40} width={40} />,
     });
     newList.push({
       title: "Completed Projects",
-      subTitle: "4800",
+      subTitle: data.complete,
       icon: <IcSettings height={40} width={40} />,
     });
-    newList.push({
-      title: "Happy Clients",
-      subTitle: "5000",
-      icon: <IcSettings height={40} width={40} />,
-    });
+    // newList.push({
+    //   title: "Happy Clients",
+    //   subTitle: "5000",
+    //   icon: <IcSettings height={40} width={40} />,
+    // });
     newList.push({
       title: "Pending Projects",
-      subTitle: "5000",
+      subTitle: data.pending,
       icon: <IcSettings height={40} width={40} />,
     });
     newList.push({
       title: "Working Projects",
-      subTitle: "5000",
+      subTitle: data.working,
       icon: <IcSettings height={40} width={40} />,
     });
     setListOfTopCards(newList);
   };
 
-  const getOrders = () => {
-    const newList = [];
-    for (let index = 0; index < 10; index++) {
-      newList.push({
-        id: 'ABABA051051',
-        projectName: 'Project 01',
-        dataSize: '250Mb',
-        payment: '250Rs',
-        orderDateTime: 'AAAA',
-        completed: true,
-      })
-    }
-    setListOfOrders(newList);
-  }
-
   return (
-    <div className="main-container flex" style={{ height: '100%' }}>
-      <div style={{ height: '30%' }}>
-        <div className="dashCard-row" >
+    <div className="main-container flex" style={{ height: "100%" }}>
+      <div style={{ height: "25%" }}>
+        <div className="dashCard-row">
           {listOfTimeData.map((item, index) => (
             <TimeDataItem
               item={item}
               index={index}
+              key={index}
               onClickItem={() => {
                 const newList = [...listOfTimeData];
                 newList.map((_item, _index) => {
@@ -90,7 +153,8 @@ const Dashboard = () => {
                     _item.isSelected = false;
                   }
                 });
-                setListOfTimeData(newList);
+
+                getDataList(newList);
               }}
             />
           ))}
@@ -105,22 +169,23 @@ const Dashboard = () => {
             ease: "easeInOut",
           }}
           className="row"
-          style={{ margin: '0 15px 15px 0' }}
+          style={{ margin: "0 15px 15px 0" }}
         >
           {listOfTopCards.map((item, index) => (
             <TimeDataListItem
               item={item}
               index={index}
+              key={index}
               onClickItem={() => {
-                const newList = [...listOfTimeData];
-                newList.map((_item, _index) => {
-                  if (_index === index) {
-                    _item.isSelected = true;
-                  } else {
-                    _item.isSelected = false;
-                  }
-                });
-                setListOfTimeData(newList);
+                // const newList = [...listOfTimeData];
+                // newList.map((_item, _index) => {
+                //   if (_index === index) {
+                //     _item.isSelected = true;
+                //   } else {
+                //     _item.isSelected = false;
+                //   }
+                // });
+                // setListOfTimeData(newList);
               }}
             />
           ))}
@@ -128,8 +193,8 @@ const Dashboard = () => {
       </div>
       {/* <div className={"dividerHeader"} /> */}
       <motion.div
-        style={{ height: '65%' }}
-        className='listDataCard'
+        style={{ height: "69%" }}
+        className="listDataCard"
         animate={{
           translateX: [800, 1, 1],
         }}
@@ -139,13 +204,27 @@ const Dashboard = () => {
           ease: "easeInOut",
         }}
       >
-        <div className="textTitle">{'Recent Orders'}</div>
-        <OrderListData style={{display: 'flex'}} listOrder={listOfOrders} />
+        <div className="textTitle">{"Recent Orders"}</div>
+        {listOfData.length > 0 ? (
+          <OrderListData style={{ display: "flex" }} pageSize={5} listOrder={listOfData} />
+        ) : (
+          <div
+            style={{ display: "flex", height: "100%" }}
+            className="fullCenter"
+          >
+            <EmptyImage src={emptyImage} alt={emptyImage} />
+          </div>
+        )}
       </motion.div>
 
       {/* <div className={"dividerHeader"} /> */}
-    </div >
+    </div>
   );
 };
+
+const EmptyImage = styled.img`
+  width: 250px;
+  height: 250px;
+`;
 
 export default Dashboard;
