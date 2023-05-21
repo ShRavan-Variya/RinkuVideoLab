@@ -63,20 +63,18 @@ export default function Contact({ image1, image2, image3 }) {
               </div>
             </div>
           </AddLeft>
-          <AddRight>
-            <AddRightInner className="flexNullCenter">
+          <AddRight className="flexNullCenter">
               <AddImgWrapp1 className="flexCenter">
-                <img src={image1 ? image1 : ContactImg1} alt="office" />
+                <img src={image1 ? 'http://localhost:8080/reelsvideoapis/Reels/DashData/' + image1 : ContactImg1} alt="office" />
               </AddImgWrapp1>
-              <div >
+              <div style={{flex: 1}}>
                 <AddImgWrapp2>
-                  <img src={image2 ? image2 : ContactImg2} alt="office" />
+                  <img src={image2 ? 'http://localhost:8080/reelsvideoapis/Reels/DashData/' + image2 : ContactImg2} alt="office" />
                 </AddImgWrapp2>
                 <AddImgWrapp3>
-                  <img src={image3 ? image3 : ContactImg2} alt="office" />
+                  <img src={image3 ? 'http://localhost:8080/reelsvideoapis/Reels/DashData/' + image3 : ContactImg2} alt="office" />
                 </AddImgWrapp3>
               </div>
-            </AddRightInner>
           </AddRight>
         </AddMain>
       </div>
@@ -152,7 +150,7 @@ const AddLeft = styled.div`
   }
 `;
 const AddRight = styled.div`
-  width: 50%;
+  width: 40%;
   margin: 10% 0;
   z-index: 9;
   @media (max-width: 860px) {
@@ -162,13 +160,11 @@ const AddRight = styled.div`
     top: -40px;
   }
 `;
-const AddRightInner = styled.div`
-  width: 100%;
-`;
 const AddImgWrapp1 = styled.div`
+flex: 1;
 width: 100%;
 img {
-  width: 100%;
+  width: 80%;
   height: auto;
   border-radius: 1rem;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
@@ -177,10 +173,10 @@ img {
 }
 `;
 const AddImgWrapp2 = styled.div`
-width: 80%;
+width: 100%;
 margin: 0 0 0 15%;
 img {
-  width: 100%;
+  width: 90%;
   height: auto;
   border-radius: 1rem;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
@@ -189,10 +185,10 @@ img {
 }
 `;
 const AddImgWrapp3 = styled.div`
-width: 80%;
+width: 100%;
 margin: 10% 0 0 15%;
 img {
-  width: 100%;
+  width: 90%;
   height: auto;
   border-radius: 1rem;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);

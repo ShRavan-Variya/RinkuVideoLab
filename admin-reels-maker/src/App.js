@@ -6,6 +6,7 @@ import {
   ClientScreen,
   Dashboard,
   OrdersScreen,
+  DashDataScreen,
 } from "./screens";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/Orders" element={<OrdersScreen />} />
             <Route path="/Admins" element={<AdminScreen />} />
             <Route path="/Clients" element={<ClientScreen />} />
+            <Route path="/DashData" element={<DashDataScreen />} />
             <Route path="*" element={<> not found</>} />
           </Routes>
         </SideBar>

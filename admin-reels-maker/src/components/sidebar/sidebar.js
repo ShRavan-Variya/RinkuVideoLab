@@ -30,6 +30,12 @@ const routes = [
     name: "Clients",
     icon: <IcUser height={22} width={22} />,
     // subRoutes: [],
+  },
+  {
+    path: "/DashData",
+    name: "DashboardData",
+    icon: <IcUser height={22} width={22} />,
+    // subRoutes: [],
   }
 ];
 

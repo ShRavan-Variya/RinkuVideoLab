@@ -2,13 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 export default function ProjectBox({ img, title, text, action}) {
+  const image = 'http://localhost:8080/reelsvideoapis/Reels/DashData/' + img;
+
   return (
     <Wrapper>
       <ImgBtn className="aniamte pointer" onClick={action ? () => action() : null}>
-        <img className="radius8" src={img} alt="project"></img>
+        <img className="radius8" src={image} alt="project"></img>
       </ImgBtn>
-      <h3 className="font20 extraBold">{title}</h3>
-      <p className="font13">{text}</p>
+      {/* <h3 className="font20 extraBold">{title}</h3>
+      <p className="font13">{text}</p> */}
     </Wrapper>
   );
 }

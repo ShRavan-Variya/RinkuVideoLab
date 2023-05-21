@@ -54,19 +54,19 @@ const Landing = () => {
           const listImages = response.data.data;
           if (listImages.length > 0) {
             listImages.map((item) => {
-              if (item.imageName === 'dash_top_1') {
+              if (item.imageName === 'dashTop1') {
                 setTopImage1(item.image)
-              } else if (item.imageName === 'dash_top_2') {
+              } else if (item.imageName === 'dashTop2') {
                 setTopImage2(item.image)
-              } else if (item.imageName === 'dash_top_3') {
+              } else if (item.imageName === 'dashTop3') {
                 setTopImage3(item.image)
-              } else if (item.imageName === 'dash_top_4') {
+              } else if (item.imageName === 'dashTop4') {
                 setTopImage4(item.image)
-              } else if (item.imageName === 'dash_contact_1') {
+              } else if (item.imageName === 'dashContact1') {
                 setBottomImage1(item.image)
-              } else if (item.imageName === 'dash_contact_2') {
+              } else if (item.imageName === 'dashContact2') {
                 setBottomImage2(item.image)
-              } else if (item.imageName === 'dash_contact_3') {
+              } else if (item.imageName === 'dashContact3') {
                 setBottomImage3(item.image)
               }
             }) 
