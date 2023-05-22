@@ -6,11 +6,11 @@ import {
   OrderListData,
   TimeDataItem,
   TimeDataListItem,
-} from "../../components";
-import emptyImage from "../../assets/img/emptyImage.png";
-import { IcSettings } from "../../assets/svg";
+} from "../../../components";
+import emptyImage from "../../../assets/img/emptyImage.png";
+import { IcSettings } from "../../../assets/svg";
 
-const Dashboard = () => {
+const AdminDashBoard = () => {
   const [listOfTimeData, setListOfTimeData] = useState([]);
   const [listOfTopCards, setListOfTopCards] = useState([]);
   const [listOfData, setListOfData] = useState([]);
@@ -227,4 +227,4 @@ const EmptyImage = styled.img`
   height: 250px;
 `;
 
-export default Dashboard;
+export default AdminDashBoard;

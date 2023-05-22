@@ -6,6 +6,8 @@ const GlobalProvider = ({children}) => {
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setTextUserId] = useState('');
   const [userData, setUserMainData] = useState('');
+  const [adminId, setTextAdminId] = useState('');
+  const [adminData, setAdminMainData] = useState('');
 
   const setLogin = (text) => {
     setIsLogin(text);
@@ -15,6 +17,12 @@ const GlobalProvider = ({children}) => {
   };
   const setUserData = (text) => {
     setUserMainData(text);
+  };
+  const setAdminId = (text) => {
+    setTextAdminId(text);
+  };
+  const setAdminData = (text) => {
+    setAdminMainData(text);
   };
 
   return (
@@ -26,6 +34,10 @@ const GlobalProvider = ({children}) => {
         setUserId,
         userData,
         setUserData,
+        adminId,
+        setAdminId,
+        adminData,
+        setAdminData,
       }}>
       {children}
     </GlobalContext.Provider>

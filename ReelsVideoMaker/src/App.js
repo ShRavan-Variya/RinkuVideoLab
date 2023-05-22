@@ -10,6 +10,7 @@ import Downloads from "./screens/Dashboard/Downloads";
 import UserProfile from "./screens/settings/UserProfile";
 import TermsCondition from "./screens/settings/TermsCondition";
 import PrivacyPolicy from "./screens/settings/PrivacyPolicy";
+import AdminRoute from "./AdminRoute";
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Landing />} />
+          <Route path="/admin/*" element={<AdminRoute />} />
           <Route path="login" element={<Login />} />
           <Route path="upload" element={<Upload />} />
           <Route path="payments" element={<Payments />} />

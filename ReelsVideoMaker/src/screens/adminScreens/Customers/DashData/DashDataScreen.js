@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import axios from "axios";
-import { DashImageData } from "../../../components";
+import { DashImageData } from "../../../../components";
 
 const DashDataScreen = () => {
   const [listOfDashImages, setListOfDashImages] = useState([]);

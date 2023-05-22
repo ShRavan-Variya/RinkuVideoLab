@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export default function ProjectBox({ img, title, text, action}) {
-  const image = 'http://localhost:8080/reelsvideoapis/Reels/DashData/' + img;
+  const image = 'http://localhost:80/reelsvideoapis/Reels/DashData/' + img;
 
   return (
     <Wrapper>

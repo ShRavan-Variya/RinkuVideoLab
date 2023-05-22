@@ -14,7 +14,7 @@ export default function ProjectBoxDownload({ item, action }) {
     console.log(dataList);
     if (dataList && dataList.length > 0) {
       const filename = dataList[0].filename
-      imageFile = 'http://localhost:8080/reelsvideoapis/Reels/Row/' + filename
+      imageFile = 'http://localhost:80/reelsvideoapis/Reels/Row/' + filename
 
       const types = new Map([["jpg", "img"], ["jpeg", "img"], ["png", "img"], ["mp4", "video"], ["mkv", "video"], ["avi", "video"]])
       const extension = filename.split(".").pop().toLowerCase();

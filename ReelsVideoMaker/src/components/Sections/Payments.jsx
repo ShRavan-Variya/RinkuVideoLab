@@ -21,7 +21,7 @@ export default function Payments() {
 
     await axios
       .get(
-        `http://localhost:8080/reelsvideoapis/client/get_projects.php?userId=${userId}`
+        `http://localhost:80/reelsvideoapis/client/get_projects.php?userId=${userId}`
       )
       .then(function (response) {
         // console.log("response :: " + JSON.stringify(response));

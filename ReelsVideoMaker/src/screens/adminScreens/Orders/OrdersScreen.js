@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { OrderListData } from "../../components";
+import { OrderListData } from "../../../components";
 
 const OrdersScreen = () => {
   const [listOfOrders, setListOfOrders] = useState([]);

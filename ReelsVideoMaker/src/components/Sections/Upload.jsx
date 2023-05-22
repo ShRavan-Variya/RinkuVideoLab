@@ -38,7 +38,7 @@ export default function Upload() {
       formData.append("dataFile", files[currentItem]);
       try {
         const res = await axios.post(
-          "http://localhost:8080/reelsvideoapis/client/uploadData.php",
+          "http://localhost:80/reelsvideoapis/client/uploadData.php",
           formData
         )
 
@@ -85,7 +85,7 @@ export default function Upload() {
 
     await axios
       .post(
-        "http://localhost:8080/reelsvideoapis/client/clientAddProj.php",
+        "http://localhost:80/reelsvideoapis/client/clientAddProj.php",
         data
       )
       .then(function (response) {
