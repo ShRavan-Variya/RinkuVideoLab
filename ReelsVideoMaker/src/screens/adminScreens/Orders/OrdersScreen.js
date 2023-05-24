@@ -49,7 +49,7 @@ const OrdersScreen = () => {
   };
 
   return (
-    <div className="main-container flex" style={{ height: '100%' }}>
+    <div className="main-container" style={{ height: '100%' }}>
       <motion.div
         style={{ height: '94.5%' }}
         className='listDataCard'

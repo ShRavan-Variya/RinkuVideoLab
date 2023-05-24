@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import "./style/admin/flexboxgrid.min.css";
 import "./style/admin/index.css";
 import {
+  AdminLogin,
   AdminScreen,
   ClientScreen,
   AdminDashBoard,
@@ -17,7 +18,7 @@ function AdminRoute() {
     <div>
       <SideBar>
         <Routes>
-          <Route path="/" element={<AdminDashBoard />} />
+          <Route path="/adminDash" element={<AdminDashBoard />} />
           <Route path="/Orders" element={<OrdersScreen />} />
           <Route path="/Admins" element={<AdminScreen />} />
           <Route path="/Clients" element={<ClientScreen />} />

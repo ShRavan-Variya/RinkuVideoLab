@@ -4,6 +4,7 @@ import { FaBars, FaHome } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import { IcHome, IcLists, IcLogout, IcOffers, IcUser } from "../../assets/svg";
 import userImage from "../../assets/img/userImage.jpg";
+import LogoIcon from "../../assets/svg/Logo";
 import SidebarMenu from "./sidebarMenu";
 
 const routes = [
@@ -146,7 +147,8 @@ const SideBar = ({ children }) => {
               <div className="userRole">Admin</div>
             </div>
             <div className="imageSpace">
-              <img className="userImage" src={userImage} alt={userImage} />
+              <LogoIcon />
+              {/* <img className="userImage" src={userImage} alt={userImage} /> */}
             </div>
           </div>
           <div className={"dividerHeader"} />

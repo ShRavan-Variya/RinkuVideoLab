@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { OrderListData, TimeDataItem, TimeDataListItem } from "../../../../components";
 import { IcSettings } from "../../../../assets/svg";
+import { AdminLists } from "../../../../components/orders";
 
 const AdminScreen = () => {
   const [listOfTimeData, setListOfTimeData] = useState([]);
@@ -64,7 +65,7 @@ const AdminScreen = () => {
   }
 
   return (
-    <div className="main-container flex" style={{ height: '100%' }}>
+    <div className="main-container" style={{ height: '100%' }}>
       <div style={{ height: '20%' }}>
         <div className="dashCard-row" >
           {listOfTimeData.map((item, index) => (
@@ -130,7 +131,7 @@ const AdminScreen = () => {
         }}
       >
         <div className="textTitle">{'Recent Orders'}</div>
-        <OrderListData style={{display: 'flex'}} listOrder={listOfOrders} />
+        <AdminLists style={{display: 'flex'}} listOrder={listOfOrders} />
       </motion.div>
 
       {/* <div className={"dividerHeader"} /> */}

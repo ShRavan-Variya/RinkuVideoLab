@@ -9,6 +9,7 @@ import {
 } from "../../../components";
 import emptyImage from "../../../assets/img/emptyImage.png";
 import { IcSettings } from "../../../assets/svg";
+import { AdminDashBoardData } from "../../../components/orders";
 
 const AdminDashBoard = () => {
   const [listOfTimeData, setListOfTimeData] = useState([]);
@@ -136,7 +137,7 @@ const AdminDashBoard = () => {
   };
 
   return (
-    <div className="main-container flex" style={{ height: "100%" }}>
+    <div className="main-container" style={{ height: "100%" }}>
       <div style={{ height: "25%" }}>
         <div className="dashCard-row">
           {listOfTimeData.map((item, index) => (
@@ -206,7 +207,7 @@ const AdminDashBoard = () => {
       >
         <div className="textTitle">{"Recent Orders"}</div>
         {listOfData.length > 0 ? (
-          <OrderListData style={{ display: "flex" }} pageSize={5} listOrder={listOfData} />
+          <AdminDashBoardData style={{ display: "flex" }} pageSize={5} listOrder={listOfData} />
         ) : (
           <div
             style={{ display: "flex", height: "100%" }}

@@ -1,3 +1,3 @@
-import { AdminScreen, ClientScreen, AdminDashBoard, DashDataScreen, OrdersScreen } from "./adminScreens";
+import { AdminLogin, AdminScreen, ClientScreen, AdminDashBoard, DashDataScreen, OrdersScreen } from "./adminScreens";
 
-export { AdminScreen, ClientScreen, AdminDashBoard, DashDataScreen, OrdersScreen };
+export { AdminLogin, AdminScreen, ClientScreen, AdminDashBoard, DashDataScreen, OrdersScreen };
