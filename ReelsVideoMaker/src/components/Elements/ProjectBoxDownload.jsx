@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Download from "../../assets/img/ic_download.png";
+import Timer from "./Timer";
 
-export default function ProjectBoxDownload({ item, action }) {
+export default function ProjectBoxDownload({ item, created, target, remainingTime, isTimer, action }) {
+  const [isRunningTimer, setIsRunningTimer] = useState(isTimer);
+
+  console.log('item data :: ' + JSON.stringify(item));
 
   let imageFile;
   let isVideo = false;
@@ -26,12 +30,15 @@ export default function ProjectBoxDownload({ item, action }) {
       } else {
         isVideo = true;
       }
-      
+
     }
   }
 
   const fileName = item.downloadLink.split("/").pop();
 
+  const handleTimerComplete = () => {
+    setIsRunningTimer(false)
+  }
 
   return (
     <Wrapper>
@@ -53,15 +60,24 @@ export default function ProjectBoxDownload({ item, action }) {
           <h3 className="font20 extraBold">{item.proj_name}</h3>
           <p className="font13">{item.title}</p>
         </Flex1>
-        <Link
-          to={item.downloadLink}
-          target="_blank"
-          download={fileName}
-        >
-          <FlexButton className="flexCenter lightBg">
-            <img src={Download} alt="office" />
-          </FlexButton>
-        </Link>
+        {isRunningTimer ? (
+          <Timer
+            targetTime={remainingTime}
+            onTimerComplete={() => handleTimerComplete()}
+          />
+        ) : (
+          // <Link
+          //   to={item.downloadLink}
+          //   target="_blank"
+          //   download={fileName}
+          // >
+            <FlexButton className="flexCenter lightBg">
+              <img src={Download} alt="office" onClick={() => {
+                action()
+              }} />
+            </FlexButton>
+          // </Link>
+        )}
       </BottomRow>
     </Wrapper>
   );

@@ -214,6 +214,7 @@ export default function Upload() {
                   type="submit"
                   onClick={(e) => {
                     // togglePayment();
+                    // e.preventDefault();
                     onUploadClick(e);
                   }}
                 >
@@ -234,13 +235,13 @@ export default function Upload() {
                         allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
                         allowedCardNetworks: ["MASTERCARD", "VISA"],
                       },
-                      tokenizationSpecification: {
-                        type: "PAYMENT_GATEWAY",
-                        parameters: {
-                          gateway: "example",
-                          gatewayMerchantId: "exampleGatewayMerchantId",
-                        },
-                      },
+                      // tokenizationSpecification: {
+                      //   type: "PAYMENT_GATEWAY",
+                      //   parameters: {
+                      //     gateway: "example",
+                      //     gatewayMerchantId: "exampleGatewayMerchantId",
+                      //   },
+                      // },
                     },
                   ],
                   merchantInfo: {
@@ -250,7 +251,7 @@ export default function Upload() {
                   transactionInfo: {
                     totalPriceStatus: "FINAL",
                     totalPriceLabel: "Total",
-                    totalPrice: "1.00",
+                    totalPrice: "100.00",
                     currencyCode: "INR",
                     countryCode: "IN",
                   },

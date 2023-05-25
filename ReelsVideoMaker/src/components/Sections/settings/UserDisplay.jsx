@@ -5,6 +5,7 @@ import axios from "axios";
 import ProjectBoxDownload from "../../Elements/ProjectBoxDownload";
 import { useGlobal } from "../../../context/globalContext";
 import NoData from "../../../assets/img/ic_noData.png";
+import moment from "moment";
 
 export default function UserDisplay() {
   const globalContext = useGlobal();
@@ -55,21 +56,48 @@ export default function UserDisplay() {
             </ImageEmpty>
           ) : (
             <Masonry columnsCount={4} gutter="20px">
-              {listOfData.map((item, index) => (
+              {listOfData.map((item, index) => {
+                const createdDateTime = new Date(item.created_at).getTime(); // Add 2 hours in milliseconds
+                const targetDateTime = new Date(new Date(item.created_at).getTime() + 2 * 3600000).getTime(); // Add 2 hours in milliseconds
+                // const targetDateTime = new Date(new Date(item.created_at).getTime() + 2 * 3600000).getTime(); // Add 2 hours in milliseconds
+
+                let remainingTime = 0;
+                if (targetDateTime > new Date()) {
+                  const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+                  remainingTime = Math.max(targetDateTime - currentTime, 0); // Remaining time or 0 if already expired
+                }
+                
+                return (
                 <ProjectBoxDownload
                   key={index}
                   item={item}
-                  // action={() => {
-                  //   const fileName = item.downloadLink.split("/").pop();
-                  //   const aTag = document.createElement("a");
-                  //   aTag.href = item.downloadLink;
-                  //   aTag.setAttribute("download", fileName);
-                  //   document.body.appendChild(aTag);
-                  //   aTag.click();
-                  //   aTag.remove();
-                  // }}
+                  created={createdDateTime}
+                  target={targetDateTime}
+                  remainingTime={remainingTime}
+                  isTimer={targetDateTime > new Date()}
+                  action={() => {
+                    console.log('DONWLOAD');
+
+                    // const filePath = '../../../../../Reels/Row/';
+                    // const fileName = item.downloadLink.split("/").pop();
+                    // const fullFileNamePath = filePath + fileName;
+
+                    // console.log(
+                    //   fullFileNamePath
+                    // );
+                    // // Create a blob with the data
+                    const fileUrl = 'https://mazwai.com/videvo_files/video/free/2019-03/small_watermarked/190111_08_BuildingsTraffic_Drone_18_preview.webm';
+                    // const blob = new Blob([fileUrl], { type: 'video/mp4' }); // Replace 'video/mp4' with the appropriate MIME type
+                    // const url = URL.createObjectURL(blob);
+
+                    const link = document.createElement('a');
+                    link.href = fileUrl;
+                    link.download = 'filename.mp4';
+                    link.click();
+                    URL.revokeObjectURL(fileUrl);
+                  }}
                 />
-              ))}
+              )})}
             </Masonry>
           )}
         </div>
