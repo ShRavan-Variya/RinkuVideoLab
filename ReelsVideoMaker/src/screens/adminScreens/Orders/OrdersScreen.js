@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { OrderListData } from "../../../components";
+import moment from "moment";
 
 const OrdersScreen = () => {
   const [listOfOrders, setListOfOrders] = useState([]);
@@ -20,7 +21,10 @@ const OrdersScreen = () => {
           const listData = response.data.data;
           if (listData.length > 0) {
             const newList = [];
+            listData.sort((a, b) => b.created_at.localeCompare(a.created_at));
             listData.map((item) => {
+              const createdAt = moment(item.created_at).format('DD/MM/YYYY - hh:mm:ss a');
+              const downloadTime = moment(item.downloadTime).format('DD/MM/YYYY - hh:mm:ss a');
               newList.push({
                 id: item.order_id,
                 userName: item.user_name,
@@ -30,9 +34,9 @@ const OrdersScreen = () => {
                 song: item.song,
                 dataSize: '0',
                 payment: item.amount,
-                orderDateTime: item.created_at,
-                uploadingDateTime: item.downloadTime,
-                status: item.status,
+                orderDateTime: createdAt,
+                uploadingDateTime: downloadTime,
+                status: item.status === '1' ? 'Pending' : 'Working',
                 downloadUserData: '',
                 uploadData: '',
               });

@@ -1,33 +1,32 @@
 import { useEffect, useState } from "react";
 import moment from 'moment';
 
-const Timer = ({ targetTime, onTimerComplete }) => {
-    const [timeRemaining, setTimeRemaining] = useState(targetTime);
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setTimeRemaining(prevTime => prevTime - 1);
-      }, 1000);
-  
-      if (timeRemaining === 0) {
-        clearInterval(interval);
-        onTimerComplete();
-      }
-  
-      return () => {
-        clearInterval(interval);
-      };
-    }, [timeRemaining, onTimerComplete]);
-  
-    const formatTime = time => {
-      const duration = moment.duration(time * 1000); // Convert seconds to milliseconds
-      const hours = duration.hours();
-      const minutes = duration.minutes();
-      const seconds = duration.seconds();
-      return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+const Timer = ({ remainingTime, onTimerComplete }) => {
+  const [timeRemaining, setTimeRemaining] = useState(remainingTime);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const duration = moment.duration(timeRemaining);
+      duration.subtract(1, 'seconds');
+      setTimeRemaining(duration);
+    }, 1000);
+
+    if (moment.duration(timeRemaining).hours() <= 0 && moment.duration(timeRemaining).minutes() <= 0 && moment.duration(timeRemaining).seconds() <= 0) {
+      clearInterval(interval);
+      onTimerComplete();
+    }
+
+    return () => {
+      clearInterval(interval);
     };
-  
-    return <div>{formatTime(timeRemaining)}</div>;
+  }, [timeRemaining, onTimerComplete]);
+
+  const formatTime = time => {
+    const durationNew = moment.duration(time);
+    return `${durationNew.hours()}:${durationNew.minutes()}:${durationNew.seconds()}`;
+  };
+
+  return <div>{formatTime(timeRemaining)}</div>;
 };
 
 export default Timer;

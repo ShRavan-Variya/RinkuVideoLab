@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import moment from 'moment';
 import axios from "axios";
 import { DashImageData } from "../../../../components";
 
@@ -22,12 +23,14 @@ const DashDataScreen = () => {
           if (listImages.length > 0) {
             const newList = [];
             listImages.map((item) => {
+              const createdAt = moment(item.created_at).format('DD/MM/YYYY - hh:mm:ss a');
+              const updatedAt = moment(item.updated_at).format('DD/MM/YYYY - hh:mm:ss a');
               newList.push({
                 id: item.id,
                 imageName: item.imageName,
                 image: 'http://localhost:80/reelsvideoapis/Reels/DashData/' + item.image,
-                created_at: item.created_at,
-                updated_at: item.updated_at,
+                created_at: createdAt,
+                updated_at: updatedAt,
               })
             })
             setListOfDashImages(newList)

@@ -57,24 +57,18 @@ export default function UserDisplay() {
           ) : (
             <Masonry columnsCount={4} gutter="20px">
               {listOfData.map((item, index) => {
-                const createdDateTime = new Date(item.created_at).getTime(); // Add 2 hours in milliseconds
-                const targetDateTime = new Date(new Date(item.created_at).getTime() + 2 * 3600000).getTime(); // Add 2 hours in milliseconds
-                // const targetDateTime = new Date(new Date(item.created_at).getTime() + 2 * 3600000).getTime(); // Add 2 hours in milliseconds
-
+                const targetDateTime = moment(new Date(item.created_at)).add(2, 'hours').toDate().getTime();
                 let remainingTime = 0;
-                if (targetDateTime > new Date()) {
-                  const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-                  remainingTime = Math.max(targetDateTime - currentTime, 0); // Remaining time or 0 if already expired
+                if (targetDateTime > new Date().getTime()) {
+                  remainingTime = moment(new Date(targetDateTime)).diff();
                 }
                 
                 return (
                 <ProjectBoxDownload
                   key={index}
                   item={item}
-                  created={createdDateTime}
-                  target={targetDateTime}
                   remainingTime={remainingTime}
-                  isTimer={targetDateTime > new Date()}
+                  isTimer={remainingTime > 0}
                   action={() => {
                     console.log('DONWLOAD');
 

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGlobal } from "../../context/globalContext";
 import styled from "styled-components";
 import axios from "axios";
 
 export default function LoginAdmin() {
   const navigate = useNavigate();
+  const globalContext = useGlobal();
   const [textEmail, setTextEmail] = useState("");
   const [textPassword, setTextPassword] = useState("");
 
@@ -12,21 +14,22 @@ export default function LoginAdmin() {
     e.preventDefault();
 
     const data = JSON.stringify({
-      email: textEmail,
+      userId: textEmail,
       password: textPassword,
     });
 
     await axios
       .post(
-        "http://localhost:80/reelsvideoapis/client/client_login.php",
+        "http://localhost:80/reelsvideoapis/admin/admin_login.php",
         data
       )
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
         if (response.data.status === true) {
-          const userData = response.data.data;
-          console.log("userData :: " + JSON.stringify(userData));
+          const adminData = response.data.data;
+
+          globalContext.setAdminData(adminData);
 
           navigate('/admin/adminDash')
 
@@ -37,6 +40,7 @@ export default function LoginAdmin() {
         }
       })
       .catch((error) => {
+        console.log(error);
         alert(error.response.data.message)
       });
   };

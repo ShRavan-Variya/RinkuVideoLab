@@ -10,8 +10,8 @@ export default function AdminDashBoardData(props) {
     { field: "notes", headerName: "Notes", sortable: false, width: 180 },
     { field: "song", headerName: "Song", sortable: false, width: 180 },
     { field: "payment", headerName: "Payment", width: 120 },
-    { field: "orderDateTime", headerName: "Order Date Time", width: 180 },
-    { field: "uploadingDateTime", headerName: "Uploading Date Time", sortable: false, width: 180 },
+    { field: "orderDateTime", headerName: "Order Date Time", width: 220 },
+    { field: "uploadingDateTime", headerName: "Uploading Date Time", sortable: false, width: 220 },
     { field: "status", headerName: "Status", sortable: false, width: 140 },
   ];
 

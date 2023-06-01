@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Download from "../../assets/img/ic_download.png";
 import Timer from "./Timer";
 
-export default function ProjectBoxDownload({ item, created, target, remainingTime, isTimer, action }) {
+export default function ProjectBoxDownload({ item, remainingTime, isTimer, action }) {
   const [isRunningTimer, setIsRunningTimer] = useState(isTimer);
 
   console.log('item data :: ' + JSON.stringify(item));
@@ -34,8 +34,6 @@ export default function ProjectBoxDownload({ item, created, target, remainingTim
     }
   }
 
-  const fileName = item.downloadLink.split("/").pop();
-
   const handleTimerComplete = () => {
     setIsRunningTimer(false)
   }
@@ -62,7 +60,7 @@ export default function ProjectBoxDownload({ item, created, target, remainingTim
         </Flex1>
         {isRunningTimer ? (
           <Timer
-            targetTime={remainingTime}
+            remainingTime={remainingTime}
             onTimerComplete={() => handleTimerComplete()}
           />
         ) : (

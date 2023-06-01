@@ -12,11 +12,17 @@ import {
   DashDataScreen,
 } from "./screens";
 import { SideBar } from './components';
+import { useGlobal } from "./context/globalContext";
 
 function AdminRoute() {
+  const globalContext = useGlobal();
+  const adminData = globalContext.adminData;
+
+  console.log('adminData' + JSON.stringify(adminData));
+
   return (
     <div>
-      <SideBar>
+      <SideBar adminData={adminData}>
         <Routes>
           <Route path="/adminDash" element={<AdminDashBoard />} />
           <Route path="/Orders" element={<OrdersScreen />} />

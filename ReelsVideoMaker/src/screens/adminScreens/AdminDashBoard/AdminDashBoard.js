@@ -10,6 +10,7 @@ import {
 import emptyImage from "../../../assets/img/emptyImage.png";
 import { IcSettings } from "../../../assets/svg";
 import { AdminDashBoardData } from "../../../components/orders";
+import moment from "moment";
 
 const AdminDashBoard = () => {
   const [listOfTimeData, setListOfTimeData] = useState([]);
@@ -67,13 +68,15 @@ const AdminDashBoard = () => {
     await axios
       .get(`http://localhost:80/reelsvideoapis/admin/get_user_projects.php`)
       .then(function (response) {
-        // console.log("response :: " + JSON.stringify(response));
-
         if (response.data.status === true) {
           const listData = response.data.data;
+          console.log('listData ::: ' + JSON.stringify(listData));
           if (listData.length > 0) {
             const newList = [];
+            listData.sort((a, b) => b.created_at.localeCompare(a.created_at));
             listData.map((item) => {
+              const createdAt = moment(item.created_at).format('DD/MM/YYYY - hh:mm:ss a');
+              const downloadTime = moment(item.downloadTime).format('DD/MM/YYYY - hh:mm:ss a');
               newList.push({
                 id: item.order_id,
                 userName: item.user_name,
@@ -83,9 +86,9 @@ const AdminDashBoard = () => {
                 song: item.song,
                 dataSize: '0',
                 payment: item.amount,
-                orderDateTime: item.created_at,
-                uploadingDateTime: item.downloadTime,
-                status: item.status,
+                orderDateTime: createdAt,
+                uploadingDateTime: downloadTime,
+                status: item.status === '1' ? 'Pending' : 'Working',
                 downloadUserData: '',
                 uploadData: '',
               });

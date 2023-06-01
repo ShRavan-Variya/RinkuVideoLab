@@ -39,9 +39,10 @@ const routes = [
   }
 ];
 
-const SideBar = ({ children }) => {
+const SideBar = (data) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
+  const adminId = data.adminData.userId;
 
   const showAnimation = {
     hidden: {
@@ -95,11 +96,12 @@ const SideBar = ({ children }) => {
             <section className="routes">
               {routes.map((route, index) => {
                 if (route.name === "divider") {
-                  return <div className={"sideBarDivider"} />;
+                  return <div key={index} className={"sideBarDivider"} />;
                 } else {
                   if (route.subRoutes) {
                     return (
                       <SidebarMenu
+                        key={index}
                         setIsOpen={setIsOpen}
                         route={route}
                         showAnimation={showAnimation}
@@ -142,7 +144,7 @@ const SideBar = ({ children }) => {
         <div className="lightBg" style={{ width: "100%", height: '100vh', padding: "1vh" }}>
           <div className="flexRow" style={{height: '10%'}}>
             <div className="flexEnd">
-              <div className="userName">Jon Snow</div>
+              <div className="userName">{adminId}</div>
               <div className="userRole">Admin</div>
             </div>
             <div className="imageSpace">
@@ -151,7 +153,7 @@ const SideBar = ({ children }) => {
             </div>
           </div>
           <div className={"dividerHeader"} />
-          <div style={{height: '90%'}}>{children}</div>
+          <div style={{height: '90%'}}>{data.children}</div>
         </div>
       </div>
     </>
