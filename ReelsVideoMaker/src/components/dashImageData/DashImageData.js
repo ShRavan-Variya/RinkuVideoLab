@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import styled from "styled-components";
 import { Button } from "@mui/material";
 
 export default function DashImageData(props) {
-  const onChnageFiles = (id) => {
+  const fileInputRef = useRef(null);
 
-  }
-  const onUpload = (id) => {
-    
-  }
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = (e, id) => {
+    // const file = e.target.files[0];
+    props.uploadData(fileInputRef, id);
+  };
 
   const columns = [
     {
@@ -32,35 +36,24 @@ export default function DashImageData(props) {
     {
       field: "Update", headerName: " ", sortable: false, width: 220,
       renderCell: (params) => (
-        <input
-          type="file"
-          name="Select Images"
-          id="images"
-          multiple
-          itemType=""
-          accept=".jpg, .jpeg, .png"
-          onChange={() => {
-            onChnageFiles(params.row.id)
-          }}
-        />
-      )
-    },
-    { 
-      field: " ",
-      headerName: " ",
-      sortable: false,
-      renderCell: (params) => (
-        <Button
-          variant="contained"
-          size="small"
-          style={{ marginLeft: 16 }}
-          tabIndex={params.hasFocus ? 0 : -1}
-          onClick={() => {
-            onUpload(params.row.id)
-          }}
-        >
-          Update
-        </Button>
+        <div>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={(e) => handleImageChange(e,  params.row.id)}
+            accept="image/*"
+          />
+          <Button
+            variant="contained"
+            size="small"
+            style={{ marginLeft: 16 }}
+            tabIndex={params.hasFocus ? 0 : -1}
+            onClick={handleButtonClick}
+          >
+            Update
+          </Button>
+        </div>
       )
     },
   ];
