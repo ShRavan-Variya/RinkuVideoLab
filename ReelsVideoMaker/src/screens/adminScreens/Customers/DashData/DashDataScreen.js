@@ -79,12 +79,10 @@ const DashDataScreen = () => {
   };
 
   const uploadData = async (fileInputRef, id, type) => {
-    const formData = new FormData();
     const selectedImage = fileInputRef.current.files[0]
+    const formData = new FormData();
     formData.append("image", selectedImage);
     formData.append("id", id);
-
-    console.log(formData);
 
     try {
       let url = 'http://localhost:80/reelsvideoapis/admin/upload_data_images.php';
@@ -103,6 +101,7 @@ const DashDataScreen = () => {
         }
         
       } else {
+        console.log('ERR', JSON.stringify(res));
         alert(res.data.message)
       }
     } catch (ex) {

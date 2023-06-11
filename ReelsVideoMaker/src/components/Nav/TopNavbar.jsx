@@ -28,23 +28,6 @@ export default function TopNavbar({ isLogin }) {
     };
   }, [y]);
 
-  useEffect(() => {
-    let handler = (e) => {
-      if (!menuRef.current.contains(e.target)) {
-        setShowUserPopup(false);
-        console.log(menuRef.current);
-      }
-    };
-
-    document.addEventListener("mousedown", handler);
-
-
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    }
-
-  });
-
   const doLogout = () => {
     const userData = cookies.get("userData");
 

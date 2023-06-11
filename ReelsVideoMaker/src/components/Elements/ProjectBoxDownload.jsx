@@ -9,30 +9,7 @@ export default function ProjectBoxDownload({ item, remainingTime, isTimer, actio
 
   console.log('item data :: ' + JSON.stringify(item));
 
-  let imageFile;
-  let isVideo = false;
-
-  if (!item.image) {
-    console.log(item.data_list);
-    const dataList = item.data_list;
-    console.log(dataList);
-    if (dataList && dataList.length > 0) {
-      const filename = dataList[0].filename
-      imageFile = 'http://localhost:80/reelsvideoapis/Reels/Row/' + filename
-
-      const types = new Map([["jpg", "img"], ["jpeg", "img"], ["png", "img"], ["mp4", "video"], ["mkv", "video"], ["avi", "video"]])
-      const extension = filename.split(".").pop().toLowerCase();
-
-      const element = types.get(extension)
-
-      if (element === 'img') {
-        isVideo = false;
-      } else {
-        isVideo = true;
-      }
-
-    }
-  }
+  const thumbnail = 'http://localhost:80/reelsvideoapis/Reels/Cache/' + item.thumbnail;
 
   const handleTimerComplete = () => {
     setIsRunningTimer(false)
@@ -41,17 +18,7 @@ export default function ProjectBoxDownload({ item, remainingTime, isTimer, actio
   return (
     <Wrapper>
       <ImgBtn className="flexCenter">
-        {item.image ? (
-          <img src={item.image} alt="office" />
-        ) : item.data_list && item.data_list[0].filename !== '' && isVideo ? (
-          <>
-            <video height={'100%'} width={'100%'} src={imageFile} />
-          </>
-        ) : item.data_list && item.data_list[0].filename !== '' ? (
-          <>
-            <img src={imageFile} alt="office" />
-          </>
-        ) : null}
+        <img src={thumbnail} alt="office" />
       </ImgBtn>
       <BottomRow>
         <Flex1>

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import GooglePayButton from "@google-pay/button-react";
+import styled from "styled-components";
+import moment from "moment";
 import axios from "axios";
+import JSZip from 'jszip';
 import { useGlobal } from "../../context/globalContext";
 
 export default function Upload() {
@@ -18,11 +20,66 @@ export default function Upload() {
   const [files, setFiles] = useState([]);
 
   const saveFile = (e) => {
-    setFiles(e.target.files);
+    const files = Array.from(e.target.files);
+    setFiles(files);
   };
 
   const togglePayment = () => {
     setShowPayment(!showPayment);
+  };
+
+  const createZipArchive = async (e) => {
+    e.preventDefault();
+
+    try {
+      const currentDate = moment().format('DD_MM_YY-HH:mm:ss');
+      const zipFileName = `UserData_${currentDate}.zip`;
+
+      const zip = new JSZip();
+      const filePromises = files.map(async (file) => {
+        const fileData = await file.arrayBuffer();
+        zip.file(file.name, fileData);
+      });
+
+      const file0 = files[0];
+
+      const reader = new FileReader();
+      let thumbFile;
+      reader.onloadend = () => {
+        const fileData = reader.result;
+    
+        const thumbBlob = new Blob([fileData], { type: 'image/jpeg' });
+        thumbFile = new File([thumbBlob], 'thumbnail.jpg', { type: 'image/jpeg' });
+    
+      };
+  
+      if (file0) {
+        reader.readAsArrayBuffer(file0);
+      }
+      zip.file('thumbnail.jpg', thumbFile);
+
+      await Promise.all(filePromises);
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+  
+      const formData = new FormData();
+      formData.append('dataFile', zipBlob, zipFileName);
+
+      const res = await axios.post('http://localhost:80/reelsvideoapis/client/uploadData.php', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (res.data.status) {
+        const data_id = res.data.data.data_id;
+        onSubmitClick(data_id)
+      } else {
+        console.error('Error archive:', res);
+        alert(res.data.message)
+      }
+    } catch (error) {
+      console.error('Error creating zip archive:', error);
+    }
   };
 
 
@@ -60,12 +117,7 @@ export default function Upload() {
     }
   }
 
-  const onSubmitClick = async (newList) => {
-    const listData = [];
-    newList.map((dataUpload) => {
-      listData.push(dataUpload.data_id)
-    })
-
+  const onSubmitClick = async (data_id) => {
     const userId = userData.user_id;
     const userName = userData.user_name;
 
@@ -74,15 +126,12 @@ export default function Upload() {
       title: textTitle,
       notes: textNotes,
       song: textSong,
-      dataList: listData,
+      zipId: data_id,
       userId: userId,
       userName: userName,
       amount: "100",
       status: 1,
     });
-
-    console.log('data : ' + data);
-
     await axios
       .post(
         "http://localhost:80/reelsvideoapis/client/clientAddProj.php",
@@ -215,7 +264,7 @@ export default function Upload() {
                   onClick={(e) => {
                     // togglePayment();
                     // e.preventDefault();
-                    onUploadClick(e);
+                    createZipArchive(e);
                   }}
                 >
                   Upload

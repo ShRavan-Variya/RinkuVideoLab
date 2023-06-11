@@ -1,19 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import styled from "styled-components";
 import { Button } from "@mui/material";
 
 export default function DashImageData(props) {
   const fileInputRef = useRef(null);
-
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleImageChange = (e, id) => {
-    // const file = e.target.files[0];
-    props.uploadData(fileInputRef, id);
-  };
+  const [id, setId] = useState()
 
   const columns = [
     {
@@ -41,7 +33,13 @@ export default function DashImageData(props) {
             type="file"
             ref={fileInputRef}
             style={{ display: 'none' }}
-            onChange={(e) => handleImageChange(e,  params.row.id)}
+            onChange={(e) => {
+              if (fileInputRef && fileInputRef.current) {
+                props.uploadData(fileInputRef, id);
+              } else {
+                alert("Try after some time!")
+              }
+            }}
             accept="image/*"
           />
           <Button
@@ -49,7 +47,14 @@ export default function DashImageData(props) {
             size="small"
             style={{ marginLeft: 16 }}
             tabIndex={params.hasFocus ? 0 : -1}
-            onClick={handleButtonClick}
+            onClick={() => {
+              if (fileInputRef && fileInputRef.current) {
+                setId(params.row.id)
+                fileInputRef.current.click();
+              } else {
+                alert("Try after some time!")
+              }
+            }}
           >
             Update
           </Button>
