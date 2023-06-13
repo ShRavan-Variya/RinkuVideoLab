@@ -70,7 +70,6 @@ const AdminDashBoard = () => {
       .then(function (response) {
         if (response.data.status === true) {
           const listData = response.data.data;
-          console.log('listData ::: ' + JSON.stringify(listData));
           if (listData.length > 0) {
             const newList = [];
             listData.sort((a, b) => b.created_at.localeCompare(a.created_at));

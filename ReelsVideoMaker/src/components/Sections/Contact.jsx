@@ -11,7 +11,7 @@ import Whatsapp from "../../assets/svg/Whatsapp";
 export default function Contact({ image1, image2, image3 }) {
   return (
     <Wrapper id="contact">
-      <div className="lightBg" style={{ paddingBottom: 10 }}>
+      <div className="lightBg" style={{ paddingBottom: 50 }}>
         <AddMain className="container">
           <AddLeft>
             <HeaderInfo>
@@ -151,7 +151,8 @@ const AddLeft = styled.div`
 `;
 const AddRight = styled.div`
   width: 40%;
-  margin: 25% 0;
+  margin: 10% 0;
+  // margin: 25% 0;
   z-index: 9;
   @media (max-width: 860px) {
     width: 80%;

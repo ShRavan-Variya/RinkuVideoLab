@@ -41,22 +41,27 @@ export default function Upload() {
         zip.file(file.name, fileData);
       });
 
-      const file0 = files[0];
+      const thumbFilePromise = new Promise((resolve) => {
+        const file0 = files[0];
+        if (file0) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const fileData = reader.result;
+            const thumbBlob = new Blob([fileData], { type: 'image/jpeg' });
+            const thumbFile = new File([thumbBlob], 'thumbnail.jpg', { type: 'image/jpeg' });
+            resolve(thumbFile);
+          };
+          reader.readAsArrayBuffer(file0);
+        } else {
+          resolve(null);
+        }
+      });
 
-      const reader = new FileReader();
-      let thumbFile;
-      reader.onloadend = () => {
-        const fileData = reader.result;
-    
-        const thumbBlob = new Blob([fileData], { type: 'image/jpeg' });
-        thumbFile = new File([thumbBlob], 'thumbnail.jpg', { type: 'image/jpeg' });
-    
-      };
-  
-      if (file0) {
-        reader.readAsArrayBuffer(file0);
+      const thumbFile = await thumbFilePromise;
+      if (thumbFile) {
+        const thumbFileData = await thumbFile.arrayBuffer();
+        zip.file('thumbnail.jpg', thumbFileData);
       }
-      zip.file('thumbnail.jpg', thumbFile);
 
       await Promise.all(filePromises);
       const zipBlob = await zip.generateAsync({ type: 'blob' });

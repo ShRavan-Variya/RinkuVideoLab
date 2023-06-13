@@ -42,35 +42,39 @@ export default function UserDisplay() {
                 zipPath
               );
 
-              const data = {
-                order_id: listData[currentItem].order_id,
-                proj_name: listData[currentItem].proj_name,
-                title: listData[currentItem].title,
-                notes: listData[currentItem].notes,
-                song: listData[currentItem].song,
-                zipId: listData[currentItem].zipId,
-                user_id: listData[currentItem].user_id,
-                user_name: listData[currentItem].user_name,
-                amount: listData[currentItem].amount,
-                paymentId: listData[currentItem].paymentId,
-                image: listData[currentItem].image,
-                status: listData[currentItem].status,
-                thumbnail: dataImage.result === true ? dataImage.fileName : '',
-                downloadLink: listData[currentItem].downloadLink,
-                downloadTime: listData[currentItem].downloadTime,
-                created_at: listData[currentItem].created_at,
-                updated_at: listData[currentItem].updated_at,
-                data_list: {
-                  data_id: listData[currentItem].data_list.data_id,
-                  filename: listData[currentItem].data_list.filename,
-                  folder: listData[currentItem].data_list.folder,
-                  created_at: listData[currentItem].data_list.created_at,
-                  updated_at: listData[currentItem].data_list.updated_at,
-                },
-              };
+              if ( dataImage.result) {
+                const data = {
+                  order_id: dataItem.order_id,
+                  proj_name: dataItem.proj_name,
+                  title: dataItem.title,
+                  notes: dataItem.notes,
+                  song: dataItem.song,
+                  zipId: dataItem.zipId,
+                  user_id: dataItem.user_id,
+                  user_name: dataItem.user_name,
+                  amount: dataItem.amount,
+                  paymentId: dataItem.paymentId,
+                  image: dataItem.image,
+                  status: dataItem.status,
+                  thumbnail: dataImage.fileName,
+                  downloadLink: dataItem.downloadLink,
+                  downloadTime: dataItem.downloadTime,
+                  created_at: dataItem.created_at,
+                  updated_at: dataItem.updated_at,
+                  data_list: {
+                    data_id: dataItem.data_list.data_id,
+                    filename: dataItem.data_list.filename,
+                    folder: dataItem.data_list.folder,
+                    created_at: dataItem.data_list.created_at,
+                    updated_at: dataItem.data_list.updated_at,
+                  },
+                };
+  
+                newList.push(data);
+                currentItem++;
+              }
 
-              newList.push(data);
-              currentItem++;
+              
             } while (currentItem < listLength);
 
             if (currentItem >= listLength) {
@@ -96,14 +100,12 @@ export default function UserDisplay() {
       zipPath: zipPath,
     });
 
-    return axios
-      .post(url, data)
-      .then((response) => {
-        return { result: true, fileName: response.data.zipFileName };
-      })
-      .catch((err) => {
-        return { result: false, fileName: "" };
-      });
+    const response = await axios.post(url, data)
+    if (response.data.status === true) {
+      return { result: true, fileName: response.data.zipFileName };
+    } else {
+      return { result: false, fileName: "" };
+    }
   };
 
   return (
