@@ -36,7 +36,7 @@ const OrdersScreen = () => {
                 payment: item.amount,
                 orderDateTime: createdAt,
                 uploadingDateTime: downloadTime,
-                status: item.status === "1" ? "Pending" : "Working",
+                status: item.status === "1" ? "Pending" : item.status === "2" ? "Working" : "Done",
                 zipId: item.zipId,
                 user_id: item.user_id,
                 paymentId: item.paymentId,
@@ -77,11 +77,13 @@ const OrdersScreen = () => {
       console.log(res.data);
 
       if (res.data.status) {
-        if (type === 1) {
-          doGetDataImages()
-        } else {
-          doGetDataProjects()
-        }
+        const newList = [...listOfOrders];
+        newList.map((item) => {
+          if (item.id === id) {
+            item.status = "Done"
+          }
+        })
+        setListOfOrders(newList)
       } else {
         console.log('ERR', JSON.stringify(res));
         alert(res.data.message)
@@ -112,9 +114,17 @@ const OrdersScreen = () => {
           pageSize={9}
           listOrder={listOfOrders}
           onClickDownload={(item) => {
+            const newList = [...listOfOrders];
+            newList.map((_item) => {
+              if (_item.id === item.id) {
+                _item.status = "Working"
+              }
+            })
+
             const filename = item.data_list.filename;
             const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
             window.open(downloadLink, '_blank');
+            setListOfOrders(newList)
           }}
           onClickUpload={(fileInputRef, id) => uploadData(fileInputRef, id)}
         />

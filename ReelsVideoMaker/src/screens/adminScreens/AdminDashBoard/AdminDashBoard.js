@@ -87,7 +87,7 @@ const AdminDashBoard = () => {
                 payment: item.amount,
                 orderDateTime: createdAt,
                 uploadingDateTime: downloadTime,
-                status: item.status === '1' ? 'Pending' : 'Working',
+                status: item.status === "1" ? "Pending" : item.status === "2" ? "Working" : "Done",
                 downloadUserData: '',
                 uploadData: '',
               });
