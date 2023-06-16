@@ -66,11 +66,43 @@ const OrdersScreen = () => {
       });
   };
 
+  const updateStatus = async (item) => {
+    const statusData = JSON.stringify({
+      id: item.id,
+      status: 2,
+    });
+
+    await axios
+    .post(`http://localhost:80/reelsvideoapis/admin/update_status_order.php`, statusData)
+    .then(function (response) {
+      console.log("response :: " + JSON.stringify(response));
+      if (response.data.status === true) {
+        const newList = [...listOfOrders];
+        newList.map((_item) => {
+          if (_item.id === item.id) {
+            _item.status = "Working"
+          }
+        })
+
+        const filename = item.data_list.filename;
+        const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
+        window.open(downloadLink, '_blank');
+        setListOfOrders(newList)
+      }
+    })
+    .catch((error) => {
+      console.log("====================================");
+      console.log("ERR :: " + JSON.stringify(error));
+      console.log("====================================");
+    });
+  }
+
   const uploadData = async (fileInputRef, id) => {
     const selectedVideo = fileInputRef.current.files[0]
     const formData = new FormData();
     formData.append("video", selectedVideo);
     formData.append("id", id);
+    formData.append("status", 3);
 
     try {
       const res = await axios.post('http://localhost:80/reelsvideoapis/admin/upload_final_video.php', formData)
@@ -84,6 +116,7 @@ const OrdersScreen = () => {
           }
         })
         setListOfOrders(newList)
+        alert(res.data.message)
       } else {
         console.log('ERR', JSON.stringify(res));
         alert(res.data.message)
@@ -114,17 +147,7 @@ const OrdersScreen = () => {
           pageSize={9}
           listOrder={listOfOrders}
           onClickDownload={(item) => {
-            const newList = [...listOfOrders];
-            newList.map((_item) => {
-              if (_item.id === item.id) {
-                _item.status = "Working"
-              }
-            })
-
-            const filename = item.data_list.filename;
-            const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
-            window.open(downloadLink, '_blank');
-            setListOfOrders(newList)
+            updateStatus(item)
           }}
           onClickUpload={(fileInputRef, id) => uploadData(fileInputRef, id)}
         />

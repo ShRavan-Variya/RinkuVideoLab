@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Download from "../../assets/img/ic_download.png";
@@ -25,24 +25,19 @@ export default function ProjectBoxDownload({ item, remainingTime, isTimer, actio
           <h3 className="font20 extraBold">{item.proj_name}</h3>
           <p className="font13">{item.title}</p>
         </Flex1>
-        {isRunningTimer ? (
-          <Timer
-            remainingTime={remainingTime}
-            onTimerComplete={() => handleTimerComplete()}
-          />
-        ) : (
-          // <Link
-          //   to={item.downloadLink}
-          //   target="_blank"
-          //   download={fileName}
-          // >
+        {!item.downloadLink && isRunningTimer ? (
+            <Timer
+              remainingTime={remainingTime}
+              onTimerComplete={() => handleTimerComplete()}
+            />
+          ) : (
             <FlexButton className="flexCenter lightBg">
               <img src={Download} alt="office" onClick={() => {
-                action()
+                action(item)
               }} />
             </FlexButton>
-          // </Link>
-        )}
+          )
+        }
       </BottomRow>
     </Wrapper>
   );
