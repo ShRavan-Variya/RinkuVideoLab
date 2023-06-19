@@ -31,7 +31,7 @@ export default function LoginRegister() {
 
     await axios
       .post(
-        "http://localhost:80/reelsvideoapis/client/client_login.php",
+        "https://reelsmaker.in/apis/client/client_login.php",
         data
       )
       .then(function (response) {
@@ -73,7 +73,7 @@ export default function LoginRegister() {
 
     await axios
       .post(
-        "http://localhost:80/reelsvideoapis/client/client_register.php",
+        "https://reelsmaker.in/apis/client/client_register.php",
         data
       )
       .then(function (response) {

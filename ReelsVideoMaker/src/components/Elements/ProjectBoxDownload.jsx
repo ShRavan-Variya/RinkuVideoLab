@@ -9,7 +9,7 @@ export default function ProjectBoxDownload({ item, remainingTime, isTimer, actio
 
   console.log('item data :: ' + JSON.stringify(item));
 
-  const thumbnail = 'http://localhost:80/reelsvideoapis/Reels/Cache/' + item.thumbnail;
+  const thumbnail = 'https://reelsmaker.in/apis/Reels/Cache/' + item.thumbnail;
 
   const handleTimerComplete = () => {
     setIsRunningTimer(false)

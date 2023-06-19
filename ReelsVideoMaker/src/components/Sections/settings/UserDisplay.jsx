@@ -24,7 +24,7 @@ export default function UserDisplay() {
     console.log(userData);
     await axios
       .get(
-        `http://localhost:80/reelsvideoapis/client/get_projects.php?userId=${userId}`
+        `https://reelsmaker.in/apis/client/get_projects.php?userId=${userId}`
       )
       .then(async function (response) {
         if (response.data.status === true) {
@@ -38,7 +38,7 @@ export default function UserDisplay() {
               const dataItem = listData[currentItem];
               const zipPath = dataItem.data_list.folder;
               const dataImage = await extractThumbnailFromZip(
-                "http://localhost:80/reelsvideoapis/client/get_zipThumb.php",
+                "https://reelsmaker.in/apis/client/get_zipThumb.php",
                 zipPath
               );
 
@@ -146,7 +146,7 @@ export default function UserDisplay() {
                       // );
                       // // Create a blob with the data
                       
-                      // const fileUrl = 'http://localhost:80/reelsvideoapis/Reels/Cache/' + item.thumbnail;
+                      // const fileUrl = 'https://reelsmaker.in/apis/Reels/Cache/' + item.thumbnail;
                       // // const blob = new Blob([fileUrl], { type: 'video/mp4' }); // Replace 'video/mp4' with the appropriate MIME type
                       // // const url = URL.createObjectURL(blob);
 

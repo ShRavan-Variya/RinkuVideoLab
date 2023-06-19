@@ -69,7 +69,7 @@ export default function Upload() {
       const formData = new FormData();
       formData.append('dataFile', zipBlob, zipFileName);
 
-      const res = await axios.post('http://localhost:80/reelsvideoapis/client/uploadData.php', formData, {
+      const res = await axios.post('https://reelsmaker.in/apis/client/uploadData.php', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -100,7 +100,7 @@ export default function Upload() {
       formData.append("dataFile", files[currentItem]);
       try {
         const res = await axios.post(
-          "http://localhost:80/reelsvideoapis/client/uploadData.php",
+          "https://reelsmaker.in/apis/client/uploadData.php",
           formData
         )
 
@@ -139,7 +139,7 @@ export default function Upload() {
     });
     await axios
       .post(
-        "http://localhost:80/reelsvideoapis/client/clientAddProj.php",
+        "https://reelsmaker.in/apis/client/clientAddProj.php",
         data
       )
       .then(function (response) {
