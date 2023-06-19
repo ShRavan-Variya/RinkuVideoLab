@@ -124,8 +124,10 @@ export default function UserDisplay() {
                   .toDate()
                   .getTime();
                 let remainingTime = 0;
-                if (targetDateTime > new Date().getTime()) {
-                  remainingTime = moment(new Date(targetDateTime)).diff();
+                if(item.downloadLink !== undefined && item.downloadLink !== null) {
+                  if (targetDateTime > new Date().getTime()) {
+                    remainingTime = moment(new Date(targetDateTime)).diff();
+                  }
                 }
 
                 return (
@@ -134,7 +136,7 @@ export default function UserDisplay() {
                     item={item}
                     remainingTime={remainingTime}
                     isTimer={remainingTime > 0}
-                    action={() => {
+                    action={(item) => {
                       console.log("DONWLOAD");
 
                       // const filePath = '../../../../../Reels/Row/';
@@ -155,6 +157,14 @@ export default function UserDisplay() {
                       // link.download = item.thumbnail;
                       // link.click();
                       // URL.revokeObjectURL(fileUrl);
+                      console.log("item :: ", item);
+                      if (item.downloadLink) {
+                        const filename = item.downloadLink;
+                        const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
+                        window.open(downloadLink, '_blank');
+                      } else {
+                        alert("Please contact the admin at +919377603050")
+                      }
                     }}
                   />
               )})}

@@ -37,8 +37,6 @@
     $data_id = $dataId["data_id"];
 
     date_default_timezone_set("Asia/Kolkata");
-    $created_at = date("Y-m-d H:i:s");
-    $updated_at = $created_at;
 
     $filename = $_FILES["dataFile"]["name"];
     $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -47,7 +45,7 @@
     $folder = "../Reels/Row/".$filenamenew;
     
 
-    $sql = "INSERT INTO datatable VALUES('$data_id', '$filenamenew', '$folder', '$created_at', '$updated_at');";
+    $sql = "INSERT INTO datatable VALUES('$data_id', '$filenamenew', '$folder', NOW(), NOW());";
 
     if (mysqli_query($con, $sql)) {
       if (move_uploaded_file($tempname, $folder)) {

@@ -24,7 +24,7 @@
 		mysqli_close($con);
 	}
 
-	$sql="SELECT * FROM dashImages";
+	$sql="SELECT * FROM dashImages ORDER BY imageName DESC";
 
 	$query = mysqli_query($con,$sql);
 

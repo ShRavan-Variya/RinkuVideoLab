@@ -24,7 +24,7 @@
   $title = $contentDecode['title'];
   $notes = $contentDecode['notes'];
   $song = $contentDecode['song'];
-  $data_list = json_encode($contentDecode['dataList']);
+  $zipId = $contentDecode['zipId'];
   $user_id = $contentDecode['userId'];
   $user_name = $contentDecode['userName'];
   $amount = $contentDecode['amount'];
@@ -52,19 +52,17 @@
   	return $dataNew;
   }
 
-  function addProject($con, $dataId, $proj_name, $title, $notes, $song, $data_list, $user_id, $user_name, $amount, $status) {
+  function addProject($con, $dataId, $proj_name, $title, $notes, $song, $zipId, $user_id, $user_name, $amount, $status) {
 	$order_id = $dataId['order_id'];
 
 	date_default_timezone_set('Asia/Kolkata');
-	$created_at = date('Y-m-d H:i:s');
-	$updated_at = $created_at;
 
 	$paymentId = '';
 	$image = '';
 	$downloadLink = '';
 	$downloadTime = date("Y-m-d H:i:s", strtotime('+2 hours'));
 
-	$sql="INSERT INTO userorder VALUES('$order_id', '$proj_name', '$title', '$notes', '$song', '$data_list', '$user_id', '$user_name', $amount, '$paymentId', '$image', $status, '$downloadLink', '$downloadTime', '$created_at', '$updated_at');";
+	$sql="INSERT INTO userorder VALUES('$order_id', '$proj_name', '$title', '$notes', '$song', '$zipId', '$user_id', '$user_name', $amount, '$paymentId', '$image', $status, '$downloadLink', DATE_ADD(NOW(),interval 2 hour), NOW(), NOW());";
 
 	if(mysqli_query($con,$sql)) {
 
@@ -73,7 +71,7 @@
 	  $data["title"] = $title;
 	  $data["notes"] = $notes;
 	  $data["song"] = $song;
-	  $data["data_list"] = json_decode($data_list);
+	  $data["zipId"] = $zipId;
 	  // $data["resultDataFinal"] =$resultDataFinal;
 	  $data["user_id"] = $user_id;
 	  $data["user_name"] = $user_name;
@@ -83,8 +81,6 @@
 	  $data["status"] = $status;
 	  $data["downloadLink"] = $downloadLink;
 	  $data["downloadTime"] = $downloadTime;
-	  $data["created_at"] = $created_at;
-	  $data["updated_at"] = $updated_at;
 
 	  $response["status"]=true;
 	  $response["message"]="Data uploaded successfully!";
@@ -101,7 +97,7 @@
   $dataId = orderId($con);
 
   if ($dataId['countId'] == 0) {
-	addProject($con, $dataId, $project_name, $title, $notes, $song, $data_list, $user_id, $user_name, $amount, $status);
+	addProject($con, $dataId, $project_name, $title, $notes, $song, $zipId, $user_id, $user_name, $amount, $status);
   } else {
 	do {
 	  $dataId = orderId($con);

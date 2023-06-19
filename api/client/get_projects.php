@@ -32,22 +32,11 @@
 		$res_array = array();
 
 		while ($row = mysqli_fetch_assoc($query)) {
-			$dataList = json_decode($row['data_list']);
-			$i = 0;
-			$res_data_array = array();
+			$zipId = $row['zipId'];
 
-			do {
-				$dataId = $dataList[$i];
-				$sqlData = "SELECT * FROM `datatable` WHERE data_id='$dataId' ORDER BY `datatable`.`created_at` DESC";
-				$queryData = mysqli_query($con, $sqlData);
-				$data_array = array();
-				
-				while ($rowData = mysqli_fetch_assoc($queryData)) {
-					$res_data_array[] = $rowData;
-				}
-
-				$i = $i + 1;
-			} while ($i < count($dataList));
+			$sqlData = "SELECT * FROM `datatable` WHERE data_id='$zipId' ORDER BY `datatable`.`created_at` DESC";
+			$queryData = mysqli_query($con, $sqlData);
+			$res_data_array = mysqli_fetch_assoc($queryData);
 
 			$dataItem = $row;
 			$dataItem['data_list'] = $res_data_array;
