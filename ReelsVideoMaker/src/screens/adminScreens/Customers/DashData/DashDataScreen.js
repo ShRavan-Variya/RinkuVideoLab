@@ -16,7 +16,7 @@ const DashDataScreen = () => {
 
   const doGetDataImages = async () => {
     await axios
-      .get('https://reelsmaker.in/apis/client/get_dashImages.php')
+      .get('http://localhost:80/reelsvideoapis/client/get_dashImages.php')
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -30,7 +30,7 @@ const DashDataScreen = () => {
               newList.push({
                 id: item.id,
                 imageName: item.imageName,
-                image: 'https://reelsmaker.in/apis/Reels/DashData/' + item.image,
+                image: 'http://localhost:80/reelsvideoapis/Reels/DashData/' + item.image,
                 created_at: createdAt,
                 updated_at: updatedAt,
               })
@@ -48,7 +48,7 @@ const DashDataScreen = () => {
 
   const doGetDataProjects = async () => {
     await axios
-      .get('https://reelsmaker.in/apis/client/get_dashProjects.php')
+      .get('http://localhost:80/reelsvideoapis/client/get_dashProjects.php')
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -62,7 +62,7 @@ const DashDataScreen = () => {
               newList.push({
                 id: item.id,
                 imageName: item.image,
-                image: 'https://reelsmaker.in/apis/Reels/DashData/' + item.image,
+                image: 'http://localhost:80/reelsvideoapis/Reels/DashData/' + item.image,
                 created_at: createdAt,
                 updated_at: updatedAt,
               })
@@ -85,9 +85,9 @@ const DashDataScreen = () => {
     formData.append("id", id);
 
     try {
-      let url = 'https://reelsmaker.in/apis/admin/upload_data_images.php';
+      let url = 'http://localhost:80/reelsvideoapis/admin/upload_data_images.php';
       if (type === 2) {
-        url = 'https://reelsmaker.in/apis/admin/upload_data_projects.php';
+        url = 'http://localhost:80/reelsvideoapis/admin/upload_data_projects.php';
       }
 
       const res = await axios.post(url, formData)

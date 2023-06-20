@@ -48,7 +48,7 @@ const AdminDashBoard = () => {
   const getCounts = async (type) => {
     await axios
       .get(
-        `https://reelsmaker.in/apis/admin/get_dashcount.php?countType=${type}`
+        `http://localhost:80/reelsvideoapis/admin/get_dashcount.php?countType=${type}`
       )
       .then(function (response) {
         // console.log("response :: " + JSON.stringify(response));
@@ -66,7 +66,7 @@ const AdminDashBoard = () => {
 
   const getProjectByType = async () => {
     await axios
-      .get(`https://reelsmaker.in/apis/admin/get_user_projects.php`)
+      .get(`http://localhost:80/reelsvideoapis/admin/get_user_projects.php`)
       .then(function (response) {
         if (response.data.status === true) {
           const listData = response.data.data;

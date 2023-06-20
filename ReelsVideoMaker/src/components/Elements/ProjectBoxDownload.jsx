@@ -9,7 +9,7 @@ export default function ProjectBoxDownload({ item, remainingTime, isTimer, actio
 
   console.log('item data :: ' + JSON.stringify(item));
 
-  const thumbnail = 'https://reelsmaker.in/apis/Reels/Cache/' + item.thumbnail;
+  const thumbnail = 'http://localhost:80/reelsvideoapis/Reels/Cache/' + item.thumbnail;
 
   const handleTimerComplete = () => {
     setIsRunningTimer(false)
@@ -22,24 +22,30 @@ export default function ProjectBoxDownload({ item, remainingTime, isTimer, actio
       </ImgBtn>
       <BottomRow>
         <Flex1>
-          <h3 className="font20 extraBold">{item.proj_name}</h3>
+          <h3 className="font20 extraBold" style={{
+            display: 'block',
+            width: '200px',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+          }}>{item.proj_name}</h3>
           <p className="font13">{item.title}</p>
         </Flex1>
         {!item.downloadLink && isRunningTimer ? (
-            <Timer
-              remainingTime={remainingTime}
-              onTimerComplete={() => handleTimerComplete()}
-            />
-          ) : (
-            <FlexButton className="flexCenter lightBg">
-              <img src={Download} alt="office" onClick={() => {
-                action(item)
-              }} />
-            </FlexButton>
-          )
+          <Timer
+            remainingTime={remainingTime}
+            onTimerComplete={() => handleTimerComplete()}
+          />
+        ) : (
+          <FlexButton className="flexCenter lightBg">
+            <img src={Download} alt="office" onClick={() => {
+              action(item)
+            }} />
+          </FlexButton>
+        )
         }
       </BottomRow>
-    </Wrapper>
+    </Wrapper >
   );
 }
 

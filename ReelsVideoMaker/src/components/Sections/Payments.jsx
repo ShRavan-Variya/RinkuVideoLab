@@ -21,7 +21,7 @@ export default function Payments() {
 
     await axios
       .get(
-        `https://reelsmaker.in/apis/client/get_projects.php?userId=${userId}`
+        `http://localhost:80/reelsvideoapis/client/get_projects.php?userId=${userId}`
       )
       .then(function (response) {
         // console.log("response :: " + JSON.stringify(response));

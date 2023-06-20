@@ -14,7 +14,7 @@ const AdminScreen = () => {
 
   const getAdmins = async () => {
     await axios
-      .get(`https://reelsmaker.in/apis/admin/get_admins.php`)
+      .get(`http://localhost:80/reelsvideoapis/admin/get_admins.php`)
       .then(function (response) {
         if (response.data.status === true) {
           const listData = response.data.data;
