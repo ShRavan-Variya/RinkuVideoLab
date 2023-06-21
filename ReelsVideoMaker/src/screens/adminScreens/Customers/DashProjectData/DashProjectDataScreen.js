@@ -5,16 +5,16 @@ import moment from 'moment';
 import axios from "axios";
 import { DashImageData } from "../../../../components";
 
-const DashDataScreen = () => {
-  const [listOfDashImages, setListOfDashImages] = useState([]);
+const DashProjectDataScreen = () => {
+  const [listOfDashProjects, setListOfDashProjects] = useState([]);
 
   useEffect(() => {
-    doGetDataImages();
+    doGetDataProjects();
   }, [])
 
-  const doGetDataImages = async () => {
+  const doGetDataProjects = async () => {
     await axios
-      .get('http://localhost:80/reelsvideoapis/client/get_dashImages.php')
+      .get('http://localhost:80/reelsvideoapis/client/get_dashProjects.php')
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -27,13 +27,13 @@ const DashDataScreen = () => {
               const updatedAt = moment(item.updated_at).format('DD/MM/YYYY - hh:mm:ss a');
               newList.push({
                 id: item.id,
-                imageName: item.imageName,
+                imageName: item.image,
                 image: 'http://localhost:80/reelsvideoapis/Reels/DashData/' + item.image,
                 created_at: createdAt,
                 updated_at: updatedAt,
               })
             })
-            setListOfDashImages(newList)
+            setListOfDashProjects(newList)
           }
         }
       })
@@ -44,18 +44,19 @@ const DashDataScreen = () => {
       });
   };
 
-  const uploadData = async (fileInputRef, id, type) => {
+  const uploadData = async (fileInputRef, id) => {
     const selectedImage = fileInputRef.current.files[0]
     const formData = new FormData();
     formData.append("image", selectedImage);
     formData.append("id", id);
 
     try {
-      const res = await axios.post('http://localhost:80/reelsvideoapis/admin/upload_data_images.php', formData)
+
+      const res = await axios.post('http://localhost:80/reelsvideoapis/admin/upload_data_projects.php', formData)
       console.log(res.data);
 
       if (res.data.status) {
-        doGetDataImages()
+          doGetDataProjects()        
       } else {
         console.log('ERR', JSON.stringify(res));
         alert(res.data.message)
@@ -80,8 +81,8 @@ const DashDataScreen = () => {
           ease: "easeInOut",
         }}
       >
-        <div className="textTitle1">{'Top-Bottom List'}</div>
-        <DashImageData style={{ display: 'flex' }} listImages={listOfDashImages} onClickUpload={(fileInputRef, id) => uploadData(fileInputRef, id)} />
+        <TextTitle className="textTitle1">{'Awesome Projects'}</TextTitle>
+        <DashImageData style={{ display: 'flex' }} listImages={listOfDashProjects} onClickUpload={(fileInputRef, id) => uploadData(fileInputRef, id)} />
       </motion.div>
     </div >
   );
@@ -92,4 +93,4 @@ const TextTitle = styled.div`
 `;
 
 
-export default DashDataScreen;
+export default DashProjectDataScreen;

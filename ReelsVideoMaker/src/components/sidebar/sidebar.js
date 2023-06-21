@@ -32,6 +32,12 @@ const routes = [
   //   // subRoutes: [],
   // },
   {
+    path: "/admin/DashProjectData",
+    name: "DashBoardProjects",
+    icon: <IcUser height={22} width={22} />,
+    // subRoutes: [],
+  },
+  {
     path: "/admin/DashData",
     name: "DashboardData",
     icon: <IcUser height={22} width={22} />,

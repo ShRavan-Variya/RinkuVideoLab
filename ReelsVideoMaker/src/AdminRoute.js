@@ -9,6 +9,7 @@ import {
   ClientScreen,
   AdminDashBoard,
   OrdersScreen,
+  DashProjectDataScreen,
   DashDataScreen,
 } from "./screens";
 import { SideBar } from './components';
@@ -28,6 +29,7 @@ function AdminRoute() {
           <Route path="/Orders" element={<OrdersScreen />} />
           <Route path="/Admins" element={<AdminScreen />} />
           <Route path="/Clients" element={<ClientScreen />} />
+          <Route path="/DashProjectData" element={<DashProjectDataScreen />} />
           <Route path="/DashData" element={<DashDataScreen />} />
           <Route path="*" element={<> not found</>} />
         </Routes>

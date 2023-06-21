@@ -35,7 +35,7 @@ export default function DashImageData(props) {
             style={{ display: 'none' }}
             onChange={(e) => {
               if (fileInputRef && fileInputRef.current) {
-                props.uploadData(fileInputRef, id);
+                props.onClickUpload(fileInputRef, id);
               } else {
                 alert("Try after some time!")
               }
@@ -66,15 +66,14 @@ export default function DashImageData(props) {
   return (
     <div
       className="flex"
-      style={{ height: "40%", width: "100%", overflowY: "hidden", marginTop: 25 }}
+      style={{ height: "87%", width: "100%", overflowY: "hidden", marginTop: 25 }}
     >
       <DataGrid
-        disableColumnMenu
         rows={props.listImages}
-        getRowId={(row) => row.id}
         columns={columns}
         rowHeight={100}
         hideFooter
+        // rowsPerPageOptions={[5]}
       />
     </div>
   );
