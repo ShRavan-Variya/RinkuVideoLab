@@ -40,8 +40,20 @@
     $zip = new ZipArchive;
 	if ($zip->open($zipPath) === TRUE) {
 		$thumbnailIndex = $zip->locateName('thumbnail.jpg');
+		$videoThumbnailIndex = $zip->locateName('video-thumbnail.jpg');
+	
+		$thumbnailData = null;
+		$thumbnailName = null;
+
 		if ($thumbnailIndex !== false) {
 			$thumbnailData = $zip->getFromIndex($thumbnailIndex);
+			$thumbnailName = 'thumbnail.jpg';
+		} elseif ($videoThumbnailIndex !== false) {
+			$thumbnailData = $zip->getFromIndex($videoThumbnailIndex);
+			$thumbnailName = 'video-thumbnail.jpg';
+		}
+
+		if ($thumbnailData !== null) {
 			if (file_put_contents($targetPath, $thumbnailData) !== false) {
 				$response["status"] = true;
 				$response["message"] = "Successfully extracted and saved the thumbnail!";
@@ -49,19 +61,19 @@
 				header('Content-type: application/json');
 				echo json_encode($response);
 			} else {
-                $response["zipFileName"] = $zipFileName . '.jpg';
-                $response["status"] = false;
-                $response["message"] = "Failed to save the thumbnail.";
+				$response["zipFileName"] = $zipFileName . '.jpg';
+				$response["status"] = false;
+				$response["message"] = "Failed to save the thumbnail.";
 				header('Content-type: application/json');
 				echo json_encode($response);
-            }		
+			}
 		} else {
-            $response["zipFileName"] = $zipFileName . '.jpg';
-            $response["status"] = false;
-            $response["message"] = "Thumbnail not found in the zip file.";
+			$response["zipFileName"] = $zipFileName . '.jpg';
+			$response["status"] = false;
+			$response["message"] = "Thumbnail not found in the zip file.";
 			header('Content-type: application/json');
 			echo json_encode($response);
-        }
+		}
 		$zip->close();
 	} else {
 		errorRes($con, $zipFileName);

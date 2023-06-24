@@ -4,7 +4,7 @@ import GooglePayButton from "@google-pay/button-react";
 import styled from "styled-components";
 import moment from "moment";
 import axios from "axios";
-import JSZip from 'jszip';
+import JSZip from "jszip";
 import { useGlobal } from "../../context/globalContext";
 
 export default function Upload() {
@@ -28,65 +28,113 @@ export default function Upload() {
     setShowPayment(!showPayment);
   };
 
+  const filePromise = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const fileData = reader.result;
+        resolve(fileData);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  };
+  function convertDataUrlToBlob(dataUrl) {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+  }
+
+  const generateVideoThumbnail = (videoFile) => {
+    return new Promise((resolve, reject) => {
+      const video = document.createElement('video');
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      
+      // video.preload = 'metadata';
+      video.src = URL.createObjectURL(videoFile);
+      video.onloadedmetadata = function() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const thumbnailDataUrl = canvas.toDataURL('image/jpeg');
+        const thumbnailData = convertDataUrlToBlob(thumbnailDataUrl);
+        resolve(thumbnailData);
+      };
+      video.onerror = function() {
+        reject(new Error('Error loading video'));
+      };
+    });
+  };
+
   const createZipArchive = async (e) => {
     e.preventDefault();
 
     try {
-      const currentDate = moment().format('DD_MM_YY-HH:mm:ss');
+      const currentDate = moment().format("DD_MM_YY-HH:mm:ss");
       const zipFileName = `UserData_${currentDate}.zip`;
 
       const zip = new JSZip();
-      const filePromises = files.map(async (file) => {
-        const fileData = await file.arrayBuffer();
-        zip.file(file.name, fileData);
-      });
+      const thumbnailFile = files.find((file) => file.type.startsWith("image/"));
+      const videoFile = files.find((file) => file.type.startsWith("video/"));
 
-      const thumbFilePromise = new Promise((resolve) => {
-        const file0 = files[0];
-        if (file0) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const fileData = reader.result;
-            const thumbBlob = new Blob([fileData], { type: 'image/jpeg' });
-            const thumbFile = new File([thumbBlob], 'thumbnail.jpg', { type: 'image/jpeg' });
-            resolve(thumbFile);
-          };
-          reader.readAsArrayBuffer(file0);
-        } else {
-          resolve(null);
-        }
-      });
+      const thumbnailDataPromise = thumbnailFile ? filePromise(thumbnailFile) : null;
+      const videoThumbnailPromise = videoFile ? generateVideoThumbnail(videoFile) : null;
 
-      const thumbFile = await thumbFilePromise;
-      if (thumbFile) {
-        const thumbFileData = await thumbFile.arrayBuffer();
-        zip.file('thumbnail.jpg', thumbFileData);
+      const thumbnailData = await thumbnailDataPromise;
+      const videoThumbnailData = await videoThumbnailPromise;
+
+      if (thumbnailData) {
+        const thumbBlob = new Blob([thumbnailData], { type: "image/jpeg" });
+        const thumbFile = new File([thumbBlob], "thumbnail.jpg", { type: "image/jpeg" });
+        zip.file("thumbnail.jpg", thumbFile);
       }
 
-      await Promise.all(filePromises);
-      const zipBlob = await zip.generateAsync({ type: 'blob' });
-  
-      const formData = new FormData();
-      formData.append('dataFile', zipBlob, zipFileName);
+      if (videoThumbnailData) {
+        const videoThumbBlob = new Blob([videoThumbnailData], { type: "image/jpeg" });
+        const videoThumbFile = new File([videoThumbBlob], "video-thumbnail.jpg", { type: "image/jpeg" });
+        zip.file("video-thumbnail.jpg", videoThumbFile);
+      }
 
-      const res = await axios.post('http://localhost:80/reelsvideoapis/client/uploadData.php', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      if (videoFile) {
+        const videoData = await filePromise(videoFile);
+        zip.file(videoFile.name, videoData);
+      }
+
+      await Promise.all(
+        files.map(async (file) => {
+          const fileData = await file.arrayBuffer();
+          zip.file(file.name, fileData);
+        })
+      );
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+
+      const formData = new FormData();
+      formData.append("dataFile", zipBlob, zipFileName);
+
+      const res = await axios.post(
+        "http://localhost:80/reelsvideoapis/client/uploadData.php",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
 
       if (res.data.status) {
         const data_id = res.data.data.data_id;
-        onSubmitClick(data_id)
+        onSubmitClick(data_id);
       } else {
-        console.error('Error archive:', res);
-        alert(res.data.message)
+        console.error("Error archive:", res);
+        alert(res.data.message);
       }
     } catch (error) {
-      console.error('Error creating zip archive:', error);
+      console.error("Error creating zip archive:", error);
     }
   };
-
 
   const onUploadClick = async (e) => {
     e.preventDefault();
@@ -102,25 +150,24 @@ export default function Upload() {
         const res = await axios.post(
           "http://localhost:80/reelsvideoapis/client/uploadData.php",
           formData
-        )
+        );
 
         if (res.data.status) {
           const uploadedData = res.data.data;
           newList.push(uploadedData);
           currentItem++;
         } else {
-          alert(res.data.message)
+          alert(res.data.message);
         }
       } catch (ex) {
         console.log(ex);
       }
-
     } while (currentItem < fileLength);
 
     if (currentItem === fileLength) {
-      onSubmitClick(newList)
+      onSubmitClick(newList);
     }
-  }
+  };
 
   const onSubmitClick = async (data_id) => {
     const userId = userData.user_id;
@@ -138,19 +185,16 @@ export default function Upload() {
       status: 1,
     });
     await axios
-      .post(
-        "http://localhost:80/reelsvideoapis/client/clientAddProj.php",
-        data
-      )
+      .post("http://localhost:80/reelsvideoapis/client/clientAddProj.php", data)
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
         if (response.data.status === true) {
           navigate(-1);
 
-          alert(response.data.message)
+          alert(response.data.message);
         } else {
-          alert(response.data.message)
+          alert(response.data.message);
         }
       })
       .catch((error) => {

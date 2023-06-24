@@ -65,10 +65,12 @@ const ImgBtn = styled.div`
   img {
     width: 100%;
     height: auto;
+    max-height: 350px;
     border-radius: 1rem;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
   }
   :hover > img {
     opacity: 0.5;
@@ -76,10 +78,12 @@ const ImgBtn = styled.div`
   video {
     width: 100%;
     height: auto;
+    max-height: 350px;
     border-radius: 1rem;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
   }
   :hover > video {
     opacity: 0.5;

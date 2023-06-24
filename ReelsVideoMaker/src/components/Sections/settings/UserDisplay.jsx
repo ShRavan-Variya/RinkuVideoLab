@@ -72,6 +72,8 @@ export default function UserDisplay() {
   
                 newList.push(data);
                 currentItem++;
+              } else {
+                currentItem++;
               }
 
               
