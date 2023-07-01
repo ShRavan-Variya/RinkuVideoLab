@@ -16,6 +16,7 @@ export default function LoginRegister() {
   const [textEmail, setTextEmail] = useState("");
   const [textMobile, setTextMobile] = useState("");
   const [textPassword, setTextPassword] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
 
   const toggleLogin = () => {
     setShowLogin(!showLogin);
@@ -28,6 +29,7 @@ export default function LoginRegister() {
       email: textEmail,
       password: textPassword,
     });
+    setShowLoader(true);
 
     await axios
       .post(
@@ -37,6 +39,7 @@ export default function LoginRegister() {
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
+        setShowLoader(false);
         if (response.data.status === true) {
           const userData = response.data.data;
           console.log("userData :: " + JSON.stringify(userData));
@@ -56,6 +59,7 @@ export default function LoginRegister() {
         }
       })
       .catch((error) => {
+        setShowLoader(false);
         alert(error.response.data.message)
       });
   };
@@ -70,6 +74,7 @@ export default function LoginRegister() {
       mobile: textMobile,
       password: textPassword,
     });
+    setShowLoader(true);
 
     await axios
       .post(
@@ -79,6 +84,7 @@ export default function LoginRegister() {
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
+        setShowLoader(false);
         if (response.data.status === true) {
           const userData = response.data.data;
           console.log("userData :: " + JSON.stringify(userData));
@@ -97,6 +103,7 @@ export default function LoginRegister() {
         }
       })
       .catch((error) => {
+        setShowLoader(false);
         alert(error.response.data.message);
       });
   };
@@ -264,6 +271,13 @@ export default function LoginRegister() {
           <div className="col-xs-0 col-sm-0 col-md-3 col=lg-3" />
         </div>
       )}
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </Wrapper>
   );
 }

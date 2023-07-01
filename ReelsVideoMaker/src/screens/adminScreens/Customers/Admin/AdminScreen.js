@@ -7,15 +7,18 @@ import axios from "axios";
 
 const AdminScreen = () => {
   const [listOfAdmins, setListOfAdmins] = useState([]);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     getAdmins();
   }, []);
 
   const getAdmins = async () => {
+    setShowLoader(true);
     await axios
       .get(`http://localhost:80/reelsvideoapis/admin/get_admins.php`)
       .then(function (response) {
+        setShowLoader(false);
         if (response.data.status === true) {
           const listData = response.data.data;
           console.log('listData ::: ' + JSON.stringify(listData));
@@ -23,6 +26,7 @@ const AdminScreen = () => {
         }
       })
       .catch((error) => {
+        setShowLoader(false);
         console.log("====================================");
         console.log("ERR :: " + JSON.stringify(error));
         console.log("====================================");
@@ -49,6 +53,13 @@ const AdminScreen = () => {
       </motion.div>
 
       {/* <div className={"dividerHeader"} /> */}
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </div >
   );
 };

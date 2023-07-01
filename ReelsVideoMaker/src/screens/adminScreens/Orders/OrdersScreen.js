@@ -6,12 +6,14 @@ import moment from "moment";
 
 const OrdersScreen = () => {
   const [listOfOrders, setListOfOrders] = useState([]);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     getProjects();
   }, []);
 
   const getProjects = async () => {
+    setShowLoader(true);
     await axios
       .get(`http://localhost:80/reelsvideoapis/admin/get_all_user_projects.php`)
       .then(function (response) {
@@ -23,8 +25,12 @@ const OrdersScreen = () => {
             const newList = [];
             listData.sort((a, b) => b.created_at.localeCompare(a.created_at));
             listData.map((item) => {
-              const createdAt = moment(item.created_at).format('DD/MM/YYYY - hh:mm:ss a');
-              const downloadTime = moment(item.downloadTime).format('DD/MM/YYYY - hh:mm:ss a');
+              const createdAt = moment(item.created_at).format(
+                "DD/MM/YYYY - hh:mm:ss a"
+              );
+              const downloadTime = moment(item.downloadTime).format(
+                "DD/MM/YYYY - hh:mm:ss a"
+              );
               newList.push({
                 id: item.order_id,
                 userName: item.user_name,
@@ -36,7 +42,12 @@ const OrdersScreen = () => {
                 payment: item.amount,
                 orderDateTime: createdAt,
                 uploadingDateTime: downloadTime,
-                status: item.status === "1" ? "Pending" : item.status === "2" ? "Working" : "Done",
+                status:
+                  item.status === "1"
+                    ? "Pending"
+                    : item.status === "2"
+                    ? "Working"
+                    : "Done",
                 zipId: item.zipId,
                 user_id: item.user_id,
                 paymentId: item.paymentId,
@@ -58,8 +69,10 @@ const OrdersScreen = () => {
             setListOfOrders(newList);
           }
         }
+        setShowLoader(false);
       })
       .catch((error) => {
+        setShowLoader(false);
         console.log("====================================");
         console.log("ERR :: " + JSON.stringify(error));
         console.log("====================================");
@@ -72,60 +85,72 @@ const OrdersScreen = () => {
       status: 2,
     });
 
+    setShowLoader(true);
     await axios
-    .post(`http://localhost:80/reelsvideoapis/admin/update_status_order.php`, statusData)
-    .then(function (response) {
-      console.log("response :: " + JSON.stringify(response));
-      if (response.data.status === true) {
-        const newList = [...listOfOrders];
-        newList.map((_item) => {
-          if (_item.id === item.id) {
-            _item.status = "Working"
-          }
-        })
+      .post(
+        `http://localhost:80/reelsvideoapis/admin/update_status_order.php`,
+        statusData
+      )
+      .then(function (response) {
+        console.log("response :: " + JSON.stringify(response));
+        if (response.data.status === true) {
+          const newList = [...listOfOrders];
+          newList.map((_item) => {
+            if (_item.id === item.id) {
+              _item.status = "Working";
+            }
+          });
 
-        const filename = item.data_list.filename;
-        const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
-        window.open(downloadLink, '_blank');
-        setListOfOrders(newList)
-      }
-    })
-    .catch((error) => {
-      console.log("====================================");
-      console.log("ERR :: " + JSON.stringify(error));
-      console.log("====================================");
-    });
-  }
+          const filename = item.data_list.filename;
+          const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
+          window.open(downloadLink, "_blank");
+          setListOfOrders(newList);
+        }
+        setShowLoader(false);
+      })
+      .catch((error) => {
+        setShowLoader(false);
+        console.log("====================================");
+        console.log("ERR :: " + JSON.stringify(error));
+        console.log("====================================");
+      });
+  };
 
   const uploadData = async (fileInputRef, id) => {
-    const selectedVideo = fileInputRef.current.files[0]
+    const selectedVideo = fileInputRef.current.files[0];
     const formData = new FormData();
     formData.append("video", selectedVideo);
     formData.append("id", id);
     formData.append("status", 3);
 
+    setShowLoader(true);
     try {
-      const res = await axios.post('http://localhost:80/reelsvideoapis/admin/upload_final_video.php', formData)
+      const res = await axios.post(
+        "http://localhost:80/reelsvideoapis/admin/upload_final_video.php",
+        formData
+      );
       console.log(res.data);
 
       if (res.data.status) {
         const newList = [...listOfOrders];
         newList.map((item) => {
           if (item.id === id) {
-            item.status = "Done"
+            item.status = "Done";
           }
-        })
-        setListOfOrders(newList)
-        alert(res.data.message)
+        });
+        setListOfOrders(newList);
+        setShowLoader(false);
+        alert(res.data.message);
       } else {
-        console.log('ERR', JSON.stringify(res));
-        alert(res.data.message)
+        setShowLoader(false);
+        console.log("ERR", JSON.stringify(res));
+        alert(res.data.message);
       }
     } catch (ex) {
-      console.log('ERR', JSON.stringify(ex));
+      console.log("ERR", JSON.stringify(ex));
       console.log(ex);
     }
-  }
+  };
 
   return (
     <div className="main-container" style={{ height: "100%" }}>
@@ -150,21 +175,28 @@ const OrdersScreen = () => {
             const newList = [...listOfOrders];
             newList.map((_item) => {
               if (_item.id === item.id) {
-                _item.status = "Working"
+                _item.status = "Working";
               }
-            })
+            });
 
             const filename = item.data_list.filename;
             const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
-            window.open(downloadLink, '_blank');
-            setListOfOrders(newList)
-            updateStatus(item)
+            window.open(downloadLink, "_blank");
+            setListOfOrders(newList);
+            updateStatus(item);
           }}
           onClickUpload={(fileInputRef, id) => uploadData(fileInputRef, id)}
         />
       </motion.div>
 
       {/* <div className={"dividerHeader"} /> */}
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

@@ -9,6 +9,7 @@ export default function LoginAdmin() {
   const globalContext = useGlobal();
   const [textEmail, setTextEmail] = useState("");
   const [textPassword, setTextPassword] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -18,6 +19,8 @@ export default function LoginAdmin() {
       password: textPassword,
     });
 
+    setShowLoader(true);
+
     await axios
       .post(
         "http://localhost:80/reelsvideoapis/admin/admin_login.php",
@@ -26,6 +29,7 @@ export default function LoginAdmin() {
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
+        setShowLoader(false);
         if (response.data.status === true) {
           const adminData = response.data.data;
 
@@ -41,6 +45,7 @@ export default function LoginAdmin() {
       })
       .catch((error) => {
         console.log(error);
+        setShowLoader(false);
         alert(error.response.data.message)
       });
   };
@@ -97,6 +102,13 @@ export default function LoginAdmin() {
           </div>
           <div className="col-xs-0 col-sm-0 col-md-3 col=lg-3" />
         </div>
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </Wrapper>
   );
 }

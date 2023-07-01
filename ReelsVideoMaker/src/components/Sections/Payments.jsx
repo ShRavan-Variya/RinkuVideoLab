@@ -9,6 +9,7 @@ export default function Payments() {
   const globalContext = useGlobal();
   const userData = globalContext.userData;
   const [listOfPayments, setListOfPayments] = useState([]);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     moment.locale("en");
@@ -19,6 +20,7 @@ export default function Payments() {
   const doGetData = async () => {
     const userId = userData.user_id;
 
+    setShowLoader(true);
     await axios
       .get(
         `http://localhost:80/reelsvideoapis/client/get_projects.php?userId=${userId}`
@@ -26,6 +28,7 @@ export default function Payments() {
       .then(function (response) {
         // console.log("response :: " + JSON.stringify(response));
 
+        setShowLoader(false);
         if (response.data.status === true) {
           const listPayment = response.data.data;
           if (listPayment.length > 0) {
@@ -55,6 +58,7 @@ export default function Payments() {
         }
       })
       .catch((error) => {
+        setShowLoader(false);
         console.log("====================================");
         console.log("ERR :: " + JSON.stringify(error));
         console.log("====================================");
@@ -84,6 +88,13 @@ export default function Payments() {
             </div>
           </div>
       </div>
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </Wrapper>
   );
 }

@@ -7,12 +7,14 @@ import { DashImageData } from "../../../../components";
 
 const DashDataScreen = () => {
   const [listOfDashImages, setListOfDashImages] = useState([]);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     doGetDataImages();
   }, [])
 
   const doGetDataImages = async () => {
+    setShowLoader(true);
     await axios
       .get('http://localhost:80/reelsvideoapis/client/get_dashImages.php')
       .then(function (response) {
@@ -36,8 +38,10 @@ const DashDataScreen = () => {
             setListOfDashImages(newList)
           }
         }
+        setShowLoader(false);
       })
       .catch((error) => {
+        setShowLoader(false);
         console.log("====================================");
         console.log("ERR :: " + JSON.stringify(error));
         console.log("====================================");
@@ -50,6 +54,7 @@ const DashDataScreen = () => {
     formData.append("image", selectedImage);
     formData.append("id", id);
 
+    setShowLoader(true);
     try {
       const res = await axios.post('http://localhost:80/reelsvideoapis/admin/upload_data_images.php', formData)
       console.log(res.data);
@@ -61,6 +66,7 @@ const DashDataScreen = () => {
         alert(res.data.message)
       }
     } catch (ex) {
+      setShowLoader(false);
       console.log('ERR', JSON.stringify(ex));
       console.log(ex);
     }
@@ -83,6 +89,13 @@ const DashDataScreen = () => {
         <div className="textTitle1">{'Top-Bottom List'}</div>
         <DashImageData style={{ display: 'flex' }} listImages={listOfDashImages} onClickUpload={(fileInputRef, id) => uploadData(fileInputRef, id)} />
       </motion.div>
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </div >
   );
 };

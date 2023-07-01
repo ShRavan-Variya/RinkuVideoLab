@@ -21,12 +21,12 @@ const Landing = () => {
   const [bottomImage2, setBottomImage2] = useState('');
   const [bottomImage3, setBottomImage3] = useState('');
   const [listOfProject, setListOfProject] = useState([]);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     doGetCookie();
     moment.locale("en");
     doGetData();
-    doGetProjects();
   }, [])
 
   const doGetCookie = () => {
@@ -45,6 +45,7 @@ const Landing = () => {
   }
 
   const doGetData = async () => {
+    setShowLoader(true);
     await axios
       .get('http://localhost:80/reelsvideoapis/client/get_dashImages.php')
       .then(function (response) {
@@ -72,26 +73,28 @@ const Landing = () => {
             }) 
           }
         }
+        doGetProjects();
       })
       .catch((error) => {
-        console.log("====================================");
-        console.log("ERR :: " + JSON.stringify(error));
-        console.log("====================================");
+        doGetProjects();
       });
   };
 
   const doGetProjects = async () => {
+    setShowLoader(true);
     await axios
       .get('http://localhost:80/reelsvideoapis/client/get_dashProjects.php')
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
+        setShowLoader(false);
         if (response.data.status === true) {
           const listProjects = response.data.data;
           setListOfProject(listProjects);
         }
       })
       .catch((error) => {
+        setShowLoader(false);
         console.log("====================================");
         console.log("ERR :: " + JSON.stringify(error));
         console.log("====================================");
@@ -108,6 +111,13 @@ const Landing = () => {
       {/* <Pricing /> */}
       <Contact image1={bottomImage1} image2={bottomImage2} image3={bottomImage3} />
       <Footer isHome={true} />
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };

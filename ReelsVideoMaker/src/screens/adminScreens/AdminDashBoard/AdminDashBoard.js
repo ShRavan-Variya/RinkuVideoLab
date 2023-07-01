@@ -16,6 +16,7 @@ const AdminDashBoard = () => {
   const [listOfTimeData, setListOfTimeData] = useState([]);
   const [listOfTopCards, setListOfTopCards] = useState([]);
   const [listOfData, setListOfData] = useState([]);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     getTimeData();
@@ -42,10 +43,10 @@ const AdminDashBoard = () => {
     setListOfTimeData(newList);
     getCounts(count);
 
-    getProjectByType();
   };
 
   const getCounts = async (type) => {
+    setShowLoader(true);
     await axios
       .get(
         `http://localhost:80/reelsvideoapis/admin/get_dashcount.php?countType=${type}`
@@ -56,15 +57,15 @@ const AdminDashBoard = () => {
         if (response.data.status === true) {
           getDataTopCards(response.data.data);
         }
+        getProjectByType();
       })
       .catch((error) => {
-        console.log("====================================");
-        console.log("ERR :: " + JSON.stringify(error));
-        console.log("====================================");
+        getProjectByType();
       });
   };
 
   const getProjectByType = async () => {
+    setShowLoader(true);
     await axios
       .get(`http://localhost:80/reelsvideoapis/admin/get_user_projects.php`)
       .then(function (response) {
@@ -95,8 +96,10 @@ const AdminDashBoard = () => {
             setListOfData(newList);
           }
         }
+        setShowLoader(false);
       })
       .catch((error) => {
+        setShowLoader(false);
         console.log("====================================");
         console.log("ERR :: " + JSON.stringify(error));
         console.log("====================================");
@@ -221,6 +224,13 @@ const AdminDashBoard = () => {
       </motion.div>
 
       {/* <div className={"dividerHeader"} /> */}
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

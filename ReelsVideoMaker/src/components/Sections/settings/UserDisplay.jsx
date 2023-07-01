@@ -13,6 +13,7 @@ export default function UserDisplay() {
   const userData = globalContext.userData;
   const [listOfData, setListOfData] = useState([]);
   const [showNoData, setShowNoData] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     doAddListData();
@@ -22,6 +23,7 @@ export default function UserDisplay() {
   const doAddListData = async () => {
     const userId = userData.user_id;
     console.log(userData);
+    setShowLoader(true);
     await axios
       .get(
         `http://localhost:80/reelsvideoapis/client/get_projects.php?userId=${userId}`
@@ -81,16 +83,20 @@ export default function UserDisplay() {
 
             if (currentItem >= listLength) {
               setListOfData(newList);
+              setShowLoader(false);
               setShowNoData(false);
             }
           } else {
+            setShowLoader(false);
             setShowNoData(true);
           }
         } else {
+          setShowLoader(false);
           setShowNoData(true);
         }
       })
       .catch((error) => {
+        setShowLoader(false);
         console.log("====================================");
         console.log("ERR :: " + JSON.stringify(error));
         console.log("====================================");
@@ -174,6 +180,13 @@ export default function UserDisplay() {
           )}
         </div>
       </div>
+      {showLoader ? (
+        <div className="popup">
+          <div className="popup-loader">
+            <div className="loader" />
+          </div>
+        </div>
+      ) : null}
     </Wrapper>
   );
 }

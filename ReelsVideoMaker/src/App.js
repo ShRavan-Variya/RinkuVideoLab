@@ -1,6 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { Elements } from '@stripe/react-stripe-js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import stripePromise from './components/payments/stripeConfig';
 // Screens
 import Landing from "./screens/Landing";
 import Login from "./screens/auth/Login";
@@ -14,7 +16,7 @@ import AdminRouteMain from "./AdminRouteMain";
 
 export default function App() {
   return (
-    <>
+    <Elements stripe={stripePromise}>
       <Helmet>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,6 +47,6 @@ export default function App() {
           <Route path="privacy" element={<PrivacyPolicy />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </Elements>
   );
 }
