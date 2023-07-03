@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import "./style/admin/flexboxgrid.min.css";
 import "./style/admin/index.css";
 import {
-  AdminLogin,
   AdminScreen,
   ClientScreen,
   AdminDashBoard,

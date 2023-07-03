@@ -19,7 +19,6 @@ export default function TopNavbar({ isLogin }) {
   const [sidebarOpen, toggleSidebar] = useState(false);
   let menuRef = useRef();
   const [showUserPopup, setShowUserPopup] = useState(false);
-  const profileMenu = ['My Profile', 'Privacy Policy', 'Tearms & Conditions', 'Change Password', 'Logout'];
 
   useEffect(() => {
     window.addEventListener("scroll", () => setY(window.scrollY));
@@ -29,8 +28,6 @@ export default function TopNavbar({ isLogin }) {
   }, [y]);
 
   const doLogout = () => {
-    const userData = cookies.get("userData");
-
     const userId = '';
     globalContext.setLogin(false);
     globalContext.setUserId(userId);

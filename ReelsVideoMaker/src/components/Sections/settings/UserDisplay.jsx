@@ -6,7 +6,6 @@ import ProjectBoxDownload from "../../Elements/ProjectBoxDownload";
 import { useGlobal } from "../../../context/globalContext";
 import NoData from "../../../assets/img/ic_noData.png";
 import moment from "moment";
-import JSZip from "jszip";
 
 export default function UserDisplay() {
   const globalContext = useGlobal();
@@ -26,7 +25,7 @@ export default function UserDisplay() {
     setShowLoader(true);
     await axios
       .get(
-        `https://reelsmaker.in/apis/client/get_projects.php?userId=${userId}`
+        `https://reelsmaker.in/api/client/get_projects.php?userId=${userId}`
       )
       .then(async function (response) {
         if (response.data.status === true) {
@@ -40,7 +39,7 @@ export default function UserDisplay() {
               const dataItem = listData[currentItem];
               const zipPath = dataItem.data_list.folder;
               const dataImage = await extractThumbnailFromZip(
-                "https://reelsmaker.in/apis/client/get_zipThumb.php",
+                "https://reelsmaker.in/api/client/get_zipThumb.php",
                 zipPath
               );
 
@@ -138,6 +137,12 @@ export default function UserDisplay() {
                   }
                 }
 
+
+                console.log('====================================');
+                console.log('targetDateTime ::: ', targetDateTime);
+                console.log('remainingTime ::: ', remainingTime);
+                console.log('====================================');
+
                 return (
                   <ProjectBoxDownload
                     key={index}
@@ -156,7 +161,7 @@ export default function UserDisplay() {
                       // );
                       // // Create a blob with the data
                       
-                      // const fileUrl = 'https://reelsmaker.in/apis/Reels/Cache/' + item.thumbnail;
+                      // const fileUrl = 'https://reelsmaker.in/api/Reels/Cache/' + item.thumbnail;
                       // // const blob = new Blob([fileUrl], { type: 'video/mp4' }); // Replace 'video/mp4' with the appropriate MIME type
                       // // const url = URL.createObjectURL(blob);
 
@@ -168,7 +173,7 @@ export default function UserDisplay() {
                       console.log("item :: ", item);
                       if (item.downloadLink) {
                         const filename = item.downloadLink;
-                        const downloadLink = `https://reelsmaker.in/apis/Reels/Row/${filename}`;
+                        const downloadLink = `https://reelsmaker.in/api/Reels/Row/${filename}`;
                         window.open(downloadLink, '_blank');
                       } else {
                         alert("Please contact the admin at +919377603050")
@@ -203,76 +208,76 @@ const ImageEmpty = styled.div`
     height: 350px;
   }
 `;
-const TopWrapper = styled.div`
-  margin: 0;
-  @media (max-width: 960px) {
-    margin: 0 10px;
-  }
-`;
-const ImageWrapper = styled.img`
-  height: 100px;
-  width: 100px;
-  @media (max-width: 370px) {
-    height: 70px;
-    width: 70px;
-  }
-`;
-const UserTitleWrapper = styled.div`
-  padding-left: 20px;
-  padding-right: 20px;
-  @media (max-width: 370px) {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-`;
-const TextTitle = styled.div`
-  font-size: 20px;
-  font-weight: 800;
-  @media (max-width: 960px) {
-    font-size: 17px;
-  }
-  @media (max-width: 370px) {
-    font-size: 15px;
-  }
-`;
-const TextEmail = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-  @media (max-width: 960px) {
-    font-size: 16px;
-  }
-  @media (max-width: 370px) {
-    font-size: 14px;
-  }
-`;
-const CardWrapper = styled.div`
-  width: 100%;
-  margin: 5px 10px;
-  box-shadow: 0 5px 12px 0 grey;
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-`;
-// const TransparentWrapper = styled.div`
-//   width: 100%;
+// const TopWrapper = styled.div`
+//   margin: 0;
+//   @media (max-width: 960px) {
+//     margin: 0 10px;
+//   }
 // `;
-const ItemTitle = styled.div`
-  font-size: 15px;
-  font-weight: 600;
-  @media (max-width: 960px) {
-    font-size: 13px;
-  }
-  @media (max-width: 370px) {
-    font-size: 13px;
-  }
-`;
-const ItemSubTitle = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  @media (max-width: 960px) {
-    font-size: 12px;
-  }
-  @media (max-width: 370px) {
-    font-size: 12px;
-  }
-`;
+// const ImageWrapper = styled.img`
+//   height: 100px;
+//   width: 100px;
+//   @media (max-width: 370px) {
+//     height: 70px;
+//     width: 70px;
+//   }
+// `;
+// const UserTitleWrapper = styled.div`
+//   padding-left: 20px;
+//   padding-right: 20px;
+//   @media (max-width: 370px) {
+//     padding-left: 15px;
+//     padding-right: 15px;
+//   }
+// `;
+// const TextTitle = styled.div`
+//   font-size: 20px;
+//   font-weight: 800;
+//   @media (max-width: 960px) {
+//     font-size: 17px;
+//   }
+//   @media (max-width: 370px) {
+//     font-size: 15px;
+//   }
+// `;
+// const TextEmail = styled.div`
+//   font-size: 18px;
+//   font-weight: 600;
+//   @media (max-width: 960px) {
+//     font-size: 16px;
+//   }
+//   @media (max-width: 370px) {
+//     font-size: 14px;
+//   }
+// `;
+// const CardWrapper = styled.div`
+//   width: 100%;
+//   margin: 5px 10px;
+//   box-shadow: 0 5px 12px 0 grey;
+//   background: white;
+//   border-radius: 10px;
+//   overflow: hidden;
+// `;
+// // const TransparentWrapper = styled.div`
+// //   width: 100%;
+// // `;
+// const ItemTitle = styled.div`
+//   font-size: 15px;
+//   font-weight: 600;
+//   @media (max-width: 960px) {
+//     font-size: 13px;
+//   }
+//   @media (max-width: 370px) {
+//     font-size: 13px;
+//   }
+// `;
+// const ItemSubTitle = styled.div`
+//   font-size: 14px;
+//   font-weight: 400;
+//   @media (max-width: 960px) {
+//     font-size: 12px;
+//   }
+//   @media (max-width: 370px) {
+//     font-size: 12px;
+//   }
+// `;

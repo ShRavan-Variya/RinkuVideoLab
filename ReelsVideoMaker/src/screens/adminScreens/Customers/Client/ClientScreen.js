@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { OrderListData, TimeDataItem, TimeDataListItem } from "../../../../components";
 import { IcSettings } from "../../../../assets/svg";
 

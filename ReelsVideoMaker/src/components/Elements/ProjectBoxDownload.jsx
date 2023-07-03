@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Download from "../../assets/img/ic_download.png";
 import Timer from "./Timer";
 
@@ -9,7 +8,7 @@ export default function ProjectBoxDownload({ item, remainingTime, isTimer, actio
 
   console.log('item data :: ' + JSON.stringify(item));
 
-  const thumbnail = 'https://reelsmaker.in/apis/Reels/Cache/' + item.thumbnail;
+  const thumbnail = 'https://reelsmaker.in/api/Reels/Cache/' + item.thumbnail;
 
   const handleTimerComplete = () => {
     setIsRunningTimer(false)

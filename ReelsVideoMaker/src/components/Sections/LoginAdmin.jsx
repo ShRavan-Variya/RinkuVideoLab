@@ -23,7 +23,7 @@ export default function LoginAdmin() {
 
     await axios
       .post(
-        "https://reelsmaker.in/apis/admin/admin_login.php",
+        "https://reelsmaker.in/api/admin/admin_login.php",
         data
       )
       .then(function (response) {

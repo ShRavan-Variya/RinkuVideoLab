@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import {
-//   CardNumberElement,
-//   CardExpiryElement,
-//   CardCvcElement,
-//   useStripe,
-//   useElements,
-// } from "@stripe/react-stripe-js";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import GooglePayButton from "@google-pay/button-react";
 import styled from "styled-components";
 import moment from "moment";
 import axios from "axios";
@@ -39,7 +31,7 @@ export default function Upload() {
     setShowLoader(true);
     try {
       const response = await axios.get(
-        "https://reelsmaker.in/apis/client/get_payments.php"
+        "https://reelsmaker.in/api/client/get_payments.php"
       );
 
       setShowLoader(false);
@@ -184,7 +176,7 @@ export default function Upload() {
     setShowLoader(true);
     try {
       const response = await axios.get(
-        "https://reelsmaker.in/apis/client/client_payment.php",
+        "https://reelsmaker.in/api/client/client_payment.php",
         {
           params: {
             amount: payment, // Replace with the actual payment amount
@@ -202,7 +194,7 @@ export default function Upload() {
       const { clientSecret } = response.data;
       if (clientSecret !== undefined && clientSecret !== null) {
         // Use the client secret to confirm the payment and charge the user
-        const { error, paymentIntent } = await stripe.confirmCardPayment(
+        const { error } = await stripe.confirmCardPayment(
           clientSecret,
           {
             payment_method: {
@@ -287,7 +279,7 @@ export default function Upload() {
       formData.append("dataFile", zipBlob, zipFileName);
 
       const res = await axios.post(
-        "https://reelsmaker.in/apis/client/uploadData.php",
+        "https://reelsmaker.in/api/client/uploadData.php",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -303,39 +295,6 @@ export default function Upload() {
     } catch (error) {
       setShowLoader(false);
       console.error("Error creating zip archive:", error);
-    }
-  };
-
-  const onUploadClick = async (e) => {
-    e.preventDefault();
-
-    const newList = [];
-    const fileLength = files.length;
-    let currentItem = 0;
-
-    do {
-      const formData = new FormData();
-      formData.append("dataFile", files[currentItem]);
-      try {
-        const res = await axios.post(
-          "https://reelsmaker.in/apis/client/uploadData.php",
-          formData
-        );
-
-        if (res.data.status) {
-          const uploadedData = res.data.data;
-          newList.push(uploadedData);
-          currentItem++;
-        } else {
-          alert(res.data.message);
-        }
-      } catch (ex) {
-        console.log(ex);
-      }
-    } while (currentItem < fileLength);
-
-    if (currentItem === fileLength) {
-      onSubmitClick(newList);
     }
   };
 
@@ -355,7 +314,7 @@ export default function Upload() {
       status: 1,
     });
     await axios
-      .post("https://reelsmaker.in/apis/client/clientAddProj.php", data)
+      .post("https://reelsmaker.in/api/client/clientAddProj.php", data)
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -372,22 +331,6 @@ export default function Upload() {
         setShowLoader(false);
         alert(error.response.data.message);
       });
-  };
-
-  const uploadFiles = (files) => {
-    const formData = new FormData();
-    const length = files.length;
-    for (let key in files) {
-      if (key < length) {
-        formData.append("videos", files[key]);
-        console.log(Object.fromEntries(formData));
-
-        // Do api call here
-      }
-    }
-    console.log("====================================");
-    console.log(formData.getAll("videos"));
-    console.log("====================================");
   };
 
   return (

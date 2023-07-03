@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import styled from "styled-components";
 import moment from 'moment';
 import axios from "axios";
 import { DashImageData } from "../../../../components";
@@ -16,7 +15,7 @@ const DashDataScreen = () => {
   const doGetDataImages = async () => {
     setShowLoader(true);
     await axios
-      .get('https://reelsmaker.in/apis/client/get_dashImages.php')
+      .get('https://reelsmaker.in/api/client/get_dashImages.php')
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -30,7 +29,7 @@ const DashDataScreen = () => {
               newList.push({
                 id: item.id,
                 imageName: item.imageName,
-                image: 'https://reelsmaker.in/apis/Reels/DashData/' + item.image,
+                image: 'https://reelsmaker.in/api/Reels/DashData/' + item.image,
                 size: item.size,
                 created_at: createdAt,
                 updated_at: updatedAt,
@@ -57,7 +56,7 @@ const DashDataScreen = () => {
 
     setShowLoader(true);
     try {
-      const res = await axios.post('https://reelsmaker.in/apis/admin/upload_data_images.php', formData)
+      const res = await axios.post('https://reelsmaker.in/api/admin/upload_data_images.php', formData)
       console.log(res.data);
 
       if (res.data.status) {
@@ -100,10 +99,6 @@ const DashDataScreen = () => {
     </div >
   );
 };
-
-const TextTitle = styled.div`
-  margin: 15px 0 0 0;
-`;
 
 
 export default DashDataScreen;

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { OrderListData, TimeDataItem, TimeDataListItem } from "../../../../components";
-import { IcSettings } from "../../../../assets/svg";
+import { motion } from "framer-motion";
 import { AdminLists } from "../../../../components/orders";
 import axios from "axios";
 
@@ -16,7 +14,7 @@ const AdminScreen = () => {
   const getAdmins = async () => {
     setShowLoader(true);
     await axios
-      .get(`https://reelsmaker.in/apis/admin/get_admins.php`)
+      .get(`https://reelsmaker.in/api/admin/get_admins.php`)
       .then(function (response) {
         setShowLoader(false);
         if (response.data.status === true) {

@@ -65,14 +65,14 @@ export default function Contact({ image1, image2, image3 }) {
           </AddLeft>
           <AddRight className="flexNullCenter">
               <AddImgWrapp1 className="flexCenter">
-                <img src={image1 ? 'https://reelsmaker.in/apis/Reels/DashData/' + image1 : ContactImg1} alt="office" />
+                <img src={image1 ? 'https://reelsmaker.in/api/Reels/DashData/' + image1 : ContactImg1} alt="office" />
               </AddImgWrapp1>
               <div style={{flex: 1}}>
                 <AddImgWrapp2>
-                  <img src={image2 ? 'https://reelsmaker.in/apis/Reels/DashData/' + image2 : ContactImg2} alt="office" />
+                  <img src={image2 ? 'https://reelsmaker.in/api/Reels/DashData/' + image2 : ContactImg2} alt="office" />
                 </AddImgWrapp2>
                 <AddImgWrapp3>
-                  <img src={image3 ? 'https://reelsmaker.in/apis/Reels/DashData/' + image3 : ContactImg3} alt="office" />
+                  <img src={image3 ? 'https://reelsmaker.in/api/Reels/DashData/' + image3 : ContactImg3} alt="office" />
                 </AddImgWrapp3>
               </div>
           </AddRight>

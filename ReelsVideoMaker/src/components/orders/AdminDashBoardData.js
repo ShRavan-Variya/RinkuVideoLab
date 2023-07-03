@@ -1,6 +1,5 @@
 import React from "react";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import userImage from "../../assets/img/userImage.jpg";
+import { DataGrid } from "@mui/x-data-grid";
 
 export default function AdminDashBoardData(props) {
   const columns = [

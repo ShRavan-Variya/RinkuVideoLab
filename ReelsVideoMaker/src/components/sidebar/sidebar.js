@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
-import { IcHome, IcLists, IcLogout, IcOffers, IcUser } from "../../assets/svg";
+import { IcHome, IcLists, IcUser } from "../../assets/svg";
 import LogoIcon from "../../assets/svg/Logo";
 import SidebarMenu from "./sidebarMenu";
 

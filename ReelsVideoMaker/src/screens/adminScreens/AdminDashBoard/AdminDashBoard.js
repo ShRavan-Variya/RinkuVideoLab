@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import axios from "axios";
 import {
-  OrderListData,
   TimeDataItem,
   TimeDataListItem,
 } from "../../../components";
@@ -20,6 +19,7 @@ const AdminDashBoard = () => {
 
   useEffect(() => {
     getTimeData();
+    // eslint-disable-next-line
   }, []);
 
   const getTimeData = () => {
@@ -49,7 +49,7 @@ const AdminDashBoard = () => {
     setShowLoader(true);
     await axios
       .get(
-        `https://reelsmaker.in/apis/admin/get_dashcount.php?countType=${type}`
+        `https://reelsmaker.in/api/admin/get_dashcount.php?countType=${type}`
       )
       .then(function (response) {
         // console.log("response :: " + JSON.stringify(response));
@@ -67,7 +67,7 @@ const AdminDashBoard = () => {
   const getProjectByType = async () => {
     setShowLoader(true);
     await axios
-      .get(`https://reelsmaker.in/apis/admin/get_user_projects.php`)
+      .get(`https://reelsmaker.in/api/admin/get_user_projects.php`)
       .then(function (response) {
         if (response.data.status === true) {
           const listData = response.data.data;

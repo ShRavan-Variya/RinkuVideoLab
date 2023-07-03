@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2023 at 04:46 PM
+-- Generation Time: Jul 03, 2023 at 06:13 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -50,6 +50,7 @@ CREATE TABLE `dashimages` (
   `id` varchar(255) NOT NULL,
   `imageName` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
+  `size` varchar(266) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -58,14 +59,14 @@ CREATE TABLE `dashimages` (
 -- Dumping data for table `dashimages`
 --
 
-INSERT INTO `dashimages` (`id`, `imageName`, `image`, `created_at`, `updated_at`) VALUES
-('dashImage1', 'dashTop1', 'dashTop1.jpg', '2023-02-16 00:17:27.000000', '2023-06-06 16:36:43.000000'),
-('dashImage2', 'dashTop2', 'dashTop2.jpg', '2023-02-16 00:17:27.000000', '2023-06-06 16:36:48.000000'),
-('dashImage3', 'dashTop3', 'dashTop3.jpg', '2023-02-16 00:17:27.000000', '2023-06-06 16:26:18.000000'),
-('dashImage4', 'dashTop4', 'dashTop4.jpg', '2023-02-16 00:17:27.000000', '2023-06-06 16:25:28.000000'),
-('dashImage5', 'dashContact1', 'dashContact1.jpg', '2023-02-16 00:17:27.000000', '2023-06-06 15:51:30.000000'),
-('dashImage6', 'dashContact2', 'dashContact2.jpg', '2023-02-16 00:17:27.000000', '2023-06-06 16:10:03.000000'),
-('dashImage7', 'dashContact3', 'dashContact3.jpg', '2023-02-16 00:17:27.000000', '2023-06-06 16:42:45.000000');
+INSERT INTO `dashimages` (`id`, `imageName`, `image`, `size`, `created_at`, `updated_at`) VALUES
+('dashImage1', 'dashTop1', 'dashTop1.jpg', '285 X 406', '2023-02-16 00:17:27.000000', '2023-06-24 10:57:03.000000'),
+('dashImage2', 'dashTop2', 'dashTop2.jpg', '197 X 333', '2023-02-16 00:17:27.000000', '2023-06-24 10:56:59.000000'),
+('dashImage3', 'dashTop3', 'dashTop3.jpg', '112 X 125', '2023-02-16 00:17:27.000000', '2023-06-24 10:56:57.000000'),
+('dashImage4', 'dashTop4', 'dashTop4.jpg', '197 X 224', '2023-02-16 00:17:27.000000', '2023-06-24 10:56:52.000000'),
+('dashImage5', 'dashContact1', 'dashContact1.jpg', '180 X 204', '2023-02-16 00:17:27.000000', '2023-06-24 10:57:10.000000'),
+('dashImage6', 'dashContact2', 'dashContact2.jpg', '180 X 295', '2023-02-16 00:17:27.000000', '2023-06-24 10:57:08.000000'),
+('dashImage7', 'dashContact3', 'dashContact3.jpg', '278 X 330', '2023-02-16 00:17:27.000000', '2023-06-24 10:57:06.000000');
 
 -- --------------------------------------------------------
 
@@ -88,14 +89,14 @@ CREATE TABLE `dashprojects` (
 --
 
 INSERT INTO `dashprojects` (`id`, `image`, `imageName`, `title`, `subtitle`, `created_at`, `updated_at`) VALUES
-('dashProject1', '001.JPG', '001', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000'),
-('dashProject2', '002.JPG', '002', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000'),
-('dashProject3', '003.JPG', '003', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000'),
-('dashProject4', '004.JPG', '004', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000'),
-('dashProject5', '005.JPG', '005', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000'),
-('dashProject6', '006.JPG', '006', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-05 19:15:01.000000'),
-('dashProject7', '007.JPG', '007', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000'),
-('dashProject8', '008.JPG', '008', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-05 19:15:14.000000');
+('dashProject1', '001.jpg', '001', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-24 10:58:27.000000'),
+('dashProject2', '002.jpg', '002', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-24 10:58:30.000000'),
+('dashProject3', '003.jpg', '003', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-24 10:58:32.000000'),
+('dashProject4', '004.jpg', '004', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-24 10:58:35.000000'),
+('dashProject5', '005.jpg', '005', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-24 10:58:38.000000'),
+('dashProject6', '006.jpg', '006', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-24 10:58:41.000000'),
+('dashProject7', '007.jpg', '007', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-24 10:58:44.000000'),
+('dashProject8', '008.jpg', '008', 'Be Wild', 'Incididunt elit officia sunt amet nisi nisi occaecat incididunt Lorem qui. Ex ut esse aliqua elit. Dolor sit occaecat deserunt nostrud dolore.', '2023-02-16 00:17:27.000000', '2023-06-24 10:58:47.000000');
 
 -- --------------------------------------------------------
 
@@ -110,6 +111,13 @@ CREATE TABLE `datatable` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `datatable`
+--
+
+INSERT INTO `datatable` (`data_id`, `filename`, `folder`, `created_at`, `updated_at`) VALUES
+('cf0c9a6cbe31461f407ab9ce24da99f6', 'reels-video-maker_cf0c9a6cbe31461f407ab9ce24da99f6_09_41_06.zip', '../Reels/Row/reels-video-maker_cf0c9a6cbe31461f407ab9ce24da99f6_09_41_06.zip', '2023-07-03 21:41:06.000000', '2023-07-03 21:41:06.000000');
 
 -- --------------------------------------------------------
 
@@ -153,6 +161,13 @@ CREATE TABLE `userorder` (
   `updated_at` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `userorder`
+--
+
+INSERT INTO `userorder` (`order_id`, `proj_name`, `title`, `notes`, `song`, `zipId`, `user_id`, `user_name`, `amount`, `paymentId`, `image`, `status`, `downloadLink`, `downloadTime`, `created_at`, `updated_at`) VALUES
+('0b1e3a03f2aea2829dac02a0c577b045', '01', '01', '01', '01', 'cf0c9a6cbe31461f407ab9ce24da99f6', 'd70781c9551d9da01960aab9b40e254f', 'Variya', '200', '', '', 1, '', '2023-07-03 23:41:06.000000', '2023-07-03 21:41:06.000000', '2023-07-03 21:41:06.000000');
+
 -- --------------------------------------------------------
 
 --
@@ -175,8 +190,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `full_name`, `user_name`, `email`, `mobile`, `password`, `created_at`, `updated_at`) VALUES
-('1a0272ddd6cb4a68c875f65f8c727abe', 'Shravan3', 'Variya3', 'shravanvariya3@gmail.com', '9510437332', '$2y$10$gARvjrlzFA4YB8wlMDg6HuN1W9SUJscbUSqV8YQHtrADxDo6DYjyy', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000'),
-('35f6187bf684ba718dc32f522bed6784', 'Shravan2', 'Variya2', 'shravanvariya2@gmail.com', '9510437332', '$2y$10$szxKydIo.keq42vYTYezAeV5ilohbGWbbdK9VNpdwxHEmPm1B.Zfq', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000'),
 ('d70781c9551d9da01960aab9b40e254f', 'Shravan', 'Variya', 'shravanvariya@gmail.com', '9510437332', '$2y$10$e.5kku7OkhWS3vfui/nMsO5VQpjq0yJOVXyKamGtkrp.Oo2yxkSUG', '2023-02-16 00:17:27.000000', '2023-02-16 00:17:27.000000');
 
 --

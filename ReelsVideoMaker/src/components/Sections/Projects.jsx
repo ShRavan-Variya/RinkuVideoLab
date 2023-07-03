@@ -3,7 +3,6 @@ import React from "react";
 import Masonry from "react-responsive-masonry"
 import styled from "styled-components";
 import ProjectBox from "../Elements/ProjectBox";
-import FullButton from "../Buttons/FullButton";
 
 export default function Projects({data}) {
   return (

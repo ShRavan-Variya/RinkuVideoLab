@@ -16,7 +16,7 @@ const DashProjectDataScreen = () => {
   const doGetDataProjects = async () => {
     setShowLoader(true);
     await axios
-      .get("https://reelsmaker.in/apis/client/get_dashProjects.php")
+      .get("https://reelsmaker.in/api/client/get_dashProjects.php")
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -36,7 +36,7 @@ const DashProjectDataScreen = () => {
                 id: item.id,
                 imageName: item.image,
                 image:
-                  "https://reelsmaker.in/apis/Reels/DashData/" +
+                  "https://reelsmaker.in/api/Reels/DashData/" +
                   item.image,
                 created_at: createdAt,
                 updated_at: updatedAt,
@@ -63,7 +63,7 @@ const DashProjectDataScreen = () => {
     setShowLoader(true);
     try {
       const res = await axios.post(
-        "https://reelsmaker.in/apis/admin/upload_data_projects.php",
+        "https://reelsmaker.in/api/admin/upload_data_projects.php",
         formData
       );
       console.log(res.data);

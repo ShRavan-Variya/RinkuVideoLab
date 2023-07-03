@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 
 export default function PaymentsItem(props) {
   console.log("props :: " + JSON.stringify(props));
@@ -30,39 +29,39 @@ export default function PaymentsItem(props) {
   );
 }
 
-const BurderWrapper = styled.button`
-  outline: none;
-  border: 0px;
-  background-color: transparent;
-  height: 100%;
-  width: 100%;
-`;
-const ListTopWrapper = styled.li`
-  ${"" /* height: 70px; */}
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  justify-content: center;
-  text-align: center;
-`;
-const DivSingle = styled.div`
-  padding-top: 5px;
-  padding-bottom: 5px;
-`;
-const DivWrapper = styled.div`
-  justify-content: center;
-  text-align: left;
-  padding-top: 5px;
-  padding-bottom: 5px;
-`;
-const DivWrapperEnd = styled.div`
-  justify-content: center;
-  text-align: right;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  @media only screen and (max-width: 55em) {
-    justify-content: right;
-    text-align: right;
-  }
-`;
+// const BurderWrapper = styled.button`
+//   outline: none;
+//   border: 0px;
+//   background-color: transparent;
+//   height: 100%;
+//   width: 100%;
+// `;
+// const ListTopWrapper = styled.li`
+//   ${"" /* height: 70px; */}
+//   margin-left: 5px;
+//   margin-right: 5px;
+//   padding-top: 10px;
+//   padding-bottom: 10px;
+//   justify-content: center;
+//   text-align: center;
+// `;
+// const DivSingle = styled.div`
+//   padding-top: 5px;
+//   padding-bottom: 5px;
+// `;
+// const DivWrapper = styled.div`
+//   justify-content: center;
+//   text-align: left;
+//   padding-top: 5px;
+//   padding-bottom: 5px;
+// `;
+// const DivWrapperEnd = styled.div`
+//   justify-content: center;
+//   text-align: right;
+//   padding-top: 5px;
+//   padding-bottom: 5px;
+//   @media only screen and (max-width: 55em) {
+//     justify-content: right;
+//     text-align: right;
+//   }
+// `;

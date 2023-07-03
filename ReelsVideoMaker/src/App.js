@@ -36,7 +36,7 @@ export default function App() {
       {/* <TopNavbar /> */}
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Landing />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/admin/*" element={<AdminRouteMain />} />
           <Route path="login" element={<Login />} />
           <Route path="upload" element={<Upload />} />

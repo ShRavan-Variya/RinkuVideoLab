@@ -47,7 +47,7 @@ const Landing = () => {
   const doGetData = async () => {
     setShowLoader(true);
     await axios
-      .get('https://reelsmaker.in/apis/client/get_dashImages.php')
+      .get('https://reelsmaker.in/api/client/get_dashImages.php')
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -83,7 +83,7 @@ const Landing = () => {
   const doGetProjects = async () => {
     setShowLoader(true);
     await axios
-      .get('https://reelsmaker.in/apis/client/get_dashProjects.php')
+      .get('https://reelsmaker.in/api/client/get_dashProjects.php')
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 

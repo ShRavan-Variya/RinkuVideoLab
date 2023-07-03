@@ -9,7 +9,6 @@ export default function LoginRegister() {
   const cookies = new Cookies();
   const globalContext = useGlobal();
   const navigate = useNavigate();
-  const userId = globalContext.userId;
   const [showLogin, setShowLogin] = useState(true);
   const [textFullName, setTextFullName] = useState("");
   const [textUserName, setTextUserName] = useState("");
@@ -33,7 +32,7 @@ export default function LoginRegister() {
 
     await axios
       .post(
-        "https://reelsmaker.in/apis/client/client_login.php",
+        "https://reelsmaker.in/api/client/client_login.php",
         data
       )
       .then(function (response) {
@@ -78,7 +77,7 @@ export default function LoginRegister() {
 
     await axios
       .post(
-        "https://reelsmaker.in/apis/client/client_register.php",
+        "https://reelsmaker.in/api/client/client_register.php",
         data
       )
       .then(function (response) {
