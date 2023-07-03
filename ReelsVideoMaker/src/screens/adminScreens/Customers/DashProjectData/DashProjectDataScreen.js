@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import moment from "moment";
 import axios from "axios";
-import { DashImageData } from "../../../../components";
+import { DashProjectData } from "../../../../components";
 
 const DashProjectDataScreen = () => {
   const [listOfDashProjects, setListOfDashProjects] = useState([]);
@@ -16,7 +16,7 @@ const DashProjectDataScreen = () => {
   const doGetDataProjects = async () => {
     setShowLoader(true);
     await axios
-      .get("http://localhost:80/reelsvideoapis/client/get_dashProjects.php")
+      .get("https://reelsmaker.in/apis/client/get_dashProjects.php")
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -36,7 +36,7 @@ const DashProjectDataScreen = () => {
                 id: item.id,
                 imageName: item.image,
                 image:
-                  "http://localhost:80/reelsvideoapis/Reels/DashData/" +
+                  "https://reelsmaker.in/apis/Reels/DashData/" +
                   item.image,
                 created_at: createdAt,
                 updated_at: updatedAt,
@@ -63,7 +63,7 @@ const DashProjectDataScreen = () => {
     setShowLoader(true);
     try {
       const res = await axios.post(
-        "http://localhost:80/reelsvideoapis/admin/upload_data_projects.php",
+        "https://reelsmaker.in/apis/admin/upload_data_projects.php",
         formData
       );
       console.log(res.data);
@@ -96,7 +96,7 @@ const DashProjectDataScreen = () => {
         }}
       >
         <TextTitle className="textTitle1">{"Awesome Projects"}</TextTitle>
-        <DashImageData
+        <DashProjectData
           style={{ display: "flex" }}
           listImages={listOfDashProjects}
           onClickUpload={(fileInputRef, id) => uploadData(fileInputRef, id)}

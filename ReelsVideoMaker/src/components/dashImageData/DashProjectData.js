@@ -23,7 +23,6 @@ export default function DashImageData(props) {
     },
     // { field: "id", headerName: "ID", width: 350 },
     { field: "imageName", headerName: "Image Name", width: 180, sortable: false },
-    { field: "size", headerName: "Image Size", width: 150, sortable: false },
     { field: "created_at", headerName: "created_at", sortable: false, width: 220 },
     { field: "updated_at", headerName: "updated_at", sortable: false, width: 220 },
     {

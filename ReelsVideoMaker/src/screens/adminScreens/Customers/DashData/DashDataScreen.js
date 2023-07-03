@@ -16,7 +16,7 @@ const DashDataScreen = () => {
   const doGetDataImages = async () => {
     setShowLoader(true);
     await axios
-      .get('http://localhost:80/reelsvideoapis/client/get_dashImages.php')
+      .get('https://reelsmaker.in/apis/client/get_dashImages.php')
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 
@@ -30,7 +30,8 @@ const DashDataScreen = () => {
               newList.push({
                 id: item.id,
                 imageName: item.imageName,
-                image: 'http://localhost:80/reelsvideoapis/Reels/DashData/' + item.image,
+                image: 'https://reelsmaker.in/apis/Reels/DashData/' + item.image,
+                size: item.size,
                 created_at: createdAt,
                 updated_at: updatedAt,
               })
@@ -56,7 +57,7 @@ const DashDataScreen = () => {
 
     setShowLoader(true);
     try {
-      const res = await axios.post('http://localhost:80/reelsvideoapis/admin/upload_data_images.php', formData)
+      const res = await axios.post('https://reelsmaker.in/apis/admin/upload_data_images.php', formData)
       console.log(res.data);
 
       if (res.data.status) {

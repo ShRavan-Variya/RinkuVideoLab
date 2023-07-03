@@ -117,18 +117,18 @@ export default function Header({ image1, image2, image3, image4 }) {
               <AddRightInner>
                 <div className="flexNullCenter">
                   <AddImgWrapp1 className="flexCenter">
-                    <img src={image1 ? 'http://localhost:80/reelsvideoapis/Reels/DashData/' + image1 : AddImage1} alt="office" />
+                    <img src={image1 ? 'https://reelsmaker.in/apis/Reels/DashData/' + image1 : AddImage1} alt="office" />
                   </AddImgWrapp1>
                   <AddImgWrapp2>
-                    <img src={image2 ? 'http://localhost:80/reelsvideoapis/Reels/DashData/' + image2 : AddImage2} alt="office" />
+                    <img src={image2 ? 'https://reelsmaker.in/apis/Reels/DashData/' + image2 : AddImage2} alt="office" />
                   </AddImgWrapp2>
                 </div>
                 <div className="flexNullCenter">
                   <AddImgWrapp3>
-                    <img src={image3 ? 'http://localhost:80/reelsvideoapis/Reels/DashData/' + image3 : AddImage3} alt="office" />
+                    <img src={image3 ? 'https://reelsmaker.in/apis/Reels/DashData/' + image3 : AddImage3} alt="office" />
                   </AddImgWrapp3>
                   <AddImgWrapp4>
-                    <img src={image4 ? 'http://localhost:80/reelsvideoapis/Reels/DashData/' + image4 : AddImage4} alt="office" />
+                    <img src={image4 ? 'https://reelsmaker.in/apis/Reels/DashData/' + image4 : AddImage4} alt="office" />
                   </AddImgWrapp4>
                 </div>
               </AddRightInner>

@@ -49,7 +49,7 @@ const AdminDashBoard = () => {
     setShowLoader(true);
     await axios
       .get(
-        `http://localhost:80/reelsvideoapis/admin/get_dashcount.php?countType=${type}`
+        `https://reelsmaker.in/apis/admin/get_dashcount.php?countType=${type}`
       )
       .then(function (response) {
         // console.log("response :: " + JSON.stringify(response));
@@ -67,7 +67,7 @@ const AdminDashBoard = () => {
   const getProjectByType = async () => {
     setShowLoader(true);
     await axios
-      .get(`http://localhost:80/reelsvideoapis/admin/get_user_projects.php`)
+      .get(`https://reelsmaker.in/apis/admin/get_user_projects.php`)
       .then(function (response) {
         if (response.data.status === true) {
           const listData = response.data.data;

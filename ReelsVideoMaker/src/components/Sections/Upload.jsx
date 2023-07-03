@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import {
 //   CardNumberElement,
@@ -21,6 +21,7 @@ export default function Upload() {
   const globalContext = useGlobal();
   const userData = globalContext.userData;
   const navigate = useNavigate();
+  const [textPayment, setTextPayment] = useState("");
   const [textProjectName, setTextProjectName] = useState("");
   const [showLoader, setShowLoader] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
@@ -29,6 +30,28 @@ export default function Upload() {
   const [textSong, setTextSong] = useState("");
 
   const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    doGetPayment();
+  }, []);
+
+  const doGetPayment = async () => {
+    setShowLoader(true);
+    try {
+      const response = await axios.get(
+        "https://reelsmaker.in/apis/client/get_payments.php"
+      );
+
+      setShowLoader(false);
+      if (response.data.status === true) {
+        const data = response.data.data;
+        setTextPayment(data.Payment);
+      }
+    } catch (error) {
+      setShowLoader(false);
+      alert("Something went wrong please try later!");
+    }
+  };
 
   const saveFile = (e) => {
     const files = Array.from(e.target.files);
@@ -156,18 +179,25 @@ export default function Upload() {
       return;
     }
 
+    const payment = Number(textPayment) * 100;
+
     setShowLoader(true);
     try {
       const response = await axios.get(
-        "http://localhost:80/reelsvideoapis/client/client_payment.php",
+        "https://reelsmaker.in/apis/client/client_payment.php",
         {
           params: {
-            amount: 10000, // Replace with the actual payment amount
+            amount: payment, // Replace with the actual payment amount
             currency: "INR", // Replace with the desired currency
             // Add any other required data here
           },
         }
       );
+
+
+      console.log('====================================');
+      console.log(response);
+      console.log('====================================');
 
       const { clientSecret } = response.data;
       if (clientSecret !== undefined && clientSecret !== null) {
@@ -257,7 +287,7 @@ export default function Upload() {
       formData.append("dataFile", zipBlob, zipFileName);
 
       const res = await axios.post(
-        "http://localhost:80/reelsvideoapis/client/uploadData.php",
+        "https://reelsmaker.in/apis/client/uploadData.php",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -288,7 +318,7 @@ export default function Upload() {
       formData.append("dataFile", files[currentItem]);
       try {
         const res = await axios.post(
-          "http://localhost:80/reelsvideoapis/client/uploadData.php",
+          "https://reelsmaker.in/apis/client/uploadData.php",
           formData
         );
 
@@ -309,7 +339,7 @@ export default function Upload() {
     }
   };
 
-  const onSubmitClick = async (data_id) => {
+  const onSubmitClick = async (data_id, amount) => {
     const userId = userData.user_id;
     const userName = userData.user_name;
 
@@ -321,11 +351,11 @@ export default function Upload() {
       zipId: data_id,
       userId: userId,
       userName: userName,
-      amount: "100",
+      amount: textPayment,
       status: 1,
     });
     await axios
-      .post("http://localhost:80/reelsvideoapis/client/clientAddProj.php", data)
+      .post("https://reelsmaker.in/apis/client/clientAddProj.php", data)
       .then(function (response) {
         console.log("response :: " + JSON.stringify(response));
 

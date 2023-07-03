@@ -15,7 +15,7 @@ const OrdersScreen = () => {
   const getProjects = async () => {
     setShowLoader(true);
     await axios
-      .get(`http://localhost:80/reelsvideoapis/admin/get_all_user_projects.php`)
+      .get(`https://reelsmaker.in/apis/admin/get_all_user_projects.php`)
       .then(function (response) {
         // console.log("response :: " + JSON.stringify(response));
 
@@ -88,7 +88,7 @@ const OrdersScreen = () => {
     setShowLoader(true);
     await axios
       .post(
-        `http://localhost:80/reelsvideoapis/admin/update_status_order.php`,
+        `https://reelsmaker.in/apis/admin/update_status_order.php`,
         statusData
       )
       .then(function (response) {
@@ -102,7 +102,7 @@ const OrdersScreen = () => {
           });
 
           const filename = item.data_list.filename;
-          const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
+          const downloadLink = `https://reelsmaker.in/apis/Reels/Row/${filename}`;
           window.open(downloadLink, "_blank");
           setListOfOrders(newList);
         }
@@ -126,7 +126,7 @@ const OrdersScreen = () => {
     setShowLoader(true);
     try {
       const res = await axios.post(
-        "http://localhost:80/reelsvideoapis/admin/upload_final_video.php",
+        "https://reelsmaker.in/apis/admin/upload_final_video.php",
         formData
       );
       console.log(res.data);
@@ -180,7 +180,7 @@ const OrdersScreen = () => {
             });
 
             const filename = item.data_list.filename;
-            const downloadLink = `http://localhost:80/reelsvideoapis/Reels/Row/${filename}`;
+            const downloadLink = `https://reelsmaker.in/apis/Reels/Row/${filename}`;
             window.open(downloadLink, "_blank");
             setListOfOrders(newList);
             updateStatus(item);
