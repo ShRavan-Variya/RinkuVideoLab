@@ -16,7 +16,7 @@ $amount = $_GET['amount'];
 $currency = $_GET['currency'];
 
 // Set your Stripe API key
-$stripeApiKey = 'sk_test_51NP421SFoaMMKqekq9Y6HPCordcge4pUZDJ8cVs2064Szr8cyOlVLBkWFUWF7wuXuDpcL1cMRr0hIzlrhY3ULuJr00j5iVudCy';
+$stripeApiKey = 'sk_test_51NPn1YSGEQWw7sigQWq1j8E5QbFKCVBtsbyG4dFEIiwZrrx9D8PlaOJ0CosslTvJEgguvHqcNQaO0U7AqMsZjQFA00O4RarMkC';
 \Stripe\Stripe::setApiKey( $stripeApiKey );
 
 // Create a new PaymentIntent
