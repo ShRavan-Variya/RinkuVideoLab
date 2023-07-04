@@ -59,26 +59,6 @@ export default function TopNavUpload(props) {
                 Upload
               </Link>
             </li>
-            <li className="semiBold font15 pointer">
-              <Link
-                style={{ padding: "10px 15px" }}
-                to="/Payments"
-                smooth={true}
-                className={textPosition === 1 ? "active purpleColor" : "darkColor"}
-              >
-                Payments
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link
-                style={{ padding: "10px 15px" }}
-                to="/Downloads"
-                smooth={true}
-                className={textPosition === 2 ? "active purpleColor" : "darkColor"}
-              >
-                Downloads
-              </Link>
-            </li>
           </UlWrapper> */}
           <UlWrapperRight className="flexNullCenter">
             <li className="semiBold font15 pointer">

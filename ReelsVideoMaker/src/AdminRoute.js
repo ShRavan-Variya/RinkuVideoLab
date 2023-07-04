@@ -5,7 +5,6 @@ import "./style/admin/flexboxgrid.min.css";
 import "./style/admin/index.css";
 import {
   AdminScreen,
-  ClientScreen,
   AdminDashBoard,
   OrdersScreen,
   DashProjectDataScreen,
@@ -24,12 +23,11 @@ function AdminRoute() {
     <div>
       <SideBar adminData={adminData}>
         <Routes>
-          <Route path="/adminDash" element={<AdminDashBoard />} />
-          <Route path="/Orders" element={<OrdersScreen />} />
-          <Route path="/Admins" element={<AdminScreen />} />
-          <Route path="/Clients" element={<ClientScreen />} />
-          <Route path="/DashProjectData" element={<DashProjectDataScreen />} />
-          <Route path="/DashData" element={<DashDataScreen />} />
+          <Route exact={true} path="/adminDash" element={<AdminDashBoard />} />
+          <Route exact={true} path="/Orders" element={<OrdersScreen />} />
+          <Route exact={true} path="/Admins" element={<AdminScreen />} />
+          <Route exact={true} path="/DashProjectData" element={<DashProjectDataScreen />} />
+          <Route exact={true} path="/DashData" element={<DashDataScreen />} />
           <Route path="*" element={<> not found</>} />
         </Routes>
       </SideBar>

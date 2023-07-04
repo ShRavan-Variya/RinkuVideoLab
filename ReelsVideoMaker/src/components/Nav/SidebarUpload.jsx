@@ -38,26 +38,6 @@ export default function SidebarUpload({
           >
             Upload
           </Link>
-        </li>
-        <li className="semiBold font15 pointer">
-          <Link
-            style={{ padding: "10px 15px" }}
-            to="/Payments"
-            smooth={true}
-            className={onPosition === 1 ? "active purpleColor" : "whiteColor"}
-          >
-            Payments
-          </Link>
-        </li>
-        <li className="semiBold font15 pointer">
-          <Link
-            style={{ padding: "10px 15px" }}
-            to="/Downloads"
-            smooth={true}
-            className={onPosition === 2 ? "active purpleColor" : "whiteColor"}
-          >
-            Downloads
-          </Link>
         </li> */}
 
         <li className="semiBold font15 pointer">
