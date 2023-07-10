@@ -41,6 +41,7 @@ export default function App() {
           <Route exact={true} path="userProfile" element={<UserProfile />} />
           <Route exact={true} path="terms" element={<TermsCondition />} />
           <Route exact={true} path="privacy" element={<PrivacyPolicy />} />
+          <Route exact={true} path="support" element={<PrivacyPolicy />} />
         </Routes>
       </BrowserRouter>
     </Elements>

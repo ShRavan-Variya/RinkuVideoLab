@@ -37,7 +37,9 @@ export default function LoginAdmin() {
 
           navigate('/admin/adminDash')
 
-          alert(response.data.message)
+          setTimeout(() => {
+            alert(response.data.message)
+          }, 500);
 
         } else {
           alert(response.data.message)

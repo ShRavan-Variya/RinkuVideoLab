@@ -16,7 +16,7 @@
 	}
 
 	// get data in raw
-	$payment = '200';
+	$payment = '1';
 	$data['Payment'] = $payment;
 
 	$response["status"] = true;

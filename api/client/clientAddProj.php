@@ -60,9 +60,11 @@
 	$paymentId = '';
 	$image = '';
 	$downloadLink = '';
+	$timeNow = date("Y-m-d H:i:s");
 	$downloadTime = date("Y-m-d H:i:s", strtotime('+2 hours'));
 
-	$sql="INSERT INTO userorder VALUES('$order_id', '$proj_name', '$title', '$notes', '$song', '$zipId', '$user_id', '$user_name', $amount, '$paymentId', '$image', $status, '$downloadLink', DATE_ADD(NOW(),interval 2 hour), NOW(), NOW());";
+	$sql="INSERT INTO userorder VALUES('$order_id', '$proj_name', '$title', '$notes', '$song', '$zipId', '$user_id', '$user_name', $amount, '$paymentId', '$image', $status, '$downloadLink', '$downloadTime', '$timeNow', '$timeNow');";
+	// $sql="INSERT INTO userorder VALUES('$order_id', '$proj_name', '$title', '$notes', '$song', '$zipId', '$user_id', '$user_name', $amount, '$paymentId', '$image', $status, '$downloadLink', DATE_ADD(NOW(),interval 2 hour), 'NOW()', NOW());";
 
 	if(mysqli_query($con,$sql)) {
 

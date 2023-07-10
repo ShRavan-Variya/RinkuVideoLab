@@ -999,6 +999,8 @@ table td {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   width: 400px; /* Increase or decrease the width as needed */
   max-width: 90%;
+  justify-content: center;
+  align-items: center;
 }
 
 .popup-loader {
@@ -1029,7 +1031,7 @@ table td {
   }
 }
 
-.popup-content h2 {
+.popup-content h3 {
   margin-top: 0;
 }
 

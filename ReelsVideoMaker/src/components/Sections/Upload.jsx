@@ -15,6 +15,7 @@ export default function Upload() {
   const navigate = useNavigate();
   const [textPayment, setTextPayment] = useState("");
   const [textProjectName, setTextProjectName] = useState("");
+  const [showPayClick, setShowPayClick] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [textTitle, setTextTitle] = useState("");
@@ -28,19 +29,16 @@ export default function Upload() {
   }, []);
 
   const doGetPayment = async () => {
-    setShowLoader(true);
     try {
       const response = await axios.get(
         "https://reelsmaker.in/api/client/get_payments.php"
       );
 
-      setShowLoader(false);
       if (response.data.status === true) {
         const data = response.data.data;
         setTextPayment(data.Payment);
       }
     } catch (error) {
-      setShowLoader(false);
       alert("Something went wrong please try later!");
     }
   };
@@ -322,7 +320,9 @@ export default function Upload() {
         if (response.data.status === true) {
           navigate(-1);
 
-          alert(response.data.message);
+          setTimeout(() => {
+            alert(response.data.message)
+          }, 500);
         } else {
           alert(response.data.message);
         }
@@ -431,7 +431,8 @@ export default function Upload() {
                   type="submit"
                   onClick={(e) => {
                     e.preventDefault();
-                    togglePayment();
+                    setShowPayClick(true);
+                    // togglePayment();
                     // createZipArchive(e);
                   }}
                 >
@@ -536,6 +537,33 @@ export default function Upload() {
         <div className="popup">
           <div className="popup-loader">
             <div className="loader" />
+          </div>
+        </div>
+      ) : null}
+      {showPayClick ? (
+        <div className="popup">
+          <div className="popup-content">
+            <h3>{'Payment Details'}</h3>
+            <p>{`Create a reel in just ${textPayment}₹`}</p>
+            <button
+              class="btn"
+              style={{
+                flex: 1,
+                width: '50%',
+                padding: "10px 50px",
+                margin: "30px auto 0 auto",
+                display: "block"
+              }}
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowPayClick(false);
+                togglePayment();
+                // createZipArchive(e);
+              }}
+            >
+              Upload
+            </button>
           </div>
         </div>
       ) : null}

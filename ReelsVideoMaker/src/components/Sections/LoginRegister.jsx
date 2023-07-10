@@ -51,7 +51,9 @@ export default function LoginRegister() {
 
           navigate(-1)
 
-          alert(response.data.message)
+          setTimeout(() => {
+            alert(response.data.message)
+          }, 500);
 
         } else {
           alert(response.data.message)
@@ -96,7 +98,9 @@ export default function LoginRegister() {
 
           navigate(-1);
 
-          alert(response.data.message);
+          setTimeout(() => {
+            alert(response.data.message)
+          }, 500);
         } else {
           alert(response.data.message);
         }
